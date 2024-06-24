@@ -1,12 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace SBWV
+
 {
+   
+
+    public class Icon
+    {
+        public string Density { get; set; }
+        public string Sizes { get; set; }
+        public string Src { get; set; }
+        public string Type { get; set; }
+    }
+
+    public class AppManifest
+    {
+        public string Name { get; set; }
+        public List<Icon> Icons { get; set; }
+    }
+
     public static class ManifestHelper
     {
-        private static readonly Dictionary<string, string> _manifest;
+        private static readonly AppManifest _manifest;
 
         static ManifestHelper()
         {
@@ -16,22 +34,23 @@ namespace SBWV
                 if (File.Exists(manifestPath))
                 {
                     var manifestJson = File.ReadAllText(manifestPath);
-                    Console.WriteLine($"Manifest JSON content: {manifestJson}"); // Выводим содержимое для отладки
-                    
-                    _manifest = JsonConvert.DeserializeObject<Dictionary<string, string>>(manifestJson);
+
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    _manifest = JsonSerializer.Deserialize<AppManifest>(manifestJson, options);
+
+                    if (_manifest == null)
+                    {
+                        throw new Exception("Failed to deserialize manifest.json. The resulting object is null.");
+                    }
                 }
                 else
                 {
-                    _manifest = new Dictionary<string, string>();
-                    // Логирование или выброс исключения, если файл не найден
                     throw new FileNotFoundException($"Manifest file not found: {manifestPath}");
                 }
-            }
-            catch (JsonReaderException jsonEx)
-            {
-                // Логирование ошибки парсинга JSON
-                Console.WriteLine($"Error parsing JSON: {jsonEx.Message}");
-                throw new ApplicationException("Error parsing manifest.json", jsonEx);
             }
             catch (Exception ex)
             {
@@ -42,9 +61,13 @@ namespace SBWV
             }
         }
 
-        public static string GetAssetPath(string key)
+        public static string GetIconPath(string size)
         {
-            return _manifest.TryGetValue(key, out var value) ? value : key;
+            if (_manifest?.Icons != null)
+            {
+                var icon = _manifest.Icons.Find(i => i.Sizes == size);
+                return icon?.Src ?? string.Empty;
+            }
+            return string.Empty;
         }
     }
-}
