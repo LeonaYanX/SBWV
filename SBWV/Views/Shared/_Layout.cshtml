@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    @*<link rel="stylesheet" href="@(ManifestHelper.GetIconPath("main.css"))" />*@
+    <link rel="stylesheet" href="~/css/main.css" />
     
-    <link rel="stylesheet" href="@(ManifestHelper.GetAssetPath("main.css"))" />
     
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0">
@@ -47,7 +49,12 @@
                 <a href="https://web.telegram.org/k/" target="_blank"><img alt="telegram icon" src="images/icons/telegram.svg"></a>
                 </div>
                 <div class="user">
-                    <a asp-action="Login" asp-controller="Account" target="_self"><img alt="facebook icon" src="images/icons/user.svg">PartialView("_LoginPartial")</a>
+                <partial name="_LoginPartial">
+
+                    <a asp-action="Login" asp-controller="Account" target="_self"><img alt="facebook icon" src="images/icons/user.svg"></a>
+
+                </partial>
+                    
                 </div>
             </div>
             <div class="nav">
@@ -77,25 +84,29 @@
                         <label>
                             по жанру:
                             @{SwapBookDbContext db = new SwapBookDbContext();
-                               var genres = db.Catalogs.Select(x => x.Value).ToList();
-                                   var genreList = new List<string>();
-                                   foreach (var genre in genres)
-                                   {
-                                         genreList.Add(genre);
-                                   }
+
+                            var genreList = db.Catalogs.Select(c => new SelectListItem
+                             {
+                                 Value = c.Id.ToString(),
+                                  Text = c.Value ,
+                                 
+                              }).ToList();
                              }
                              @Html.DropDownList("genreList", genreList as IEnumerable<SelectListItem>)
                            
                         </label>
                         
-                        <label>по автору:@{SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
-                                     var authors = swapBookDbContext.Books.Select(x => x.Author).ToList();
-                                     var authorList = new List<string>();
-                                        foreach (var author in authors)
-                                        {
-                                            authorList.Add(author);
-                                        }}
-                            @Html.DropDownList("authorList", authorList as IEnumerable<SelectListItem>,new{AuthorName=authors.Select(x=>x).FirstOrDefault()})
+                    <label>по автору:@{
+                            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
+                            var authors = swapBookDbContext.Books.Select(x => new SelectListItem
+                            {
+                                 Value = x.Author,
+                                 Text = x.Author,
+                                 
+                            }).Distinct().ToList();
+
+                        }
+                            @Html.DropDownList("authorList", authors as IEnumerable<SelectListItem>,new{AuthorName=authors.Select(x=>x).FirstOrDefault()})
                         </label>
                     </div>
                 </form>
@@ -251,6 +262,6 @@
     <div class="container">
         @RenderBody()
     </div>
-    <script src="@(ManifestHelper.GetAssetPath("main.js"))"></script>
+    <script src="@(ManifestHelper.GetIconPath("main.js"))"></script>
 </body>
 </html>

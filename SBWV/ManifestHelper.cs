@@ -4,9 +4,8 @@ using System.IO;
 using System.Text.Json;
 
 namespace SBWV
-
 {
-   
+
 
     public class Icon
     {
@@ -71,3 +70,4 @@ namespace SBWV
             return string.Empty;
         }
     }
+}
