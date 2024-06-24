@@ -1,0 +1,14 @@
+﻿
+    @if (@Context.Session.GetInt32("user").HasValue)
+    {
+        ViewBag.email = @Context.Session.GetString("email");
+   <a class="user" asp-controller="Account" asp-action="Logout">Выйти</a>
+    }
+    else
+    {
+            <a class="user" asp-controller="Account" asp-action="Register">Регистрация</a>
+   
+            <a class="user" asp-controller="Account" asp-action="Login">Войти</a>
+    }
+
+

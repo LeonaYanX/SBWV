@@ -1,0 +1,48 @@
+﻿@using SBWV.Models.ViewModels
+
+@model BookVM
+
+<h4>Подробнее</h4>
+<br />
+
+@if (Model.Src != null)
+{
+    @foreach (var i in Model.Src)
+    {
+        <img src="@i" alt="Photo" width="100" height="150" />
+    }
+    <br />
+}
+else
+{
+    <b>Нет фотографии</b>
+    <br />
+}
+
+@Html.LabelFor(x => x.Author, "Автор:") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Author)
+<br />
+@Html.LabelFor(x => x.Title, "Название:") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Title)
+<br />
+@Html.LabelFor(x => x.Info, "Информация:") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Info)
+<br />
+@Html.LabelFor(x => x.Price, "Цена:") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Price)
+<br />
+@Html.LabelFor(x => x.Category, "Жанр:") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Category)
+<br />
+@Html.LabelFor(x => x.Swap, "Обмен:") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Swap)
+
+<br />
+@Html.LabelFor(x => x.Email, "Почта:") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Email)
+
+<br />
+@Html.LabelFor(x => x.Telephone, "Телефон") <span>&nbsp;</span>
+@Html.DisplayFor(x => x.Telephone)
+
+

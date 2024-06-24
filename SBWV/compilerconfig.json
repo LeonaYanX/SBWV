@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/copyright.css",
+    "inputFile": "wwwroot/css/copyright.less"
+  },
+  {
+    "outputFile": "wwwroot/css/fonts.css",
+    "inputFile": "wwwroot/css/fonts.less"
+  },
+  {
+    "outputFile": "wwwroot/css/main.css",
+    "inputFile": "wwwroot/css/main.less"
+  },
+  {
+    "outputFile": "wwwroot/css/variables.css",
+    "inputFile": "wwwroot/css/variables.less"
+  }
+]

@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" href="@(ManifestHelper.GetAssetPath("main.css"))" />
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0">
+        <!--    FAVICON    -->
+        <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="~/dist/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="images/favicon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <!--    URL    -->
+        <meta name="robots" content="index, follow">
+        <meta name="viewport" content="width=device-width, initial-scale=2.0">
+        <!-- STYLES -->
+        <link rel="stylesheet" href="~/css/main.css">
+        <title>Swap Book </title>
+    
+</head>
+
+
+<body>
+    
+        <a id="home"></a>
+        <header>
+            <div class="top">
+                <div class="social">
+                <a href="https://www.facebook.com/" target="_blank"><img alt="facebook icon" src="images/icons/facebook.svg"></a>
+                <a href="https://www.instagram.com/" target="_blank"><img alt="instagram icon" src="images/icons/instagram.svg"></a>
+                <a href="https://web.telegram.org/k/" target="_blank"><img alt="telegram icon" src="images/icons/telegram.svg"></a>
+                </div>
+                <div class="user">
+                    <a asp-action="Login" asp-controller="Account" target="_self"><img alt="facebook icon" src="images/icons/user.svg">PartialView("_LoginPartial")</a>
+                </div>
+            </div>
+            <div class="nav">
+                <div class="logotype">
+                    <a asp-action="Index" asp-controller="Home"><img src="images/logotype.png" alt="Swap Book logotype"></a>
+                </div>
+                <div class="navigation">
+                    <ul>
+                        <li><a asp-action="Index" asp-controller="Home" target="_self" title="Read about our project">Домой</a></li>
+                        <li><a asp-action="Categories" asp-controller="Home" target="_self" title="View Book Catalog">Жанры</a></li>
+                        <li><a asp-action="Contacts" asp-controller="Home" target="_self" title="How to contact us">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <main>
+            <article id="about">
+                <img src="images/main.png" alt="Main page image">
+            </article>
+            <article id="catalog">
+                <form id="search">
+                    <h1>
+                        Поиск
+                    </h1>
+                    <div class="row"> @*затык на последующей обработке выпадающего списка и передачи для этого
+                        параметра , на который кликают*@
+                        <label>
+                            по жанру:
+                            @{SwapBookDbContext db = new SwapBookDbContext();
+                               var genres = db.Catalogs.Select(x => x.Value).ToList();
+                                   var genreList = new List<string>();
+                                   foreach (var genre in genres)
+                                   {
+                                         genreList.Add(genre);
+                                   }
+                             }
+                             @Html.DropDownList("genreList", genreList as IEnumerable<SelectListItem>)
+                           
+                        </label>
+                        
+                        <label>по автору:@{SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
+                                     var authors = swapBookDbContext.Books.Select(x => x.Author).ToList();
+                                     var authorList = new List<string>();
+                                        foreach (var author in authors)
+                                        {
+                                            authorList.Add(author);
+                                        }}
+                            @Html.DropDownList("authorList", authorList as IEnumerable<SelectListItem>,new{AuthorName=authors.Select(x=>x).FirstOrDefault()})
+                        </label>
+                    </div>
+                </form>
+    @*
+            <div class="list">
+            <div class="item">
+            <div class="top">
+            <img src="images/nocover.png">
+            <div class="info">
+            <h1 class="title">Хроники Амбера</h1>
+            <h2 class="author">Роджер Желязный</h2>
+            <h3 class="genre">Фантастика, Фентези</h3>
+            <div class="condition">
+            <strong class="price">$100.00</strong><img class="true" alt="ready for change" src="images/icons/change.svg">
+            </div>
+
+            </div>
+            </div>
+            <p class="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet aperiam
+            cumque ducimus ea enim explicabo ipsam officiis, placeat quae quod quos tempora veniam,
+            veritatis,
+            vitae. Deserunt dolore, dolores fuga fugiat magnam minus officiis. Ab consectetur dolores,
+            ducimus
+            eos harum incidunt ipsa laudantium magnam nam possimus sequi tenetur voluptates, voluptatum!
+            </p>
+            <a href="book.html#1" title="Read more about book" target="_self">Подробнее...</a>
+            </div>
+            <div class="item">
+            <div class="top">
+            <img src="images/nocover.png">
+            <div class="info">
+            <h1 class="title">Хроники Амбера</h1>
+            <h2 class="author">Роджер Желязный</h2>
+            <h3 class="genre">Фантастика, Фентези</h3>
+            <div class="condition">
+            <strong class="price">$100.00</strong><img class="false" alt="ready for change" src="images/icons/change.svg">
+            </div>
+            </div>
+            </div>
+            <p class="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet aperiam
+            cumque ducimus ea enim explicabo ipsam officiis, placeat quae quod quos tempora veniam,
+            veritatis,
+            vitae. Deserunt dolore, dolores fuga fugiat magnam minus officiis. Ab consectetur dolores,
+            ducimus
+            eos harum incidunt ipsa laudantium magnam nam possimus sequi tenetur voluptates, voluptatum!
+            </p>
+            <a href="book.html#2" title="Read more about book" target="_self">Подробнее...</a>
+            </div>
+            </div>
+            <div class="pagination">
+            <div class="left">
+            &lt;
+            </div>
+            <div class="page">
+            <label>
+            <select name="page">
+            <option value="1">1</option>
+            <option value="2" selected="">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            </select>
+            </label>
+            </div>
+            <div class="right">
+            &gt;
+            </div>
+            </div>
+  *@
+                
+            </article>
+        </main>
+        <footer id="contacts">
+            @*
+        <form id="subscribe_form">
+        <h2>Subscribe</h2>
+        <div class="row">
+        <label><input type="email" name="email" placeholder="Email address*" required=""></label>
+        </div>
+        <div class="row">
+        <label><textarea name="message" placeholder="Message*"></textarea></label>
+        </div>
+        <div class="row">
+        <button>Send</button>
+        </div>
+        </form>
+            *@
+           
+            <div class="navigation">
+                <ul>
+                <li><a asp-action="Index" asp-controller="Home" target="_self" title="Read about our project">Домой</a></li>
+                <li><a asp-action="Categories" asp-controller="Home" target="_self" title="View Book Catalog">Жанры</a></li>
+                <li><a asp-action="Contacts" asp-controller="Home" target="_self" title="How to contact us">Контакты</a></li>
+                </ul>
+                <p>
+                О мой винтажный читатель! Бумажный букинист, пережиток пыльных чердаков, отважный токсикоман, 
+                подсевший на самый опасный в мире наркотик! 
+                О доблестный хранитель заплесневелых фолиантов, божественный литературный аутист, спаситель разума 
+                от забвения, молю тебя, не исцеляйся!
+                <br>
+                Фредерик Бегбедер «Конец света. Первые итоги»
+                </p>
+                <div class="social">
+                <a href="https://www.facebook.com/" target="_blank"><img alt="facebook icon" src="images/icons/facebook.svg"></a>
+                <a href="https://www.instagram.com/" target="_blank"><img alt="instagram icon" src="images/icons/instagram.svg"></a>
+                <a href="https://web.telegram.org/k/" target="_blank"><img alt="telegram icon" src="images/icons/telegram.svg"></a>
+                </div>
+            </div>
+            @*
+        <form id="contact_form">
+        <h2>Leave message</h2>
+        <div class="row">
+        <label><input type="text" name="first_name" placeholder="Name*" required=""></label>
+        </div>
+        <div class="row">
+        <label><input type="email" name="email" placeholder="Email address*" required=""></label>
+        </div>
+        <div class="row">
+        <label><textarea name="message" placeholder="Message*"></textarea></label>
+        </div>
+        <div class="row">
+        <button>Send</button>
+        </div>
+        </form>
+            *@
+           
+        </footer>
+        <div class="copy">
+            <div id="owner" class="company"><div class="part"><div class="block">© 2023 - 2024 Swap Book LLC All rights reserved.</div><div class="block">Swap Book is a registered trademark. </div></div><div class="part"><div class="block">To use materials from this website, please contact us at&nbsp;</div> <div class="block"><a href="mailto:support@swapbook.com">support@swapbook.com</a></div></div></div>
+            <div class="ns5">
+                <div class="block">
+                    Created by <a href="https://tatevik.com/" target="_blank">Tatevik Bagdasaryan.</a>
+                </div>
+                <div class="block">
+                    &nbsp;Report website issues to: <a href="mailto:support@swapbook.com?subject=Swap Book site problem report">support@swapbook.com</a>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright text script -->
+        <script>
+            let now = new Date();
+            let year = now.getFullYear();
+            document.getElementById("owner").innerHTML = "" +
+                "<div class='part'><div class='block'>© 2023 - " + 2024 + " Swap Book LLC All rights reserved.</div>" +
+                "<div class='block'>Swap Book is a registered trademark. </div></div>" +
+                "<div class='part'><div class='block'>To use materials from this website, please contact us at&nbsp;</div> " +
+                "<div class='block'><a href = 'mailto:support@swapbook.com'>support@swapbook.com</a></div></div>";
+        </script>
+
+
+    
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script src="@(ManifestHelper.GetAssetPath("main.js"))"></script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+@font-face {
+  font-family: 'Prata';
+  src: url('../fonts/prata/Prata-Regular.eot');
+  src: url('../fonts/prata/Prata-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/prata/Prata-Regular.woff2') format('woff2'), url('../fonts/prata/Prata-Regular.woff') format('woff'), url('../fonts/prata/Prata-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Black.eot');
+  src: url('../fonts/raleway/Raleway-Black.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-Black.woff2') format('woff2'), url('../fonts/raleway/Raleway-Black.woff') format('woff'), url('../fonts/raleway/Raleway-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-BlackItalic.eot');
+  src: url('../fonts/raleway/Raleway-BlackItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-BlackItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-BlackItalic.woff') format('woff'), url('../fonts/raleway/Raleway-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Italic.eot');
+  src: url('../fonts/raleway/Raleway-Italic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-Italic.woff2') format('woff2'), url('../fonts/raleway/Raleway-Italic.woff') format('woff'), url('../fonts/raleway/Raleway-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-ExtraLightItalic.eot');
+  src: url('../fonts/raleway/Raleway-ExtraLightItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-ExtraLightItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-ExtraLightItalic.woff') format('woff'), url('../fonts/raleway/Raleway-ExtraLightItalic.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-BoldItalic.eot');
+  src: url('../fonts/raleway/Raleway-BoldItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-BoldItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-BoldItalic.woff') format('woff'), url('../fonts/raleway/Raleway-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-SemiBoldItalic.eot');
+  src: url('../fonts/raleway/Raleway-SemiBoldItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-SemiBoldItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-SemiBoldItalic.woff') format('woff'), url('../fonts/raleway/Raleway-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Bold.eot');
+  src: url('../fonts/raleway/Raleway-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-Bold.woff2') format('woff2'), url('../fonts/raleway/Raleway-Bold.woff') format('woff'), url('../fonts/raleway/Raleway-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-LightItalic.eot');
+  src: url('../fonts/raleway/Raleway-LightItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-LightItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-LightItalic.woff') format('woff'), url('../fonts/raleway/Raleway-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-SemiBold.eot');
+  src: url('../fonts/raleway/Raleway-SemiBold.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-SemiBold.woff2') format('woff2'), url('../fonts/raleway/Raleway-SemiBold.woff') format('woff'), url('../fonts/raleway/Raleway-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-MediumItalic.eot');
+  src: url('../fonts/raleway/Raleway-MediumItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-MediumItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-MediumItalic.woff') format('woff'), url('../fonts/raleway/Raleway-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Light.eot');
+  src: url('../fonts/raleway/Raleway-Light.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-Light.woff2') format('woff2'), url('../fonts/raleway/Raleway-Light.woff') format('woff'), url('../fonts/raleway/Raleway-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Medium.eot');
+  src: url('../fonts/raleway/Raleway-Medium.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-Medium.woff2') format('woff2'), url('../fonts/raleway/Raleway-Medium.woff') format('woff'), url('../fonts/raleway/Raleway-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-ExtraBoldItalic.eot');
+  src: url('../fonts/raleway/Raleway-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-ExtraBoldItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-ExtraBoldItalic.woff') format('woff'), url('../fonts/raleway/Raleway-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-ThinItalic.eot');
+  src: url('../fonts/raleway/Raleway-ThinItalic.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-ThinItalic.woff2') format('woff2'), url('../fonts/raleway/Raleway-ThinItalic.woff') format('woff'), url('../fonts/raleway/Raleway-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-ExtraBold.eot');
+  src: url('../fonts/raleway/Raleway-ExtraBold.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-ExtraBold.woff2') format('woff2'), url('../fonts/raleway/Raleway-ExtraBold.woff') format('woff'), url('../fonts/raleway/Raleway-ExtraBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Regular.eot');
+  src: url('../fonts/raleway/Raleway-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-Regular.woff2') format('woff2'), url('../fonts/raleway/Raleway-Regular.woff') format('woff'), url('../fonts/raleway/Raleway-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-ExtraLight.eot');
+  src: url('../fonts/raleway/Raleway-ExtraLight.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-ExtraLight.woff2') format('woff2'), url('../fonts/raleway/Raleway-ExtraLight.woff') format('woff'), url('../fonts/raleway/Raleway-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Thin.eot');
+  src: url('../fonts/raleway/Raleway-Thin.eot?#iefix') format('embedded-opentype'), url('../fonts/raleway/Raleway-Thin.woff2') format('woff2'), url('../fonts/raleway/Raleway-Thin.woff') format('woff'), url('../fonts/raleway/Raleway-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100% !important;
+}
+body {
+  font-family: Prata, serif;
+  background: #f3f2ec;
+}
+body header {
+  width: 100%;
+}
+body header .top {
+  padding: 20px;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #edebe4;
+}
+body header .top img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  margin-left: 10px;
+  opacity: 0.7;
+}
+body header .user a {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 150px;
+  text-decoration: none;
+  color: #00000090;
+  font-size: 14px;
+}
+body header .user a:hover {
+  text-decoration: underline;
+}
+body header .nav {
+  padding: 20px;
+  height: 80px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #edebe4;
+}
+body header .nav .logotype img {
+  height: 50px;
+  width: 50px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+body header .nav .navigation {
+  font-family: Raleway, serif;
+}
+body header .nav .navigation ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+}
+body header .nav .navigation ul li {
+  list-style: none;
+  text-transform: uppercase;
+  font-size: large;
+  font-weight: 500;
+}
+body header .nav .navigation ul li a {
+  color: #00000090;
+  text-decoration: none;
+}
+body header .nav .navigation ul li a:hover {
+  color: #daa556;
+  font-weight: 600;
+}
+body main #about {
+  padding: 30px;
+}
+body main #about img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+body main #catalog {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+body main #catalog #search input {
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  border: 0;
+}
+body main #catalog .list {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+body main #catalog .list .item {
+  border: 1px solid #edebe4;
+  box-shadow: 0 0 3px #00000090;
+  border-radius: 20px;
+  width: 350px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+}
+body main #catalog .list .item .top {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+body main #catalog .list .item .top img {
+  width: 130px;
+  height: auto;
+  object-fit: contain;
+}
+body main #catalog .list .item .top .info {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+body main #catalog .list .item .top .info h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  font-family: Raleway, sans, sans-serif;
+  width: 100%;
+}
+body main #catalog .list .item .top .info h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-family: Raleway, sans, sans-serif;
+  font-style: italic;
+  text-align: right;
+  width: 100%;
+}
+body main #catalog .list .item .top .info .genre {
+  font-family: Raleway, serif;
+  font-size: 12px;
+}
+body main #catalog .list .item .top .info .condition {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+body main #catalog .list .item .top .info .condition img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+body main #catalog .list .item .top .info .condition img.true {
+  filter: hue-rotate(0deg);
+}
+body main #catalog .list .item .top .info .condition img.false {
+  filter: hue-rotate(220deg);
+}
+body main #catalog .list .item p {
+  padding: 20px;
+  text-indent: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px;
+}
+body main #catalog .list .item a {
+  color: #daa556;
+  width: 100%;
+  text-align: right;
+  text-decoration: none;
+  font-family: Raleway, sans-serif;
+  font-size: 14px;
+}
+body main #catalog .list .item a:hover {
+  text-decoration: underline;
+}
+body main #catalog .pagination {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+body main #catalog .pagination .left,
+body main #catalog .pagination .right {
+  width: 20px;
+  background: #edebe4;
+  color: #daa556;
+  border: 1px solid #daa556;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+body main #catalog .pagination .page {
+  background: #edebe4;
+  color: #daa556;
+}
+body footer {
+  margin-top: 50px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  border-top: 1px solid #f3f2ec;
+  background: #edebe4;
+}
+body footer #contact_form,
+body footer #subscribe_form {
+  padding: 20px;
+  background: #edebe4;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  height: 350px;
+}
+body footer #contact_form h2,
+body footer #subscribe_form h2 {
+  padding: 0;
+  margin: 0;
+  font-family: Raleway, sans;
+}
+body footer #contact_form .row,
+body footer #subscribe_form .row {
+  width: 300px;
+}
+body footer #contact_form .row label input,
+body footer #subscribe_form .row label input {
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  border: 0;
+}
+body footer #contact_form .row label textarea,
+body footer #subscribe_form .row label textarea {
+  width: 100%;
+  resize: none;
+  padding: 5px;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+}
+body footer #contact_form .row button,
+body footer #subscribe_form .row button {
+  background: #daa556;
+  color: #00000090;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+  border: 0;
+  width: 100%;
+}
+body footer .navigation {
+  height: 350px;
+  font-family: Raleway, serif;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+body footer .navigation ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  border-bottom: 2px solid #f3f2ec;
+  height: 50px;
+  width: 100%;
+}
+body footer .navigation ul li {
+  list-style: none;
+  text-transform: uppercase;
+  font-size: large;
+  font-weight: 500;
+}
+body footer .navigation ul li a {
+  color: #00000090;
+  text-decoration: none;
+}
+body footer .navigation ul li a:hover {
+  color: #daa556;
+  font-weight: 600;
+}
+body footer .navigation .social {
+  height: 70px;
+  border-top: 2px solid #f3f2ec;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+body footer .navigation .social img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  margin-left: 10px;
+}
+.copy {
+  border-top: 1px solid #00000077;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #00000077;
+  padding: 2px 10px;
+}
+.copy a {
+  color: #00000077;
+}
+.copy a:hover {
+  color: #000000FF;
+}
+@media (max-width: 768px) {
+  .copy {
+    flex-flow: column nowrap;
+    align-items: flex-start;
+  }
+}
+.copy .company {
+  line-height: 17px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.copy .company .part {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.copy .company .part .block {
+  white-space: nowrap;
+}
+.copy .ns5 {
+  margin-left: 50px;
+  line-height: 17px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.copy .ns5 .block {
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .copy .ns5 {
+    margin-left: auto;
+    margin-top: 7px;
+    text-align: left;
+  }
+}
+/*# sourceMappingURL=main.css.map */
