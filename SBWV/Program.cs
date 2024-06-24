@@ -19,10 +19,15 @@ namespace SBWV
                 options.Cookie.IsEssential = true;
             });
 
+
+
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -49,6 +54,8 @@ namespace SBWV
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.UseSession();
 
             app.Run();
         }

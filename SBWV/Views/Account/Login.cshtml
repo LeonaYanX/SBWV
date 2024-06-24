@@ -1,10 +1,20 @@
-﻿@model SBWV.Models.Login
-
-@using (@Html.BeginForm("Login", "Account"))
-{
-    @Html.EditorForModel()
-    ;
-    <br />
-
-    <input type="submit" value="Войти" />
+﻿ @model SBWV.Models.Login
+@{
+    Layout = "_Layout";
 }
+
+<div class="row">
+    @using (@Html.BeginForm("Login", "Account"))
+    {
+        @Html.EditorForModel()
+        ;
+        <br />
+
+        <input type="submit" value="Войти" />
+    } 
+</div>
+    
+
+
+@*<img src="images/main.png" alt="Main page image">*@
+

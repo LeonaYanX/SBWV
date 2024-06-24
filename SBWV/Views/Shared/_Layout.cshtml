@@ -51,9 +51,9 @@
                 <div class="user">
                 <partial name="_LoginPartial">
 
-                    <a asp-action="Login" asp-controller="Account" target="_self"><img alt="facebook icon" src="images/icons/user.svg"></a>
-
-                </partial>
+                
+                        </partial>
+                
                     
                 </div>
             </div>
@@ -74,6 +74,9 @@
             <article id="about">
                 <img src="images/main.png" alt="Main page image">
             </article>
+             <div class="container">
+            @RenderBody()
+    </div>
             <article id="catalog">
                 <form id="search">
                     <h1>
@@ -259,9 +262,7 @@
 
 
     
-    <div class="container">
-        @RenderBody()
-    </div>
-    <script src="@(ManifestHelper.GetIconPath("main.js"))"></script>
+   
+    @*<script src="@(ManifestHelper.GetIconPath("dist/manifest.js"))"></script>*@  
 </body>
 </html>
