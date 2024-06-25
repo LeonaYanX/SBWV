@@ -1,9 +1,40 @@
-﻿ @model SBWV.Models.Login
-@{
-    Layout = "_Layout";
-}
+﻿
+<style>
+    .login
+    {
+        padding: 20px;
+        margin-top:10px;
+        margin-bottom:100px;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        text-align: center;
+         row-gap: 10px;
+        
+         
+         border: 1px solid ghostwhite;
+         
+    }
+    .login input
+    {
+         width: 250px;
+        margin: 7px auto;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        display:flex;
+        flex-flow: column;
+        justify-content: center;
+        padding: 0 10px;
+        align-items: center;
+    }
+</style>
 
-<div class="row">
+ @model SBWV.Models.Login
+
+ <div class="login"id="contact_form">
+
     @using (@Html.BeginForm("Login", "Account"))
     {
         @Html.EditorForModel()
@@ -11,10 +42,14 @@
         <br />
 
         <input type="submit" value="Войти" />
-    } 
+    }
+
 </div>
+
+
+
     
 
 
-@*<img src="images/main.png" alt="Main page image">*@
+
 

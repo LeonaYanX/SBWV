@@ -1,9 +1,47 @@
 ﻿@model SBWV.Models.Register
+<style>
+    .register
+    {
+        padding: 20px;
+        margin-top:10px;
+        margin-bottom:100px;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        text-align: center;
+         row-gap: 10px;
+        
+         
+         border: 1px solid ghostwhite;
+         
+    }
+    .register input
+    {
+         width: 250px;
+        margin: 7px auto;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        display:flex;
+        flex-flow: column;
+        justify-content: center;
+        padding: 0 10px;
+        align-items: center;
+    }
+        
+    }
+</style>
+<div id="contact_form" class="register">
+    @using (@Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.EditorForModel()
+        <br />
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+       
+        <input type="submit" value="Зарегистрироваться" />
+         
+    }
+</div>
 
-@using (@Html.BeginForm("Register", "Account", FormMethod.Post))
-{
-    @Html.EditorForModel()
-    <br />
-
-    <input type="submit" value="Зарегистрироваться" />
-}

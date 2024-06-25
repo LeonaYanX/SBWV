@@ -33,27 +33,35 @@ namespace SBWV.Controllers
         public IActionResult Register(Register register)
         {
             // todo try{} catch{} unique email
-
-            User user = new User
+            try 
             {
-                Age = register.Age,
-                City = register.City,
-                Email = register.Email,
-                Password = register.Password,
-                Phone = register.Phone
-            };
+                User user = new User
+                {
+                    Age = register.Age,
+                    City = register.City,
+                    Email = register.Email,
+                    Password = register.Password,
+                    Phone = register.Phone
+                };
+                SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
 
-            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
+                swapBookDbContext.Add(user);
 
-            swapBookDbContext.Add(user);
+                swapBookDbContext.SaveChanges();
 
-            swapBookDbContext.SaveChanges();
+                HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
 
-            HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
+                HttpContext.Session.SetInt32("user", user.Id);
 
-            HttpContext.Session.SetInt32("user", user.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception)
+            {
+                return RedirectToAction("Register", "Account");
+            }
+           
 
-            return RedirectToAction("Index", "Home");
+           
         }
         [HttpPost]
         public IActionResult Login(Login login)

@@ -1,21 +1,37 @@
 ﻿@using SBWV;
-
+<style>
+    .user  
+    {
+        display: inline;
+        align-items:flex-end;
+        margin-right: 10px;
+        margin-left: 10px;
+        
+    }
+    
+    
+</style>
 
 <ul>
     
     @if (@Context.Session.GetInt32("user").HasValue)
     {
         ViewBag.email = @Context.Session.GetString("email");
+        <div class="top user" >
+            <a asp-action="Info" asp-controller="Account" target="_self"><img alt="facebook icon" src="~/images/icons/user.svg">@ViewBag.email</a>
 
-        <a asp-action="Info" asp-controller="Account" target="_self"><img alt="facebook icon" src="images/icons/user.svg"></a>
-
-        <a class="user" asp-controller="Account" asp-action="Logout">Выйти</a>
+            <a class="user"  asp-controller="Account" asp-action="Logout">Выйти</a>
+        </div>
+       
     }
     else
     {
-        <a class="user" asp-controller="Account" asp-action="Register">Регистрация</a>
+        <div class="top user">
+            <a class="user" asp-controller="Account" asp-action="Register">Регистрация</a>
 
-        <a class="user" asp-controller="Account" asp-action="Login">Войти</a>
+            <a class="user" asp-controller="Account" asp-action="Login">Войти</a>
+        </div>
+
     }
 </ul>
    
