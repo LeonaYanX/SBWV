@@ -49,8 +49,122 @@
         <input type="text" asp-for="Info" />
     </p>
     <p>
+        <style>
+            .container {
+                position: relative;
+                width: 100%;
+                max-width: 400px;
+            }
 
-        <label asp-for="EditPhoto">Фотографии</label><br />
+                .container img {
+                    width: 50%;
+                    height: auto;
+                }
+
+                .container .btn {
+                    border-radius: 5px;
+                }
+
+            .btn {
+                position: absolute;
+                top: 65%;
+                left: 32%;
+                /*  transform: translate(-50%, -50%);
+                        -ms-transform: translate(-50%, -50%); */
+
+                text-align: center;
+                color: black;
+                font-size: 10px;
+                cursor: pointer;
+                /* border: none; */
+                /**/
+                background-color: white;
+            }
+
+                .btn:hover {
+                    /*    background-color: gray; */
+                    color: red;
+                }
+
+        </style>
+
+        <script type="text/javascript">
+
+            function onDelete(id) {
+                if (!confirm("Удалить фото?"))
+                    return;
+
+                $.ajax({
+                    url: '@Url.Action("DeletePhoto", "Books")',
+                    data: { id },
+                    success: function (result) {
+                        $('#' + id).remove();
+                        //alert(result.msg);
+                    },
+                    error: function (result) {
+                        alert(result.msg);
+                    }
+                })
+            }
+
+            // function doUpdate() {
+
+            //     var formData = {
+            //         Id: 1,
+            //         Title: $('#Title').val(),
+            //         Author: $('#Author').val(),
+            //         Src: ["1", "2", "3"]
+            //     };
+
+            //     $.ajax({
+            //         type: "POST",
+            //         url: '@Url.Action("UpdateData", "Books")',
+            //         data: formData,
+            //         success: function (result) {
+            //             alert('success')
+            //         }
+            //     })
+            // }
+
+        </script>
+
+    <p>
+
+        <label asp-for="EditPhoto">Photo</label><br />
+
+            @if (Model.Pictures != null)
+            {
+                @foreach (var i in Model.Pictures)
+                {
+                <div class="container" id="@i.Id">
+                    <img src="@i.Src" alt="Photo" />
+                    <button class="btn" type="button" onclick="onDelete(@i.Id)">удалить</button>
+                </div>
+                <br />
+                }
+            <br />
+            }
+
+    </p>
+
+    <p>
+        <input type="file" name="files" id="upload-photo" multiple />
+    </p>
+
+    <p>
+        <input type="submit" value="Save" formmethod="post" />
+    </p>
+
+        @*     <p>
+    <input type="button" value="Update" onclick="doUpdate()" />
+    </p> *@
+
+</form>
+
+<br />
+        @*  old part of the code
+            
+            <label asp-for="EditPhoto">Фотографии</label><br />
         <input class="inputfile-1" type="file" asp-for="EditPhoto" />
 
 
@@ -88,3 +202,5 @@
 
 
 
+*@
+  

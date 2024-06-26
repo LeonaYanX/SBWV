@@ -7,34 +7,167 @@
     ViewData["Title"] = "Личный кабинет";
 }
 
-    
+  <style>
+    .catalog {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+    }
 
-<style>
-    .responsive-image {
-        width: 33%;
-        min-height:80px;
-        height: auto;
-        max-width: 600px;
-        display: block;
-        margin: 0 auto;
-    }
-</style>
-<style>
-    .new-section {
-        border-radius: 30px;
-        height: 100%;
-        width: 200px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        padding: 20px;
-        text-align: center;
-        background-color:whitesmoke;
-        opacity: 90%;
-        background-blend-mode:soft-light;
-        display:inline-grid;
-        box-shadow: 2px 1px 1px gray;
-    }
-</style>
+        .catalog #search input {
+            border-radius: 5px;
+            padding: 5px;
+            outline: none;
+            border: 0;
+        }
+
+        .catalog .list {
+            margin-top: 50px;
+            width: 100%;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+            .catalog .list .item {
+                border: 1px solid #edebe4;
+                box-shadow: 0 0 3px #00000090;
+                border-radius: 20px;
+                width: 350px;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+                .catalog .list .item .top {
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    gap: 20px;
+                }
+
+                    .catalog .list .item .top img {
+                        width: 130px;
+                        height: auto;
+                        object-fit: contain;
+                    }
+
+                    .catalog .list .item .top .info {
+                        margin-top: 20px;
+                        display: flex;
+                        flex-flow: column nowrap;
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                    }
+
+                        .catalog .list .item .top .info h1 {
+                            padding: 0;
+                            margin: 0;
+                            font-size: 20px;
+                            font-family: Raleway, sans, sans-serif;
+                            width: 100%;
+                        }
+
+                        .catalog .list .item .top .info h2 {
+                            padding: 0;
+                            margin: 0;
+                            font-size: 16px;
+                            font-family: Raleway, sans, sans-serif;
+                            font-style: italic;
+                            text-align: right;
+                            width: 100%;
+                        }
+
+                        .catalog .list .item .top .info .genre {
+                            font-family: Raleway, serif;
+                            font-size: 12px;
+                        }
+
+                        .catalog .list .item .top .info .condition {
+                            width: 100%;
+                            display: flex;
+                            flex-flow: row nowrap;
+                            justify-content: space-around;
+                            align-items:safe center;
+                            margin-top: 20px;
+                            gap: 10px;
+                            
+                        }
+
+                            .catalog .list .item .top .info .condition img {
+                                width: 40px;
+                                height: 40px;
+                                object-fit: contain;
+                            }
+
+                                .catalog .list .item .top .info .condition img.true {
+                                    filter: hue-rotate(0deg);
+                                    
+                                }
+
+                                .catalog .list .item .top .info .condition img.false {
+                                    filter: hue-rotate(220deg);
+                                }
+
+                .catalog .list .item p {
+                    padding: 20px;
+                    text-indent: 20px;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    font-size: 14px;
+                }
+
+                .catalog .list .item a {
+                    color: #daa556;
+                    width: 100%;
+                    text-align: center;
+                    text-decoration: none;
+                    font-family: Raleway, sans-serif;
+                    font-size: 14px;
+                }
+
+                    .catalog .list .item a:hover {
+                        text-decoration: underline;
+                    }
+
+        .catalog .pagination {
+            margin-top: 20px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+           .catalog .pagination .left,
+            .catalog .pagination .right {
+                width: 20px;
+                background: #edebe4;
+                color: #daa556;
+                border: 1px solid #daa556;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .catalog .pagination .page {
+                background: #edebe4;
+                color: #daa556;
+            }
+  </style>  
+
+
+
 <style>
     .inline-links{
     display: flex;
@@ -43,77 +176,102 @@
     }
 </style>
 
-<h1>@ViewData["Title"]</h1>
-<br />
 
-@Html.ActionLink("Добавить книгу", "Create", "Books", new { @class = "text-dark" })
+<div class="catalog">
+    <h1>@ViewData["Title"]</h1>
+    <div class="list">
+        <div class="item" style="text-align:center;">
+            @Html.ActionLink("Добавить книгу", "Create", "Books")
+        </div>
+    </div>
+      
+  
+    <h4>Мои обьявления:</h4>
+
+    @if (Model.Count() == 0)
+    {
+        <h3 id="about">Ничего не найденно</h3>
+    }
+    <div class="list">
+        @foreach (var b in Model)
+        {
+            <div class="list">
+                <div class="item">
+                    <div class="top">
+
+                        @if (b.Src.Length != 0)
+                        {
+                            <img src="@b.Src.First()" alt="Photo" />
+                        }
+                        else
+                        {
+                            <img src="~/images/nocover.png">
+
+                        }
+
+                        <div class="info">
+                            <h1 class="title">@b.Title</h1>
+                            <h2 class="author">@b.Author</h2>
+                            <h3 class="genre">@b.Category</h3>
+                            <div class="condition">
+                                <strong class="price">@b.Price</strong>
+                                <span>&nbsp;</span>
+                                <span>&nbsp;</span>
+                                <div class="img">
+                                    @if (@b.Swap)
+                                    {
+                                        <img class="true" style=" justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
+                                    }
+                                    else
+                                    {
+                                        <img class="false" style="justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
+                                    }
+                                </div>
+                               
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <p class="description">@b.Info </p>
+                    <div class="inline-links">
+                        @Html.ActionLink("подробнее", "Details", "Books", new { idBook = b.Id })
+                        <span>&nbsp;</span>
+                        @Html.ActionLink("изменить", "Edit", "Books", new { idBook = b.Id })
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                        @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, FormMethod.Post)
+                    </div>
+
+                </div>
+
+            </div>
+
+            @* <div class="pagination">
+        <div class="left">
+        &lt;
+        </div>
+        <div class="page">
+        <label>
+        <select name="page">
+        <option value="1" selected="">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        </select>
+        </label>
+        </div>
+        <div class="right">
+        &gt;
+        </div>
+        </div>*@
 
 
-
-<br />
-Мои обьявления:
-<br />
-
-
-
-
-@if (Model.Count() == 0)
-{
-    <h3>Ничего не найденно</h3>
-}
-
-@foreach (var b in Model)
-{
+        }
+    </div>
+    </div>
    
 
-    <div class="new-section">
 
-        @if (b.Src.Length!=0)
-        {
-            <img src="@b.Src.First()" alt="Photo" width="70" height="100" class="responsive-image" />
-        }
-        else
-        {
-            
-        <img src="~/images/emptyList.jpg" alt="Photo" width="70" height="100" class="responsive-image" />
-        }
-        
-      
 
-        <b>@Html.LabelFor(x => b.Title,"Название:")</b>
-        @Html.DisplayFor(x => b.Title)
 
-        <br />
-
-        <b>@Html.LabelFor(x => b.Author ,"Автор:")</b>
-        @Html.DisplayFor(x => b.Author)
-
-        <br />
-        <div class="inline-links">
-            <b>Обмен:</b> <span>&nbsp;</span>
-            @Html.DisplayFor(x => b.Swap)
-        </div>
-      
-
-        
-        <b>Цена:</b>
-        <td>@b.Price</td>
-        @Html.LabelFor(x=>b.Info,"Информация:")
-        @Html.Display("Info")
-
-    
-        <div class="inline-links">
-            @Html.ActionLink("подробнее", "Details", "Books", new { idBook = b.Id }) <span>&nbsp;</span>
-            @Html.ActionLink("изменить", "Edit", "Books", new { idBook = b.Id })
-           
-        </div>
-        <div class="inline-links">
-
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-            @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, FormMethod.Post)
-        </div>
-        
-    </div>
-    
-}

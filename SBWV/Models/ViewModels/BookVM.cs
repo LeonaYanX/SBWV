@@ -28,5 +28,13 @@ namespace SBWV.Models.ViewModels
         [Display(Name = "Телефон")]
         public string Telephone { get; set; }
 
+        public Picture[] Pictures { get; set; }
+
+    }
+    public class Picture
+    {
+        public int Id { get; set; }
+
+        public string Src { get; set; }
     }
 }

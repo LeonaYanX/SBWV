@@ -84,7 +84,7 @@ namespace SBWV.Controllers
 
         }
         [HttpPost]
-        public IActionResult Edit(BookVM eVM)
+        public IActionResult Edit(BookVM eVM , IFormFile[] files)
         {
             SwapBookDbContext db = new SwapBookDbContext();
 
@@ -105,36 +105,46 @@ namespace SBWV.Controllers
 
             book.IdCatalog = Convert.ToInt32(eVM.Category);
 
-
-            Galary galary = new Galary();
-
-            galary.Photo = eVM.EditPhoto;
-
-            book.Galaries.Add(galary);
-
-
-            byte[] photoBytes = eVM.EditPhoto;
-
-            foreach (var item in book.Galaries)
+            foreach (var f in files)
             {
-                int i = 0;
-                while (i < photoBytes?.Length)
+                using (var st = f.OpenReadStream())
                 {
-                    item.Photo = photoBytes;
-                    i++;
-                }
+                    byte[] images = new byte[f.Length];
+                    st.Read(images, 0, images.Length);
 
+                    Galary galary = new Galary() { Photo = images };
+                    book.Galaries.Add(galary);
+                }
             }
+
+
+
             db.Books.Update(book);
-            db.SaveChanges();  // 
+            db.SaveChanges();
             return RedirectToAction("Info", "Account");
+ 
+          
+        }
+        // Удаление фото книги
+        public JsonResult DeletePhoto(int id)
+        {
+            using (var db = new SwapBookDbContext())
+            {
+                var galary = db.Galaries.Find(id);
+                if (galary != null)
+                {
+                    db.Galaries.Remove(galary);
+                    db.SaveChanges();
+                    return Json(new { success = true, msg = "Фото книги удалено" });
+                }
+                else
+                {
+                    return Json(new { success = false, msg = "Фото книги не найдено" });
+                }
+            }
         }
 
-        /* public IActionResult Delete(int idBook) 
-         {
-          SwapBookDbContext db = new SwapBookDbContext();
-             db.Books.Where(i=>i.Id==idBook).
-         }*/
+      
 
 
         public IActionResult Create()
@@ -159,6 +169,10 @@ namespace SBWV.Controllers
 
         public IActionResult Create(BookVM newBook, IFormFile[] files)
         {
+            if ((newBook.Title==null) || (newBook.Author == null))
+            {
+            return RedirectToAction("Create", "Books");
+            }
             using (var dbContext = new SwapBookDbContext())
             {
                 Book book = new Book

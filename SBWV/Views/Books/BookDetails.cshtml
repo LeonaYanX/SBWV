@@ -1,48 +1,84 @@
 ﻿@using SBWV.Models.ViewModels
 
 @model BookVM
-
-<h4>Подробнее</h4>
-<br />
-
-@if (Model.Src != null)
-{
-    @foreach (var i in Model.Src)
-    {
-        <img src="@i" alt="Photo" width="100" height="150" />
-    }
+<div id="catalog">
+    <h4>Подробнее:</h4>
     <br />
-}
-else
-{
-    <b>Нет фотографии</b>
-    <br />
-}
 
-@Html.LabelFor(x => x.Author, "Автор:") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Author)
-<br />
-@Html.LabelFor(x => x.Title, "Название:") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Title)
-<br />
-@Html.LabelFor(x => x.Info, "Информация:") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Info)
-<br />
-@Html.LabelFor(x => x.Price, "Цена:") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Price)
-<br />
-@Html.LabelFor(x => x.Category, "Жанр:") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Category)
-<br />
-@Html.LabelFor(x => x.Swap, "Обмен:") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Swap)
+    <div class="list">
+        <div class="item">
+            <div class="top">
+                @if (Model.Src != null)
+                {
+                    @foreach (var i in Model.Src)
+                    {
+                        <img src="@i" alt="Photo" width="100" height="150" />
+                    }
+                    <br />
+                }
+                else
+                {
+                    <b>Нет фотографии</b>
+                    <br />
+                }
+            </div>
+           <div class="info">
+                <h1 class="title">@Model.Title</h1>
+                <h2 class="author">@Model.Author</h2>
+                <h3 class="genre">@Model.Category</h3>
+                <div class="condition">
+                    <strong class="price">@Model.Price</strong>
+                    <span>&nbsp;</span>
+                    <span>&nbsp;</span>
+                    <div class="img">
+                        @if (Model.Swap)
+                        {
+                            <img class="true" style=" justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
+                        }
+                        else
+                        {
+                            <img class="false" style="justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
+                        }
+                    </div>
+                    <p class="description">@Model.Info </p>
 
-<br />
-@Html.LabelFor(x => x.Email, "Почта:") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Email)
+                </div>
+                @* @Html.LabelFor(x => x.Author, "Автор:") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Author)
+                <br />
+                @Html.LabelFor(x => x.Title, "Название:") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Title) 
 
-<br />
-@Html.LabelFor(x => x.Telephone, "Телефон") <span>&nbsp;</span>
-@Html.DisplayFor(x => x.Telephone)
+                @Html.LabelFor(x => x.Price, "Цена:") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Price)
+                <br />
+                @Html.LabelFor(x => x.Category, "Жанр:") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Category)
+                <br />
+                @Html.LabelFor(x => x.Swap, "Обмен:") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Swap)
+                <br />
+                @Html.LabelFor(x => x.Info, "Информация:") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Info)
+                <br />*@
+               
+   
+
+                <br />
+                @Html.LabelFor(x => x.Email, "Почта:") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Email)
+
+                <br />
+                @Html.LabelFor(x => x.Telephone, "Телефон") <span>&nbsp;</span>
+                @Html.DisplayFor(x => x.Telephone)
+           </div>
+
+           
+
+        </div>
+    </div>
+   
+   
+</div>
 
 
