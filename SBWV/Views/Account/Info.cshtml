@@ -240,13 +240,27 @@
                         @Html.ActionLink("изменить", "Edit", "Books", new { idBook = b.Id })
                         <span>&nbsp;</span>
                         <span>&nbsp;</span>
-                        @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, FormMethod.Post)
+                        @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, new {id="myLink"})
                     </div>
 
                 </div>
 
             </div>
+            <script >
+                
+                window.onload = function () {
 
+                    document.getElementById('myLink').addEventListener('click', function (event) {
+
+                       alert('hello');
+                        if (confirm('Вы действительно хотите удалить эту книгу?')) 
+                                    {
+                            event.preventDefault();
+                        }
+
+                    });
+                };
+            </script>
             @* <div class="pagination">
         <div class="left">
         &lt;
