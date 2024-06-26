@@ -27,7 +27,7 @@ public partial class SwapBookDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
-        => optionsBuilder.UseSqlite("Data Source=SwapBookDB.db");
+        => optionsBuilder.UseSqlite("Data Source=../SwapBookDB.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

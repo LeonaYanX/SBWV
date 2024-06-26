@@ -31,6 +31,26 @@ namespace SBWV.Controllers
             }
         }
 
+        public IActionResult Delete(int idBook)
+        {
+            using (var dbContext = new SwapBookDbContext())
+            {
+                var bookToDelete = dbContext.Books.Include(e => e.Galaries).FirstOrDefault(e=> e.Id == idBook);
+                if (bookToDelete != null)
+                {
+                    dbContext.Books.Remove(bookToDelete);
+                    dbContext.SaveChanges();
+                    return RedirectToAction("Info", "Account");
+                }
+                else
+                {
+                    // todo view error 
+                    return View();
+                }
+
+            }
+        }
+
         public IActionResult Details(int idBook)
         {
             using (var dbContext = new SwapBookDbContext())
