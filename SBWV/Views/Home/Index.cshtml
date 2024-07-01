@@ -5,6 +5,8 @@
 @model SBWV.Models.IndexViewModel
 
 @using SBWV.Helpers
+<div id="catalog">
+
 
 <div class="list">
     
@@ -47,11 +49,13 @@
             <p class="description">
                 @item.Info
             </p>
-            @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = b.Id })
+            @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = item.Id })
 
         </div>
             }
    
+</div>
+
 </div>
 
  
@@ -59,8 +63,8 @@
 <br />
 
 <div class="btn-group">
-  
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+    @* @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))*@
+   
 </div>
 
 
