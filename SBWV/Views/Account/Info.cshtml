@@ -5,7 +5,7 @@
 
 @{
     ViewData["Title"] = "Личный кабинет";
-}
+};
 
   <style>
     .catalog {
@@ -214,11 +214,11 @@
                         }
 
                         <div class="info">
-                            <h1 class="title">@b.Title</h1>
-                            <h2 class="author">@b.Author</h2>
-                            <h3 class="genre">@b.Category</h3>
+                            <h1 class="title">Название: @b.Title</h1>
+                            <h2 class="author">Автор: @b.Author</h2>
+                            <h3 class="genre">Категория: @b.Category</h3>
                             <div class="condition">
-                                <strong class="price">@b.Price</strong>
+                                <strong class="price">Цена: @b.Price</strong>
                                 <span>&nbsp;</span>
                                 <span>&nbsp;</span>
                                 <div class="img">
@@ -237,7 +237,7 @@
 
                         </div>
                     </div>
-                    <p class="description">@b.Info </p>
+                    <p class="description">Информация: @b.Info </p>
                     <div class="inline-links">
                         @Html.ActionLink("подробнее", "Details", "Books", new { idBook = b.Id })
                         <span>&nbsp;</span>
@@ -245,7 +245,7 @@
                         <span>&nbsp;</span>
                         <span>&nbsp;</span>
                         <div class="al">
-                            @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, new { id = "myLink" })
+                            @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, new { @class = "myLink" })
                         </div>
                         
                     </div>
@@ -280,29 +280,27 @@
 <script>
 
     window.onload = function () {
-        var links = document.getElementsByClassName('al');
-        for (int i = 0; i < links.length; i++)
-        {
+        
+    let links = document.getElementsByClassName('myLink');
+            
+            for (let i = 0; i < links.length; i++)
+            {
+            
+
             links[i].addEventListener('click', function (event) {
 
-                if (confirm('Вы действительно хотите удалить эту книгу?'))
-                {
+            if (confirm('Вы действительно хотите удалить эту книгу?'))
+            {
 
-                }
-                else 
-                {
-                    event.preventDefault();
-                }
+            }
+            else
+            {
+            event.preventDefault();
+            }
             });
-        }
-        
+            }
 
-            
-            
-           
-
-       
-    };
+        };
 </script>
    
 

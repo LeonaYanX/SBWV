@@ -2,6 +2,66 @@
     Layout = "_Layout"; 
    
 }
+@model SBWV.Models.IndexViewModel
+
+@using SBWV.Helpers
+
+<div class="list">
+    
+        
+            @foreach (var item in Model.BookVMs)
+            {
+        <div class="item">
+            <div class="top">
+                @if (item.Src.Length != 0)
+                {
+                    <img src="@item.Src.First()" alt="Photo" />
+                }
+                else
+                {
+
+                    <img src="~/images/nocover.png">
+                }
+
+                <div class="info">
+                    <h1 class="title">@item.Title</h1>
+                    <h2 class="author">@item.Author</h2>
+                    <h3 class="genre">@item.Category</h3>
+                    <div class="condition">
+                        <strong class="price">@item.Price</strong>
+                        @if (item.Swap == true)
+                        {
+
+                            <img class="true" alt="ready for change" src="images/icons/change.svg">
+                        }
+                        else
+                        {
+                            <img class="false" alt="ready for change" src="images/icons/change.svg">
+                        }
+                        
+                    </div>
+
+                </div>
+
+            </div>
+            <p class="description">
+                @item.Info
+            </p>
+            @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = b.Id })
+
+        </div>
+            }
+   
+</div>
+
+ 
+
+<br />
+
+<div class="btn-group">
+  
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
+</div>
 
 
 

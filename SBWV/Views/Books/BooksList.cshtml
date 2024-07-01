@@ -2,10 +2,14 @@
 
 @model IEnumerable<BookVM>
 
-@if (Model.Count() == 0)
-{
-    <h3>Ничего не найденно, нам жаль.</h3>
-}
+<article id="about">
+    @if (Model.Count() == 0)
+    {
+        <h3>Ничего не найденно, нам жаль.</h3>
+    }
+</article>
+
+ <div id="catalog">
 
   <div class="list">
      
@@ -13,119 +17,122 @@
         {
       <div class="item">
         <div class="top">
-           
-            
-                @if (b.Src.Length != 0)
-                {
-                    <img src="@b.Src.First()" alt="Photo" />
-                }
-                else
-                {
-
-                    <img src="images/nocover.png">
-                }
-           
-           
-            <div class="info">
-                <h1 class="title">@b.Title</h1>
-                <h2 class="author">@b.Author</h2>
-                <h3 class="genre">@b.Category</h3>
-                <div class="condition">
-                    <strong class="price">@b.Price</strong>
-                        @if (b.Swap==true)
+           <div class="img">
+                        @if (b.Src.Length != 0)
                         {
-                          <img class="true" alt="ready for swap" src="images/icons/swap.svg">}
+                            <img src="@b.Src.First()" alt="Photo" />
                         }
                         else
                         {
-                        <img class="false" alt="ready for change" src="images/icons/change.svg">
+
+                            <img src="~/images/nocover.png">
                         }
+           </div>
+            
+
+            <div class="info">
+                <h1 class="title">Название : @b.Title</h1>
+                <h2 class="author">Автор: @b.Author</h2>
+                <h3 class="genre">Категория:@b.Category</h3>
+                <div class="condition">
+                    <strong class="price">Цена: @b.Price</strong>
+                    <div class="img">
+                        @{
+                                if (@b.Swap == true)
+                                {
+                                      <img class="true" alt="ready for swap" src="~/images/icons/change.svg">
+                                }
+                                
+                                else
+                                {
+                                      <img class="false" alt="ready for change" src="~/images/icons/change.svg">
+                                }
+                        }
+                              
+                    </div>
+                       
                         
                 </div>
 
             </div>
         
        </div>
-        <p class="description">@b.Info</p>
+        <p class="description">Информация:@b.Info</p>
 
          @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = b.Id })
         
      </div>
     }
+
+    </div>
     @*Затык с получением количества страниц если показывать по 2 штуки за раз*@
-  <div class="pagination">
-    <div class="left">
+ @*
+        <div class="pagination">
+        <div class="left">
         &lt;
-    </div>
-    <div class="page">
+        </div>
+        <div class="page">
         <label>
-            <select name="page">
-                <option value="1">1</option>
-                <option value="2" selected="">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
+        <select name="page">
+        <option value="1">1</option>
+        <option value="2" selected="">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        </select>
         </label>
-    </div>
-    <div class="right">
+        </div>
+        <div class="right">
         &gt;
-    </div>
-    }
-</div>
+        </div>
+        }
+        </div>
 
-
-
-
-
-
+ *@
    
-
-
-    @foreach (var b in Model)
-    {
+ @*
+        @foreach (var b in Model)
+        {
         <div class="new-section">
 
-           
-            
 
-            <b>@Html.LabelFor(x => b.Title, "Название:")</b>
-            @Html.DisplayFor(x => b.Title)
 
-            <br />
 
-            <b>@Html.LabelFor(x => b.Author, "Автор:")</b>
-            @Html.DisplayFor(x => b.Author)
+        <b>@Html.LabelFor(x => b.Title, "Название:")</b>
+        @Html.DisplayFor(x => b.Title)
 
-            <br />
+        <br />
 
-            <b>Обмен:</b>
+        <b>@Html.LabelFor(x => b.Author, "Автор:")</b>
+        @Html.DisplayFor(x => b.Author)
 
-            @Html.DisplayFor(x => b.Swap)
+        <br />
 
-            <b>Цена: </b>
-            <td>@b.Price</td>
-            <b>@Html.LabelFor(w => b.Info, "Информация:")</b>
-            @Html.DisplayFor(m => b.Info)
+        <b>Обмен:</b>
 
-            @*
-        @Html.ActionLink("Изменить", "Edit", "Books", new { idBook = b.Id }, FormMethod.Get)
+        @Html.DisplayFor(x => b.Swap)
+
+        <b>Цена: </b>
+        <td>@b.Price</td>
+        <b>@Html.LabelFor(w => b.Info, "Информация:")</b>
+        @Html.DisplayFor(m => b.Info)
+
+
+
+        <br />
         <span>&nbsp;</span>
-        @Html.ActionLink("Удалить", "Delete", "Books", new { idBook = b.Id })
 
-        *@
-
-            <br />
-            <span>&nbsp;</span>
-
-            @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = b.Id }, new { @class = "text-dark" })
+        @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = b.Id }, new { @class = "text-dark" })
 
 
         </div>
-    }
+        }
 
-</tbody>
+        </tbody>
+ *@
 
+  
 
+  
 
 
 
