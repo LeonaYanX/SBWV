@@ -203,9 +203,9 @@
                 <div class="item">
                     <div class="top">
 
-                        @if (b.Src.Length != 0)
+                        @if (b.Pictures.Length != 0)
                         {
-                            <img src="@b.Src.First()" alt="Photo" />
+                            <img src="@b.Pictures.First().Src" alt="Photo" />
                         }
                         else
                         {

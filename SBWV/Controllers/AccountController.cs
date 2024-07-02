@@ -9,8 +9,14 @@ namespace SBWV.Controllers
 {
 
 
+
     public class AccountController : BaseController
     {
+        private Repository repo;
+        public AccountController(Repository repository)
+        {
+          repo = repository;
+        }
 
         public IActionResult Register()
         {
@@ -43,11 +49,8 @@ namespace SBWV.Controllers
                     Password = register.Password,
                     Phone = register.Phone
                 };
-                SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
-
-                swapBookDbContext.Add(user);
-
-                swapBookDbContext.SaveChanges();
+               
+                repo.AddUser(user);
 
                 HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
 

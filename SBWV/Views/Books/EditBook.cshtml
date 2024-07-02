@@ -92,7 +92,7 @@
 
 <div id="catalog" style="align-content:center; align-items:center; display:flex; justify-content:center;">
     
- <form asp-action="edit" asp-controller="Books" asp-route-id="@Model.Id" id="catalog" style="text-align:center; align-content:center;align-items:center;">
+ <form asp-action="edit" asp-controller="Books" asp-route-id="@Model.Id" id="catalog" enctype="multipart/form-data" style="text-align:center; align-content:center;align-items:center;">
 
             <h1>Редактировать</h1>
 
@@ -237,7 +237,7 @@
                        {
 
                         <div class="container" id="@i.Id">
-                        <img src="@i.Src" alt="Photo" /> @*why images are not displayed?*@
+                        <img src="@i.Src" alt="Photo" />    @*why images are not displayed?*@
                         <button class="btn" type="button" onclick="onDelete(@i.Id)">удалить</button>
                         </div>
                         <br />

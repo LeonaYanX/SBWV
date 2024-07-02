@@ -5,19 +5,11 @@ namespace SBWV.Controllers
 {
     public class GetBookModel : Controller
     {
-        private static string[] GetBase64Images(ICollection<Galary> galaries)
+        private static IEnumerable<Picture> GetBase64Images(ICollection<Galary> galaries )
         {
-            List<string> images = new List<string>();
-
-            foreach (Galary g in galaries)
-            {
-                if (g.Photo != null)
-                {
-                    images.Add("data:image/png;base64, " + Convert.ToBase64String(g.Photo));
-                }
-            }
-
-            return images.ToArray();
+            return galaries
+                .Where(g => g.Photo != null)
+                .Select(g => new Picture() { Id = g.Id, Src = "data:image/png;base64, " + Convert.ToBase64String(g.Photo)});
 
         }
         private static string GetBase64Image(byte[] bytes)
@@ -29,12 +21,8 @@ namespace SBWV.Controllers
         }
         public BookVM GetBookVM(Book book)
         {
-            string[] srcs = GetBase64Images(book.Galaries);
-
-            SwapBookDbContext db = new SwapBookDbContext();
 
             BookVM bookVM = new BookVM()
-
             {
                 Id = book.Id,
                 Author = book?.Author,
@@ -44,7 +32,7 @@ namespace SBWV.Controllers
                 Price = book?.Price,
                 Swap = book.Swap == 1 ? true : false,
                 Title = book?.Title,
-                Src = srcs
+                Pictures = GetBase64Images(book.Galaries).ToArray()
             };
 
             return bookVM;

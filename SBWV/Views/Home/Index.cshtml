@@ -2,6 +2,7 @@
     Layout = "_Layout"; 
    
 }
+
 @using SBWV.Helpers
 @using SBWV.Models.ViewModels
 @using X.PagedList
@@ -20,9 +21,9 @@
             {
         <div class="item">
             <div class="top">
-                @if (item.Src.Length != 0)
+                @if (item.Pictures.Length != 0)
                 {
-                    <img src="@item.Src.First()" alt="Photo" />
+                    <img src="@item.Pictures.First().Src" alt="Photo" />
                 }
                 else
                 {
@@ -51,9 +52,11 @@
                 </div>
 
             </div>
+
             <p class="description">
                 @item.Info
             </p>
+
             @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = item.Id })
 
         </div>

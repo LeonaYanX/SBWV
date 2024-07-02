@@ -4,17 +4,17 @@
 
  <ul class="slider">
 
-      @if (Model.Src != null)
+      @if (Model.Pictures.Length != 0)
       {
 
-        @for (int j = 0; j < Model.Src.Length; j++)
+        @for (int j = 0; j < Model.Pictures.Length; j++)
         {
 
             <li>
 
                 <input type="radio" id="slide{@j}" name="slide" checked />
                 <label for="slide{@j}"></label>
-                <img src="@Model.Src[j]" alt="Photo1" />
+                <img src="@Model.Pictures[j].Src" alt="Photo1" />
 
             </li>
 

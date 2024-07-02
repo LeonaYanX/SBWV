@@ -8,6 +8,9 @@ namespace SBWV
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<SwapBookDbContext>(ServiceLifetime.Singleton);
+            builder.Services.AddTransient<Repository>();
+
             // Adding Session
 
             builder.Services.AddDistributedMemoryCache();
