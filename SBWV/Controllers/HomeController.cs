@@ -4,6 +4,7 @@ using SBWV.Models;
 using SBWV.Models.ViewModels;
 using System.Diagnostics;
 using System.Numerics;
+using X.PagedList;
 
 namespace SBWV.Controllers
 {
@@ -16,29 +17,20 @@ namespace SBWV.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int? page )
         {
+            
+
+            SwapBookDbContext _context = new SwapBookDbContext();
+            int pageNumber = page ?? 1;
+            int pageSize = 2;
+            var books = _context.Books.ToList();
             List<BookVM> bookVMs = new List<BookVM>();
-            using (var db = new SwapBookDbContext())
-            {
-                var m = db.Books.Include("IdCatalogNavigation")
-                     .Include(c => c.Galaries)
-                     .ToList();
-               
+            foreach ( var book in books ) 
+            { bookVMs.Add(new GetBookModel().GetBookVM(book)); }
+            var items = bookVMs.ToPagedList(pageNumber, pageSize);
+            return View(items);
 
-                for (int i = 0; i < m.Count(); i++)
-                {
-                    bookVMs.Add(new GetBookModel().GetBookVM(m[i]));
-                }
-            }
-
-            int pageSize = 2; // количество объектов на страницу
-            IEnumerable<BookVM> booksPerPages = bookVMs.Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = bookVMs.Count };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, BookVMs= booksPerPages };
-            return View(ivm);
-
-           
         }
 
         public IActionResult Contacts() 

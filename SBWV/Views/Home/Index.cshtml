@@ -2,16 +2,21 @@
     Layout = "_Layout"; 
    
 }
-@model SBWV.Models.IndexViewModel
-
 @using SBWV.Helpers
+@using SBWV.Models.ViewModels
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@model IPagedList<BookVM>
+
+
 <div id="catalog">
 
 
 <div class="list">
     
         
-            @foreach (var item in Model.BookVMs)
+            @foreach (var item in Model)
             {
         <div class="item">
             <div class="top">
@@ -62,10 +67,25 @@
 
 <br />
 
-<div class="btn-group">
-    @* @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))*@
-   
+
+<div class="pagination">
+        
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+        {
+       LiElementClasses = new[] { "page-item" },
+       PageClasses = new[] { "page-link" },
+       ActiveLiElementClass = "active",
+       ClassToApplyToFirstListItemInPager = "disabled",
+       ClassToApplyToLastListItemInPager = "disabled"
+
+    })
+    
 </div>
+
+    
+
+
+
 
 
 

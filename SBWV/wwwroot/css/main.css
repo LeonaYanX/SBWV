@@ -685,5 +685,46 @@ body footer .navigation .social img {
         z-index: 10;
     }
 
-​
-/*# sourceMappingURL=main.css.map */
+.pagination {
+    display: flex;
+    flex-flow:row;
+    flex-direction:row;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+    .pagination li {
+       
+        flex-direction: row;
+        margin: 0 5px;
+    }
+
+    .pagination a,
+    .pagination span {
+        flex-direction: row;
+        display: block;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #daa556;
+        
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .pagination a:hover,
+        .pagination .active span {
+            flex-direction: row;
+            background-color: #daa556;
+            
+            color: #fff;
+        }
+
+    .pagination .disabled span {
+        flex-direction:row;
+        color: #6c757d;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
