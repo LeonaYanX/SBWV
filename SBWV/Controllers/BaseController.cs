@@ -6,12 +6,12 @@ namespace SBWV.Controllers
 {
     public class BaseController : Controller
     {
-        protected bool IsUserLogged()
+        public bool IsUserLogged()
         {
             return HttpContext.Session.GetInt32("user").HasValue;
         }
 
-        protected int GetUserId()
+        public int GetUserId()
         {
 
             return HttpContext.Session.GetInt32("user").Value;

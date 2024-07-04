@@ -38,27 +38,29 @@ namespace SBWV.Controllers
         [HttpPost]
         public IActionResult Register(Register register)
         {
-            // todo try{} catch{} unique email
-            try 
+            if (ModelState.IsValid)
             {
-                User user = new User
-                {
-                    Age = register.Age,
-                    City = register.City,
-                    Email = register.Email,
-                    Password = register.Password,
-                    Phone = register.Phone
-                };
+                
+                    User user = new User
+                    {
+                        Age = register.Age,
+                        City = register.City,
+                        Email = register.Email,
+                        Password = register.Password,
+                        Phone = register.Phone
+                    };
+
+                    repo.AddUser(user);
+
+                    HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
+
+                    HttpContext.Session.SetInt32("user", user.Id);
+
+                    return RedirectToAction("Index", "Home");
+                
                
-                repo.AddUser(user);
-
-                HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
-
-                HttpContext.Session.SetInt32("user", user.Id);
-
-                return RedirectToAction("Index", "Home");
             }
-            catch(Exception)
+            else 
             {
                 return RedirectToAction("Register", "Account");
             }
@@ -71,7 +73,10 @@ namespace SBWV.Controllers
         {
             SwapBookDbContext dbContext = new SwapBookDbContext();
 
-            var user = dbContext.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
+            var user = repo.FindUserLogin(login);
+
+            // todo remove if right
+            //var user = dbContext.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
 
             if (user != null)
             {
@@ -92,20 +97,21 @@ namespace SBWV.Controllers
         {
             // Возвращение  списка книг- обьявлений юзера
 
-            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
+          //  SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
 
-            List<BookVM> bookVMs = new List<BookVM>();
+         //   List<BookVM> bookVMs = new List<BookVM>();
 
             if (IsUserLogged())
             {
-                var books = swapBookDbContext.Books.Where(i => i.IdUser == GetUserId()).Include("IdCatalogNavigation")
-                       .Include(c => c.Galaries).ToList();
-                for (int i = 0; i < books.Count(); i++)
-                {
-                    bookVMs.Add(new GetBookModel().GetBookVM(books[i]));
-                }
+               // var books = swapBookDbContext.Books.Where(i => i.IdUser == GetUserId()).Include("IdCatalogNavigation")
+               //        .Include(c => c.Galaries).ToList();
+               // for (int i = 0; i < books.Count(); i++)
+                //{
+                 //   bookVMs.Add(new GetBookModel().GetBookVM(books[i]));
+               // }
 
-                return View(bookVMs);
+               // return View(bookVMs);
+               return View(repo.GetUserBooks(HttpContext));
             }
 
             else

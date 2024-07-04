@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿
+/*
+ using System.Numerics;
 using SBWV.Models.ViewModels;
 
 namespace SBWV.Models
@@ -19,3 +21,4 @@ namespace SBWV.Models
         public PageInfo PageInfo { get; set; }
     }
 }
+ */

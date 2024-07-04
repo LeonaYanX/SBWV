@@ -65,70 +65,8 @@
     }
 
     </div>
-    @*Затык с получением количества страниц если показывать по 2 штуки за раз*@
- @*
-        <div class="pagination">
-        <div class="left">
-        &lt;
-        </div>
-        <div class="page">
-        <label>
-        <select name="page">
-        <option value="1">1</option>
-        <option value="2" selected="">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        </select>
-        </label>
-        </div>
-        <div class="right">
-        &gt;
-        </div>
-        }
-        </div>
 
- *@
    
- @*
-        @foreach (var b in Model)
-        {
-        <div class="new-section">
-
-
-
-
-        <b>@Html.LabelFor(x => b.Title, "Название:")</b>
-        @Html.DisplayFor(x => b.Title)
-
-        <br />
-
-        <b>@Html.LabelFor(x => b.Author, "Автор:")</b>
-        @Html.DisplayFor(x => b.Author)
-
-        <br />
-
-        <b>Обмен:</b>
-
-        @Html.DisplayFor(x => b.Swap)
-
-        <b>Цена: </b>
-        <td>@b.Price</td>
-        <b>@Html.LabelFor(w => b.Info, "Информация:")</b>
-        @Html.DisplayFor(m => b.Info)
-
-
-
-        <br />
-        <span>&nbsp;</span>
-
-        @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = b.Id }, new { @class = "text-dark" })
-
-
-        </div>
-        }
-
-        </tbody>
- *@
 
   
 

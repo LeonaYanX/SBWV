@@ -27,7 +27,7 @@ namespace SBWV.Controllers
             var books = _context.Books.ToList();
             List<BookVM> bookVMs = new List<BookVM>();
             foreach ( var book in books ) 
-            { bookVMs.Add(new GetBookModel().GetBookVM(book)); }
+            { bookVMs.Add(GetBookModel.GetBookVM(book)); }
 
             var items = bookVMs.ToPagedList(pageNumber, pageSize);
             return View(items);

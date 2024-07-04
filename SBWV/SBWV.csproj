@@ -6,6 +6,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <Content Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\GetBookModelController.cs" />
+    <Compile Remove="Models\PageInfo.cs" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<Content Update="wwwroot\dist\manifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

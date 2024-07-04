@@ -7,15 +7,24 @@ using SBWV.Models.ViewModels;
 using System.Buffers.Text;
 using System.Net.WebSockets;
 using static System.Reflection.Metadata.BlobBuilder;
+using SBWV;
 
 
 namespace SBWV.Controllers
 {
-    public class BooksController : BaseController
+    public class BooksController: BaseController
     {
+        private Repository repo;
+
+        public BooksController(Repository repository)
+        {
+            repo = repository;
+        }
+
+       
         public IActionResult List(int idCategory)
         {
-            using (var db = new SwapBookDbContext())
+          /*  using (var db = new SwapBookDbContext())
             {
                 var m = db.Books.Where(b => b.IdCatalog == idCategory).Include("IdCatalogNavigation")
                     .Include(c => c.Galaries)
@@ -28,32 +37,36 @@ namespace SBWV.Controllers
                 }
 
                 return View("BooksList", bookVMs);
-            }
+            }*/
+
+            return View("BooksList",repo.GetBooksByCategory(idCategory));
         }
 
         public IActionResult Delete(int idBook)
         {
-            using (var dbContext = new SwapBookDbContext())
+           /* using (var dbContext = new SwapBookDbContext())
             {
                 var bookToDelete = dbContext.Books.Include(e => e.Galaries).FirstOrDefault(e=> e.Id == idBook);
-                if (bookToDelete != null)
-                {
+               if (bookToDelete != null)
+               {
                     dbContext.Books.Remove(bookToDelete);
                     dbContext.SaveChanges();
                     return RedirectToAction("Info", "Account");
-                }
-                else
-                {
-                    // todo view error 
-                    return View();
+               }*/
+               repo.DeleteBook(idBook);
+            return RedirectToAction("Info", "Account");
+           /*    else
+               {
+                todo view error 
+                   return View();
                 }
 
-            }
+           }*/
         }
 
         public IActionResult Details(int idBook)
         {
-            using (var dbContext = new SwapBookDbContext())
+           /* using (var dbContext = new SwapBookDbContext())
             {
                 var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
 
@@ -69,7 +82,9 @@ namespace SBWV.Controllers
                 //book.Src = 
 
                 return View("BookDetails", book);
-            }
+            }*/
+
+            return View("BookDetails",repo.GetBookVM(idBook));
         }
 
         // EDIT 
@@ -78,35 +93,38 @@ namespace SBWV.Controllers
         {
 
             using (SwapBookDbContext dbContext = new SwapBookDbContext())
-            {
+           {
 
 
-                var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation")
+                 var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation")
                         .FirstOrDefault(b => b.Id == idBook);
 
-                var categories = dbContext.Catalogs.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Value
-                    ,
-                    Selected = e.IdCatalog == c.Id
-                }).ToList();
+                 var categories = dbContext.Catalogs.Select(c => new SelectListItem
+                 {
+                  Value = c.Id.ToString(),
+                  Text = c.Value
+                 ,
+                 Selected = e.IdCatalog == c.Id
+                 }).ToList();
+               
+              // Error with Repository Category method
+              //  ViewBag.Categories = repo.GetSelectListCategoryEdit(idBook);
 
-                ViewBag.Categories = categories;
+               ViewBag.Categories = categories;
 
-                var eVM = new GetBookModel().GetBookVM(e);
+                var eVM = GetBookModel.GetBookVM(e);
+
+              // var eVM = new GetBookModelC().GetBookVM(e);
+
+            // var eVM = repo.GetBookVM(idBook);
                 return View("EditBook", eVM);
             }
-
-
-
-
 
         }
         [HttpPost]
         public IActionResult Edit(BookVM eVM , IFormFile[] files)
         {
-            SwapBookDbContext db = new SwapBookDbContext();
+          //  SwapBookDbContext db = new SwapBookDbContext();
 
 
             Book book = new Book()
@@ -137,10 +155,10 @@ namespace SBWV.Controllers
                 }
             }
 
+            repo.UpdateBook(book);
 
-
-            db.Books.Update(book);
-            db.SaveChanges();
+          //  db.Books.Update(book);
+            //db.SaveChanges();
             return RedirectToAction("Info", "Account");
  
           
@@ -150,11 +168,13 @@ namespace SBWV.Controllers
         {
             using (var db = new SwapBookDbContext())
             {
-                var galary = db.Galaries.Find(id);
+                // var galary = db.Galaries.Find(id);
+                var galary = repo.GetGalary(id);
                 if (galary != null)
                 {
-                    db.Galaries.Remove(galary);
-                    db.SaveChanges();
+                   /* db.Galaries.Remove(galary);
+                    db.SaveChanges();*/
+                   repo.RemoveGalary(galary);
                     return Json(new { success = true, msg = "Фото книги удалено" });
                 }
                 else
@@ -176,6 +196,10 @@ namespace SBWV.Controllers
 
                 ViewBag.Categories = categories;
             }
+            
+
+            // Error doing with Repository
+            //ViewBag.Categories = repo.GetSelectListCategory();
 
             return View("CreateBook");
         }
@@ -193,8 +217,8 @@ namespace SBWV.Controllers
             {
             return RedirectToAction("Create", "Books");
             }
-            using (var dbContext = new SwapBookDbContext())
-            {
+           // using (var dbContext = new SwapBookDbContext())
+           // {
                 Book book = new Book
                 {
                     Author = newBook.Author,
@@ -221,11 +245,13 @@ namespace SBWV.Controllers
 
                 book.IdUser = GetUserId();
 
-                dbContext.Books.Add(book);
-                dbContext.SaveChanges();
+                /*dbContext.Books.Add(book);
+                dbContext.SaveChanges();*/
+
+                repo.AddBook(book);
 
                 return RedirectToAction("Details", "Books", new { idBook = book.Id });
-            }
+           // }
         }
 
         private static string GetBase64Image(byte[] bytes)

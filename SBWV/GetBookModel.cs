@@ -1,17 +1,14 @@
-﻿
-/*
- using Microsoft.AspNetCore.Mvc;
-using SBWV.Models.ViewModels;
+﻿using SBWV.Models.ViewModels;
 
-namespace SBWV.Controllers
+namespace SBWV
 {
-    public class GetBookModelC : Controller
+    public static class GetBookModel
     {
-        private static IEnumerable<Picture> GetBase64Images(ICollection<Galary> galaries )
+        private static IEnumerable<Picture> GetBase64Images(ICollection<Galary> galaries)
         {
             return galaries
                 .Where(g => g.Photo != null)
-                .Select(g => new Picture() { Id = g.Id, Src = "data:image/png;base64, " + Convert.ToBase64String(g.Photo)});
+                .Select(g => new Picture() { Id = g.Id, Src = "data:image/png;base64, " + Convert.ToBase64String(g.Photo) });
 
         }
         private static string GetBase64Image(byte[] bytes)
@@ -21,7 +18,7 @@ namespace SBWV.Controllers
 
             return "data:image/png;base64, " + Convert.ToBase64String(bytes);
         }
-        public BookVM GetBookVM(Book book)
+        public static BookVM GetBookVM(Book book)
         {
 
             BookVM bookVM = new BookVM()
@@ -41,4 +38,3 @@ namespace SBWV.Controllers
         }
     }
 }
- */
