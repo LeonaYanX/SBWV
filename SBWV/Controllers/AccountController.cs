@@ -118,5 +118,46 @@ namespace SBWV.Controllers
                 return RedirectToAction("Login");
         }
 
+        public IActionResult Favorites() 
+        {
+            if (IsUserLogged())
+            {
+                var userId = GetUserId();
+
+
+                return View(repo.GetFavoriteBooksVM(userId));
+            }
+            else 
+            {
+               return RedirectToAction("Login");
+            }
+        
+        }
+
+        public JsonResult AddFavorites(int idBook)
+        {
+            if (IsUserLogged())
+            {
+                try
+                {
+                    var userId = GetUserId();
+                    repo.AddFavorite(userId, idBook);
+                    return Json(new { success = true, msg = "Книга добавлена в избранное" });
+                }
+
+                
+                catch (Exception ex) 
+                {
+                   return Json(new { success = false, msg = ex.Message });
+                }
+                
+                
+            }
+            else 
+            {
+                return Json(new {success= false , msg="Вы не авторизированны" });
+            }
+        }
+
     }
 }

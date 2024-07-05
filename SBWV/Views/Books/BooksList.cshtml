@@ -31,13 +31,16 @@
             
 
             <div class="info">
+
+               
                 <h1 class="title">Название : @b.Title</h1>
                 <h2 class="author">Автор: @b.Author</h2>
                 <h3 class="genre">Категория:@b.Category</h3>
                 <div class="condition">
                     <strong class="price">Цена: @b.Price</strong>
                     <div class="img">
-                        @{
+                                <img  id="@b.Id" alt="Favorite" src="~/images/favorite-icon-size_16.png"  onclick="addFavorite(@b.Id)"/>
+                                @{
                                 if (@b.Swap == true)
                                 {
                                       <img class="true" alt="ready for swap" src="~/images/icons/change.svg">
@@ -66,11 +69,49 @@
 
     </div>
 
-   
 
-  
+    <script type="text/javascript">
 
-  
+        function addFavorite(idBook) {
+           
+
+            $.ajax({
+                url: '@Url.Action("AddFavorites", "Account")',
+                data: { idBook },
+                success: function (result) {
+        //todo сердце меняет цвет добавить вместо удаления
+                  //  $('#' + id).remove();
+                    //alert(result.msg);
+                },
+                error: function (result) {
+                    alert(result.msg);
+                }
+            })
+        }
+
+        // function doUpdate() {
+
+        //     var formData = {
+        //         Id: 1,
+        //         Title: $('#Title').val(),
+        //         Author: $('#Author').val(),
+        //         Src: ["1", "2", "3"]
+        //     };
+
+        //     $.ajax({
+        //         type: "POST",
+        //         url: '@Url.Action("UpdateData", "Books")',
+        //         data: formData,
+        //         success: function (result) {
+        //             alert('success')
+        //         }
+        //     })
+        // }
+
+    </script>
+
+
+
 
 
 

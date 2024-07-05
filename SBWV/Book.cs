@@ -26,4 +26,6 @@ public partial class Book
     public virtual Catalog? IdCatalogNavigation { get; set; }
 
     public virtual User? IdUserNavigation { get; set; }
+
+    
 }

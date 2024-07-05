@@ -4,14 +4,14 @@ namespace SBWV
 {
     public static class GetBookModel
     {
-        private static IEnumerable<Picture> GetBase64Images(ICollection<Galary> galaries)
+        public static IEnumerable<Picture> GetBase64Images(ICollection<Galary> galaries)
         {
             return galaries
                 .Where(g => g.Photo != null)
                 .Select(g => new Picture() { Id = g.Id, Src = "data:image/png;base64, " + Convert.ToBase64String(g.Photo) });
 
         }
-        private static string GetBase64Image(byte[] bytes)
+        public static string GetBase64Image(byte[] bytes)
         {
             if (bytes == null)
                 return String.Empty;
@@ -32,9 +32,14 @@ namespace SBWV
                 Swap = book.Swap == 1 ? true : false,
                 Title = book?.Title,
                 Pictures = GetBase64Images(book.Galaries).ToArray()
+
             };
+
+            
 
             return bookVM;
         }
+
+        
     }
 }

@@ -93,7 +93,7 @@ namespace SBWV.Controllers
         {
 
             using (SwapBookDbContext dbContext = new SwapBookDbContext())
-           {
+            {
 
 
                  var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation")

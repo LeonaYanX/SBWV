@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using SQLitePCL;
 using System.Web.Mvc;
+
 namespace SBWV
 {
     public class Repository
@@ -149,8 +150,6 @@ namespace SBWV
         public  List<SelectListItem> GetSelectListItemCategory()
         {
         
-                
-
                 var genreList = dbContext.Catalogs.Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
@@ -159,7 +158,68 @@ namespace SBWV
                 }).ToList();
             return genreList;
         }
-        
 
+        public IEnumerable<BookVM> GetFavoriteBooksVM(int userId)
+        {
+            var favoriteBooks = dbContext.Favorits.Where(f => f.IdUser == userId);
+            var books= dbContext.Books
+                .Where(b => favoriteBooks.Any(f => f.IdBook == b.Id))
+                .Include(e => e.Galaries).
+                Select(x => new BookVM
+                {
+                    Author = x.Author,
+                    Category = x.IdCatalogNavigation.Value,
+                    Email = x.IdUserNavigation.Email
+                ,
+                    Id = x.Id,
+                    Info = x.Info,
+                    IsFavourite = true,
+                    Price = x.Price,
+                    Swap = x.Swap == 1 ? true : false
+                ,
+                    Telephone = x.IdUserNavigation.Phone,
+                    Title = x.Title,
+                    Pictures = GetBookModel.GetBase64Images(x.Galaries).ToArray()
+                }).ToList();
+
+            /* var favoriteBooks = dbContext.Favorits
+                 .Where(f => f.IdUser == userId)
+                 .Join(dbContext.Books, f => f.IdBook, b => b.Id, (f, b) => b)
+                 .Include(e => e.Galaries).
+                 Select(x => new BookVM
+                 {
+                     Author = x.Author,
+                     Category = x.IdCatalogNavigation.Value,
+                     Email = x.IdUserNavigation.Email
+                 ,
+                     Id = x.Id,
+                     Info = x.Info,
+                     IsFavourite = true,
+                     Price = x.Price,
+                     Swap = x.Swap == 1 ? true : false
+                 ,
+                     Telephone = x.IdUserNavigation.Phone,
+                     Title = x.Title,
+                     Pictures = GetBookModel.GetBase64Images(x.Galaries).ToArray()
+                 }).ToList(); ;*/
+
+
+            return books;
+            
+        }
+
+        public void AddFavorite(int idUser , int idBook) 
+        {
+            var favorite = new Favorit() { IdBook = idBook, IdUser = idUser };
+            if (favorite != null)
+            {
+                // Отсоединить отслеживаемую сущность, чтобы избежать конфликта
+
+                dbContext.Entry(favorite).State = EntityState.Detached;
+            }
+            dbContext.Favorits.Add(favorite);
+
+            dbContext.SaveChanges();
+        }
     }
 }

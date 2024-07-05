@@ -59,9 +59,7 @@ public partial class SwapBookDbContext : DbContext
 
         modelBuilder.Entity<Favorit>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Favorit");
+            entity.ToTable("Favorit").HasKey(e => new { e.IdBook, e.IdUser });
 
             entity.Property(e => e.IdBook).HasColumnName("idBook");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
