@@ -42,17 +42,9 @@ namespace SBWV.Controllers
         {
             return View("Categories", new SwapBookDbContext().Catalogs.ToList());
         }
-        // вариант СБ ню 
+ 
 
-        //  public IActionResult Index()
-        // {
-        //     return View("Categories", new SwapBookDbContext().Catalogs.ToList());
-        // }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

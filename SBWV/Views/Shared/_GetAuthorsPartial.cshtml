@@ -1,0 +1,15 @@
+﻿@using SBWV.Controllers
+
+<label>
+    по автору:@{
+        SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
+        var authors = swapBookDbContext.Books.Select(x => new SelectListItem
+            {
+                Value = x.Author,
+                Text = x.Author,
+
+            }).Distinct().ToList();
+
+    }
+    @Html.DropDownList("authorList", authors as IEnumerable<SelectListItem>, new { AuthorName = authors.Select(x => x).FirstOrDefault() })
+</label>

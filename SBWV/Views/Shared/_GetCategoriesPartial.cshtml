@@ -1,0 +1,19 @@
+﻿@using SBWV.Controllers
+
+
+
+     <label>
+                            по жанру:
+
+                            @{SwapBookDbContext db = new SwapBookDbContext();
+
+                            var genreList = db.Catalogs.Select(c => new SelectListItem
+                             {
+                                 Value = c.Id.ToString(),
+                                  Text = c.Value ,
+
+                              }).ToList();
+                             }
+                        @Html.DropDownList("genreList", genreList as IEnumerable<SelectListItem>)
+
+                        </label> 

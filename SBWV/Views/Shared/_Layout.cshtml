@@ -89,34 +89,10 @@
                     </h1>
                     <div class="row"> @*затык на последующей обработке выпадающего списка и передачи для этого
                         параметра , на который кликают*@
-                        <label>
-                            по жанру:
-                     
-                            @{SwapBookDbContext db = new SwapBookDbContext();
 
-                            var genreList = db.Catalogs.Select(c => new SelectListItem
-                             {
-                                 Value = c.Id.ToString(),
-                                  Text = c.Value ,
-                                 
-                              }).ToList();
-                             } 
-                        @Html.DropDownList("genreList", genreList as IEnumerable<SelectListItem>)
-                           
-                        </label>
-                        
-                    <label>по автору:@{
-                            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
-                            var authors = swapBookDbContext.Books.Select(x => new SelectListItem
-                            {
-                                 Value = x.Author,
-                                 Text = x.Author,
-                                 
-                            }).Distinct().ToList();
-
-                        }
-                            @Html.DropDownList("authorList", authors as IEnumerable<SelectListItem>,new{AuthorName=authors.Select(x=>x).FirstOrDefault()})
-                        </label>
+                    <partial name="_GetCategoriesPartial" />
+                    <partial name="_GetAuthorsPartial" />
+ 
                     </div>
                 </form>
     @*
