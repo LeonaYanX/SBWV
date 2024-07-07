@@ -1,14 +1,13 @@
-﻿@{
-    Layout = "_Layout"; 
-   
-}
-
-
+﻿
 @using SBWV.Models.ViewModels
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 
 @model IPagedList<BookVM>
+
+@{
+    Layout = "_Layout";
+}
 
 
 <div id="catalog">
@@ -19,8 +18,12 @@
         
             @foreach (var item in Model)
             {
-        <div class="item">
-            <div class="top">
+              <div class="item">
+                  <div class="favorite-img">
+
+                    <img id="@item.Id" alt="Favorite" src="~/images/favorite-icon-size_16.png" onclick="addFavorite(@item.Id)" />
+                </div>
+              <div class="top">
                 @if (item.Pictures.Length != 0)
                 {
                     <img src="@item.Pictures.First().Src" alt="Photo" />
@@ -85,7 +88,46 @@
     
 </div>
 
-    
+<script type="text/javascript">
+
+    function addFavorite(idBook) {
+
+
+        $.ajax({
+            url: '@Url.Action("AddFavorites", "Account")',
+            data: { idBook },
+            success: function (result) {
+                //todo сердце меняет цвет добавить вместо удаления
+
+                //  $('#' + id).remove();
+                //alert(result.msg);
+            },
+            error: function (result) {
+                alert(result.msg);
+            }
+        })
+    }
+
+    // function doUpdate() {
+
+    //     var formData = {
+    //         Id: 1,
+    //         Title: $('#Title').val(),
+    //         Author: $('#Author').val(),
+    //         Src: ["1", "2", "3"]
+    //     };
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: '@Url.Action("UpdateData", "Books")',
+    //         data: formData,
+    //         success: function (result) {
+    //             alert('success')
+    //         }
+    //     })
+    // }
+
+</script>
 
 
 

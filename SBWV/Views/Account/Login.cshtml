@@ -1,34 +1,50 @@
-﻿
-<style>
-    .login
+﻿ @model SBWV.Models.Login
+
+ <div class="login"id="contact_form">
+
+    @using (@Html.BeginForm("Login", "Account"))
     {
+        @Html.EditorForModel()
+        ;
+        <br />
+        <div class="item" style="text-align:center">
+            <div class="file-input-container">
+                <label class="file-input-label" for="login">Войти</label>
+                <input id="login" class="file-input" type="submit" />
+            </div>
+
+        </div>
+        
+    }
+
+</div>
+
+<style>
+    .login {
         padding: 20px;
-        margin-top:10px;
-        margin-bottom:100px;
+        margin-top: 10px;
+        margin-bottom: 100px;
         display: flex;
         flex-flow: column;
         justify-content: center;
         text-align: center;
-         row-gap: 10px;
-        
-         
-         border: 1px solid ghostwhite;
-         
+        row-gap: 10px;
+        border: 1px solid ghostwhite;
     }
-    .login input
-    {
-         width: 250px;
-        margin: 7px auto;
-        height: 40px;
-        font-size: 18px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        display:flex;
-        flex-flow: column;
-        justify-content: center;
-        padding: 0 10px;
-        align-items: center;
-    }
+
+        .login input {
+            width: 250px;
+            margin: 7px auto;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            padding: 0 10px;
+            align-items: center;
+        }
 </style>
 
 <style>
@@ -64,29 +80,6 @@
         z-index: -1;
     }
 </style>
-
- @model SBWV.Models.Login
-
- <div class="login"id="contact_form">
-
-    @using (@Html.BeginForm("Login", "Account"))
-    {
-        @Html.EditorForModel()
-        ;
-        <br />
-        <div class="item" style="text-align:center">
-            <div class="file-input-container">
-                <label class="file-input-label" for="login">Войти</label>
-                <input id="login" class="file-input" type="submit" />
-            </div>
-
-        </div>
-        
-    }
-
-</div>
-
-
 
     
 

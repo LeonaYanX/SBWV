@@ -64,7 +64,7 @@
         <p class="description">Информация:@b.Info</p>
 
          @Html.ActionLink("Подробнее", "Details", "Books", new { idBook = b.Id })
-        
+                @Html.ActionLink("Удалить", "DeleteFavorites", "Account", new { idBook = b.Id })
      </div>
        }
 

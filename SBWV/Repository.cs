@@ -223,6 +223,14 @@ namespace SBWV
             dbContext.SaveChanges();
         }
 
+        public void DeleteFavorite(int idBook , int idUser)
+        {
+          var bookToDelete= dbContext.Favorits.FirstOrDefault(x=>x.IdBook == idBook && x.IdUser==idUser);
+            if (bookToDelete != null)
+            dbContext.Favorits.Remove(bookToDelete);
+            dbContext.SaveChanges();
+        }
+
 
     }
 }

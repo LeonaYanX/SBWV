@@ -7,7 +7,119 @@
     ViewData["Title"] = "Личный кабинет";
 };
 
-  <style>
+
+
+<div class="catalog">
+    <h1>@ViewData["Title"]</h1>
+    <div class="list">
+        <div class="item" style="text-align:center;">
+            @Html.ActionLink("Добавить книгу", "Create", "Books")
+        </div>
+    </div>
+
+    <div class="list">
+        <div class="item" style="text-align:center;">
+            @Html.ActionLink("Избранное", "Favorites", "Account")
+        </div>
+    </div>
+      
+  
+    <h4>Мои обьявления:</h4>
+
+    @if (Model.Count() == 0)
+    {
+        <h3 id="about">Ничего не найденно</h3>
+    }
+    <div class="list">
+        @foreach (var b in Model)
+        {
+            <div class="list">
+                <div class="item">
+                    <div class="top">
+
+                        @if (b.Pictures.Length != 0)
+                        {
+                            <img src="@b.Pictures.First().Src" alt="Photo" />
+                        }
+                        else
+                        {
+                            <img src="~/images/nocover.png">
+
+                        }
+
+                        <div class="info">
+                            <h1 class="title">Название: @b.Title</h1>
+                            <h2 class="author">Автор: @b.Author</h2>
+                            <h3 class="genre">Категория: @b.Category</h3>
+                            <div class="condition">
+                                <strong class="price">Цена: @b.Price</strong>
+                                <span>&nbsp;</span>
+                                <span>&nbsp;</span>
+                                <div class="img">
+                                    @if (@b.Swap)
+                                    {
+                                        <img class="true" style=" justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
+                                    }
+                                    else
+                                    {
+                                        <img class="false" style="justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
+                                    }
+                                </div>
+                               
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <p class="description">Информация: @b.Info </p>
+                    <div class="inline-links">
+                        @Html.ActionLink("подробнее", "Details", "Books", new { idBook = b.Id })
+                        <span>&nbsp;</span>
+                        @Html.ActionLink("изменить", "Edit", "Books", new { idBook = b.Id })
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                        
+                            @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, new { @class = "myLink" })
+                        
+                        
+                    </div>
+
+                </div>
+
+            </div>
+           
+       
+        }
+    </div>
+    </div>
+<script>
+
+    window.onload = function () {
+        
+    let links = document.getElementsByClassName('myLink');
+            
+            for (let i = 0; i < links.length; i++)
+            {
+            
+
+            links[i].addEventListener('click', function (event) {
+
+            if (confirm('Вы действительно хотите удалить эту книгу?'))
+            {
+
+            }
+            else
+            {
+            event.preventDefault();
+            }
+            });
+            }
+
+        };
+</script>
+
+
+<style>
     .catalog {
         display: flex;
         flex-flow: column nowrap;
@@ -94,10 +206,9 @@
                             display: flex;
                             flex-flow: row nowrap;
                             justify-content: space-around;
-                            align-items:safe center;
+                            align-items: safe center;
                             margin-top: 20px;
                             gap: 10px;
-                            
                         }
 
                             .catalog .list .item .top .info .condition img {
@@ -108,7 +219,6 @@
 
                                 .catalog .list .item .top .info .condition img.true {
                                     filter: hue-rotate(0deg);
-                                    
                                 }
 
                                 .catalog .list .item .top .info .condition img.false {
@@ -147,7 +257,7 @@
             gap: 10px;
         }
 
-           .catalog .pagination .left,
+            .catalog .pagination .left,
             .catalog .pagination .right {
                 width: 20px;
                 background: #edebe4;
@@ -164,133 +274,20 @@
                 background: #edebe4;
                 color: #daa556;
             }
-  </style>  
-
-  <style>
-      .al
-      {
-      }
-  </style>
+</style>
 
 <style>
-    .inline-links{
-    display: flex;
-    gap: 10mpx;
-    text-align:center;
+    .al {
     }
 </style>
 
-
-<div class="catalog">
-    <h1>@ViewData["Title"]</h1>
-    <div class="list">
-        <div class="item" style="text-align:center;">
-            @Html.ActionLink("Добавить книгу", "Create", "Books")
-        </div>
-    </div>
-
-    <div class="list">
-        <div class="item" style="text-align:center;">
-            @Html.ActionLink("Избранное", "Favorites", "Account")
-        </div>
-    </div>
-      
-  
-    <h4>Мои обьявления:</h4>
-
-    @if (Model.Count() == 0)
-    {
-        <h3 id="about">Ничего не найденно</h3>
+<style>
+    .inline-links {
+        display: flex;
+        gap: 10mpx;
+        text-align: center;
     }
-    <div class="list">
-        @foreach (var b in Model)
-        {
-            <div class="list">
-                <div class="item">
-                    <div class="top">
-
-                        @if (b.Pictures.Length != 0)
-                        {
-                            <img src="@b.Pictures.First().Src" alt="Photo" />
-                        }
-                        else
-                        {
-                            <img src="~/images/nocover.png">
-
-                        }
-
-                        <div class="info">
-                            <h1 class="title">Название: @b.Title</h1>
-                            <h2 class="author">Автор: @b.Author</h2>
-                            <h3 class="genre">Категория: @b.Category</h3>
-                            <div class="condition">
-                                <strong class="price">Цена: @b.Price</strong>
-                                <span>&nbsp;</span>
-                                <span>&nbsp;</span>
-                                <div class="img">
-                                    @if (@b.Swap)
-                                    {
-                                        <img class="true" style=" justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
-                                    }
-                                    else
-                                    {
-                                        <img class="false" style="justify-content:space-around;" alt="ready for change" src="~/images/icons/change.svg">
-                                    }
-                                </div>
-                               
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <p class="description">Информация: @b.Info </p>
-                    <div class="inline-links">
-                        @Html.ActionLink("подробнее", "Details", "Books", new { idBook = b.Id })
-                        <span>&nbsp;</span>
-                        @Html.ActionLink("изменить", "Edit", "Books", new { idBook = b.Id })
-                        <span>&nbsp;</span>
-                        <span>&nbsp;</span>
-                        <div class="al">
-                            @Html.ActionLink("удалить", "Delete", "Books", new { idBook = b.Id }, new { @class = "myLink" })
-                        </div>
-                        
-                    </div>
-
-                </div>
-
-            </div>
-           
-       
-        }
-    </div>
-    </div>
-<script>
-
-    window.onload = function () {
-        
-    let links = document.getElementsByClassName('myLink');
-            
-            for (let i = 0; i < links.length; i++)
-            {
-            
-
-            links[i].addEventListener('click', function (event) {
-
-            if (confirm('Вы действительно хотите удалить эту книгу?'))
-            {
-
-            }
-            else
-            {
-            event.preventDefault();
-            }
-            });
-            }
-
-        };
-</script>
-   
-
+</style>
 
 
 

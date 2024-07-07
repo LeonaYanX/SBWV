@@ -1,10 +1,8 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers;
-
-@model SBWV.Models.Register
-<style>
+﻿<style>
     .file-input-container {
-        overflow: hidden;
-        position: relative;
+        overflow: auto;
+        /*overflow: hidden;
+                position: relative;*/
     }
 
     .file-input-label {
@@ -36,40 +34,39 @@
 </style>
 
 <style>
-    .register
-    {
+    .register {
         padding: 20px;
-        margin-top:10px;
-        margin-bottom:100px;
+        margin-top: 10px;
+        margin-bottom: 100px;
         display: flex;
         flex-flow: column;
         justify-content: center;
         text-align: center;
-         row-gap: 10px;
-        
-         
-         border: 1px solid ghostwhite;
-         
+        row-gap: 10px;
+        border: 1px solid ghostwhite;
     }
-    .register input
-    {
-         width: 250px;
-        margin: 7px auto;
-        height: 40px;
-        font-size: 18px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        display:flex;
-        flex-flow: column;
-        justify-content: center;
-        padding: 0 10px;
-        align-items: center;
-    }
-        
+
+        .register input {
+            width: 250px;
+            margin: 7px auto;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            padding: 0 10px;
+            align-items: center;
+        }
+
     }
 </style>
 
 
+@using Microsoft.AspNetCore.Mvc.TagHelpers;
+
+@model SBWV.Models.Register
 
 <div id="catalog" class="register">
     

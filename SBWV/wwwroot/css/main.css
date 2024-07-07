@@ -728,3 +728,24 @@ body footer .navigation .social img {
         cursor: not-allowed;
     }
 
+    /*Favorive image*/
+
+.favorite-img {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: filter 0.3s;
+}
+
+    .favorite-img img {
+        width: 16px; 
+        height: 16px; 
+    }
+
+    .favorite-img:active {
+        filter: hue-rotate(220deg); /* Изменение цвета при клике */
+    }
+
+
+

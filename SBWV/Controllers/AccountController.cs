@@ -84,7 +84,7 @@ namespace SBWV.Controllers
 
                 HttpContext.Session.SetInt32("user", user.Id);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Info", "Account");
             }
             else
             {
@@ -132,6 +132,22 @@ namespace SBWV.Controllers
                return RedirectToAction("Login");
             }
         
+        }
+        public IActionResult DeleteFavorites(int idBook)
+        {
+            if (IsUserLogged()) 
+            {
+            var userId = GetUserId();
+                repo.DeleteFavorite(idBook , userId);
+                return RedirectToAction("Favorites", "Account");
+}
+            else
+            {
+                return RedirectToAction("Login");
+            }
+           
+           
+         
         }
 
         public JsonResult AddFavorites(int idBook)

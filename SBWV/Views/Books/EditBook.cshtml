@@ -1,118 +1,4 @@
-﻿<style>
-    #container {
-        display: flex;
-        flex-direction:row;
-        justify-content: center;
-        justify-items: center;
-        align-items: center;
-        align-content: center;
-        align-self:center;
-    }
-
-        #container .login {
-            display: flex;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 100px;
-            align-items: center;
-            flex-flow: row;
-            justify-content: center;
-            text-align: center;
-            row-gap: 10px;
-            border: 1px solid ghostwhite;
-        }
-
-            #container .login input {
-                width: 250px;
-                margin: 7px auto;
-                height: 40px;
-                font-size: 18px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                display: flex;
-                flex-flow: row;
-                justify-content: center;
-                justify-items: center;
-                padding: 0 10px;
-                align-items: center;
-                align-content: center;
-            }
-</style>
-
-
-<style>
-
-    .file-input-container {
-        overflow: hidden;
-        position: relative;
-    }
-
-    .file-input-label {
-        background: #f3f2ec;
-        padding: 8px 15px;
-        cursor: pointer;
-        font-family: Raleway, sans, sans-serif;
-        font-size: 14px;
-        text-align: center;
-        color: #daa556;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-    }
-
-        .file-input-label:hover {
-            text-decoration: underline;
-        }
-
-    .file-input {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        position: absolute;
-        z-index: -1;
-    }
-</style>
-
-
-<style>
-    .register {
-        margin-left:150%;
-        padding: 20px;
-        margin-top: 10px;
-        margin-bottom: 100px;
-        display:flex;
-        justify-items:center;
-        justify-self:center;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        align-self: center;
-        text-align: center;
-        row-gap: 10px;
-        
-    }
-
-        .register input {
-            width: 250px;
-            margin: 7px auto;
-            height: 40px;
-            font-size: 18px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            padding: 0 10px;
-            align-items: center;
-        }
-
-    }
-</style>
-
-@using SBWV.Models.ViewModels
+﻿@using SBWV.Models.ViewModels
 
 @model BookVM
 
@@ -120,10 +6,6 @@
 <div  class="register" enctype="multipart/form-data">
 
     <form asp-action="edit" asp-controller="Books" asp-route-id="@Model.Id" >
-
-           
-
-        
 
                           <h1>Редактировать</h1>
                    
@@ -226,48 +108,122 @@
 
 </div>
 
-<style>
-    .container {
-        position: relative;
-        width: 100%;
-        max-width: 400px;
-    }
 
-        .container img {
-            width: 50%;
-            height: auto;
+
+
+   ﻿<style>
+        #container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            align-content: center;
+            align-self: center;
         }
 
-        .container .btn {
-            border-radius: 5px;
-        }
+            #container .login {
+                display: flex;
+                padding: 10px;
+                margin-top: 10px;
+                margin-bottom: 100px;
+                align-items: center;
+                flex-flow: row;
+                justify-content: center;
+                text-align: center;
+                row-gap: 10px;
+                border: 1px solid ghostwhite;
+            }
 
-    .btn {
-        position: absolute;
-        top: 65%;
-        left: 32%;
-        /*  transform: translate(-50%, -50%);
-                            -ms-transform: translate(-50%, -50%); */
-
-        text-align: center;
-        color: black;
-        font-size: 10px;
-        cursor: pointer;
-        /* border: none; */
-        /**/
-        background-color: white;
-    }
-
-        .btn:hover {
-            /*    background-color: gray; */
-            color: red;
-        }
-
+                #container .login input {
+                    width: 250px;
+                    margin: 7px auto;
+                    height: 40px;
+                    font-size: 18px;
+                    border-radius: 5px;
+                    border: 1px solid #ccc;
+                    display: flex;
+                    flex-flow: row;
+                    justify-content: center;
+                    justify-items: center;
+                    padding: 0 10px;
+                    align-items: center;
+                    align-content: center;
+                }
 </style>
 
 
-       
+<style>
+
+    .file-input-container {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .file-input-label {
+        background: #f3f2ec;
+        padding: 8px 15px;
+        cursor: pointer;
+        font-family: Raleway, sans, sans-serif;
+        font-size: 14px;
+        text-align: center;
+        color: #daa556;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .file-input-label:hover {
+            text-decoration: underline;
+        }
+
+    .file-input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+</style>
+
+
+<style>
+    .register {
+        margin-left: 150%;
+        padding: 20px;
+        margin-top: 10px;
+        margin-bottom: 100px;
+        display: flex;
+        justify-items: center;
+        justify-self: center;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        align-self: center;
+        text-align: center;
+        row-gap: 10px;
+    }
+
+        .register input {
+            width: 250px;
+            margin: 7px auto;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            padding: 0 10px;
+            align-items: center;
+        }
+
+    }
+</style>
 
 
 
-       
+
