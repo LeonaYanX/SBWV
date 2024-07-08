@@ -1,4 +1,5 @@
 ﻿@using SBWV.Controllers
+@model SBWV.Models.ViewModels.SearchFilter
 
 <label>
     по автору:@{
@@ -11,5 +12,7 @@
             }).Distinct().ToList();
 
     }
-    @Html.DropDownList("authorList", authors as IEnumerable<SelectListItem>, new { AuthorName = authors.Select(x => x).FirstOrDefault() })
+    @Html.DropDownListFor(mbox => mbox.Author, authors as IEnumerable<SelectListItem>)
 </label>
+
+<span>&nbsp;</span>@Html.ActionLink("Поиск", "Search" , "DropCategoryController", new {author = Model.Author})

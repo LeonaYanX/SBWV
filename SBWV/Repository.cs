@@ -5,8 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using SQLitePCL;
-using System.Web.Mvc;
+//using System.Web.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SBWV
 {
@@ -231,6 +232,14 @@ namespace SBWV
             dbContext.SaveChanges();
         }
 
+        public IEnumerable<BookVM> Search(string author)
+        {
+            var books = dbContext.Books.Where(x => x.Author == author).Select(y=> GetBookVM(y.Id));
+            
+
+            return books;
+
+        }
 
     }
 }
