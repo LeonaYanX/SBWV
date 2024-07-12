@@ -28,11 +28,26 @@ namespace SBWV.Controllers
             return View("_GetAuthorsPartial");
         }
 
-        public IActionResult Search(string author) 
+        public IActionResult Search(string input)
         {
-             var bookList = repo.Search(author);
+            // var bookList = repo.Search(author);
+            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
+            if (String.IsNullOrEmpty(input))
+                return View( swapBookDbContext.Books.Select(b=>GetBookModel.GetBookVM(b)).ToList());
 
-            return View("BooksList", bookList);
+            input = input.ToLower();
+
+            var bookListCategory = swapBookDbContext.Books.Where(b => b.IdCatalogNavigation.Value.ToLower().Contains(input)).ToList();
+            var bookListTitle = swapBookDbContext.Books.Where(b => b.Title.ToLower().Contains(input)).ToList();
+            var bookListAuthor = swapBookDbContext.Books.Where(b => b.Author.ToLower().Contains(input)).ToList();
+
+            bookListCategory.AddRange(bookListTitle);
+            bookListCategory.AddRange(bookListAuthor);
+
+            var bookList = bookListCategory.Distinct().Select(w=>GetBookModel.GetBookVM(w));
+
+            
+            return View( bookList);
         }
     }
 }

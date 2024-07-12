@@ -2,7 +2,7 @@
 {
     public class SearchFilter
     {
-        public string Author { get; set; }
+        public string Input { get; set; }
         
 
     }
