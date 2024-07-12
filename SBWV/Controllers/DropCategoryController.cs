@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace SBWV.Controllers
@@ -35,11 +36,16 @@ namespace SBWV.Controllers
             if (String.IsNullOrEmpty(input))
                 return View( swapBookDbContext.Books.Select(b=>GetBookModel.GetBookVM(b)).ToList());
 
+            
             input = input.ToLower();
 
-            var bookListCategory = swapBookDbContext.Books.Where(b => b.IdCatalogNavigation.Value.ToLower().Contains(input)).ToList();
-            var bookListTitle = swapBookDbContext.Books.Where(b => b.Title.ToLower().Contains(input)).ToList();
-            var bookListAuthor = swapBookDbContext.Books.Where(b => b.Author.ToLower().Contains(input)).ToList();
+           
+            var allBooks = swapBookDbContext.Books.ToList();
+
+
+            var bookListCategory = swapBookDbContext.Books.Where(p => EF.Functions.Like(p.IdCatalogNavigation.Value.ToLower(), "%" + input + "%")).ToList();
+            var bookListTitle = swapBookDbContext.Books.Where(b => b.Title.ToLower().IndexOf(input) >= 0).ToList();
+            var bookListAuthor = allBooks.Where(p => p.Author.ToLower().Contains( input )).ToList();
 
             bookListCategory.AddRange(bookListTitle);
             bookListCategory.AddRange(bookListAuthor);
