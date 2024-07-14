@@ -1,4 +1,4 @@
-using Microsoft.Extensions.FileProviders;
+﻿using Microsoft.Extensions.FileProviders;
 
 namespace SBWV
 {
@@ -8,7 +8,7 @@ namespace SBWV
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<SwapBookDbContext>(ServiceLifetime.Singleton);
+            builder.Services.AddDbContext<SwapBookDbContext>();
             builder.Services.AddTransient<Repository>();
 
             // Adding Session
@@ -30,15 +30,25 @@ namespace SBWV
 
             var app = builder.Build();
 
+           
 
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error"); // Перенаправление на метод в контроллере при ошибке
+                app.UseHsts();
+            }
 
-            // Configure the HTTP request pipeline.
+           /* // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+            }*/
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -53,6 +63,8 @@ namespace SBWV
             app.UseRouting();
 
             app.UseAuthorization();
+
+        
 
             app.MapControllerRoute(
                 name: "default",

@@ -4,6 +4,7 @@ using SBWV.Models;
 using SBWV.Controllers;
 using Microsoft.EntityFrameworkCore;
 using SBWV.Models.ViewModels;
+using System.Net;
 
 namespace SBWV.Controllers
 {
@@ -152,13 +153,16 @@ namespace SBWV.Controllers
 
         public JsonResult AddFavorites(int idBook)
         {
+
             if (IsUserLogged())
             {
                 try
                 {
                     var userId = GetUserId();
-                    repo.AddFavorite(userId, idBook);
-                    return Json(new { success = true, msg = "Книга добавлена в избранное" });
+
+                   var isAdded= repo.AddFavorite(userId, idBook);
+                    
+                    return Json(new { success = true, msg = isAdded ? "Книга добавлена в избранное" : "Книга удалена из избранного"  });
                 }
 
                 
@@ -171,7 +175,8 @@ namespace SBWV.Controllers
             }
             else 
             {
-                return Json(new {success= false , msg="Вы не авторизированны" });
+                Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return Json(new { success= false , msg="Вы не авторизированны" });
             }
         }
 

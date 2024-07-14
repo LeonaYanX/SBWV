@@ -76,47 +76,51 @@
 
     </div>
 
-
+    
     <script type="text/javascript">
 
-        function addFavorite(idBook) {
-           
+    function addFavorite(idBook) {
 
-            $.ajax({
-                url: '@Url.Action("AddFavorites", "Account")',
-                data: { idBook },
-                success: function (result) {
-        //todo сердце меняет цвет добавить вместо удаления
 
-                  //  $('#' + id).remove();
-                    //alert(result.msg);
-                },
-                error: function (result) {
-                    alert(result.msg);
-                }
-            })
-        }
+    $.ajax({
+    url: '@Url.Action("AddFavorites", "Account")',
+    data: { idBook },
+    success: function (result) {
+    alert(result.msg);
+    //todo сердце меняет цвет добавить вместо удаления
 
-        // function doUpdate() {
+    //  $('#' + id).remove();
+    //alert(result.msg);
+    },
+    error: function (result) {
 
-        //     var formData = {
-        //         Id: 1,
-        //         Title: $('#Title').val(),
-        //         Author: $('#Author').val(),
-        //         Src: ["1", "2", "3"]
-        //     };
+    window.location.href = '/Account/Login'
+    }
+    })
+    }
 
-        //     $.ajax({
-        //         type: "POST",
-        //         url: '@Url.Action("UpdateData", "Books")',
-        //         data: formData,
-        //         success: function (result) {
-        //             alert('success')
-        //         }
-        //     })
-        // }
+    // function doUpdate() {
+
+    //     var formData = {
+    //         Id: 1,
+    //         Title: $('#Title').val(),
+    //         Author: $('#Author').val(),
+    //         Src: ["1", "2", "3"]
+    //     };
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: '@Url.Action("UpdateData", "Books")',
+    //         data: formData,
+    //         success: function (result) {
+    //             alert('success')
+    //         }
+    //     })
+    // }
 
     </script>
+    
+
 
 
 

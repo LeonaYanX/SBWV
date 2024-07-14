@@ -210,18 +210,33 @@ namespace SBWV
             
         }
 
-        public void AddFavorite(int idUser , int idBook) 
+        public bool AddFavorite(int idUser , int idBook) 
         {
-            var favorite = new Favorit() { IdBook = idBook, IdUser = idUser };
-            if (favorite != null)
+            bool result;
+            if (dbContext.Favorits.Any(f => f.IdBook == idBook && f.IdUser == idUser))
             {
-                // Отсоединить отслеживаемую сущность, чтобы избежать конфликта
-
-                dbContext.Entry(favorite).State = EntityState.Detached;
+                dbContext.Favorits.Remove(dbContext.Favorits.FirstOrDefault(f => f.IdBook == idBook && f.IdUser == idUser));
+                result = false;
             }
-            dbContext.Favorits.Add(favorite);
+            else 
+            {
+                var favorite = new Favorit() { IdBook = idBook, IdUser = idUser };
+
+                dbContext.Favorits.Add(favorite);
+
+                result = true;
+               
+            }
 
             dbContext.SaveChanges();
+
+            return result;
+
+            // Отсоединить отслеживаемую сущность, чтобы избежать конфликта
+
+            //dbContext.Entry(favorite).State = EntityState.Detached;
+
+
         }
 
         public void DeleteFavorite(int idBook , int idUser)
