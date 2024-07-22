@@ -40,7 +40,7 @@ namespace SBWV.Controllers
         }
         public IActionResult Categories() 
         {
-            return View("Categories1", new SwapBookDbContext().Catalogs.ToList());
+            return View("Categories", new SwapBookDbContext().Catalogs.ToList());
         }
 
 
