@@ -42,6 +42,8 @@ public partial class SwapBookDbContext : DbContext
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.Swap).HasColumnName("swap");
             entity.Property(e => e.Title).HasColumnName("title");
+            entity.Property(e => e.TitleLC).HasColumnName("TitleLC");
+            entity.Property(e => e.AuthorLC).HasColumnName("AuthorLC");
 
             entity.HasOne(d => d.IdCatalogNavigation).WithMany(p => p.Books).HasForeignKey(d => d.IdCatalog);
 

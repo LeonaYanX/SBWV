@@ -8,6 +8,9 @@ using SQLitePCL;
 //using System.Web.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Unidecode.NET;
 
 namespace SBWV
 {
@@ -119,12 +122,17 @@ namespace SBWV
         public void UpdateBook(Book book)
         {
             var trackedEntity = dbContext.Books.Local.FirstOrDefault(b => b.Id == book.Id);
+            // todo delete after written the part of code
             if (trackedEntity != null)
             {
                 // Отсоединить отслеживаемую сущность, чтобы избежать конфликта
 
                 dbContext.Entry(trackedEntity).State = EntityState.Detached;
             }
+            book.AuthorLC = (book.Author).ToLower();
+            book.TitleLC = (book.Title).ToLower();
+
+             
 
             dbContext.Books.Update(book);
             dbContext.SaveChanges();
@@ -145,6 +153,9 @@ namespace SBWV
 
         public void AddBook(Book book) 
         {
+            book.AuthorLC = (book.Author).ToLower();
+            book.TitleLC = (book.Title).ToLower();
+
             dbContext.Books.Add(book);
             dbContext.SaveChanges();
         }
@@ -256,5 +267,39 @@ namespace SBWV
 
         }
 
+        public IPagedList<BookVM> Pagination(IEnumerable<BookVM> bookList , int? page)
+        {
+           
+            int pageNumber = page ?? 1;
+            int pageSize = 2;
+
+            var items = bookList.ToPagedList(pageNumber, pageSize);
+
+            return items;
+        }
+
+        public IEnumerable<BookVM> GetSearchResult(string input)
+        {
+            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
+            input = input.ToLower();
+
+            var trasliteratedInputFromRussian = input.Unidecode();
+
+            var allBooks = swapBookDbContext.Books.ToList();
+
+            var bookListTitle = swapBookDbContext.Books.Where(b => b.TitleLC.Contains(input)
+            || b.TitleLC.Contains(trasliteratedInputFromRussian)
+            ).ToList();
+            var bookListAuthor = allBooks.Where(p => p.AuthorLC.Contains(input)
+            || p.AuthorLC.Contains(trasliteratedInputFromRussian)
+            ).ToList();
+
+            bookListTitle.AddRange(bookListTitle);
+            bookListTitle.AddRange(bookListAuthor);
+
+            var bookList = bookListTitle.Distinct().Select(w => GetBookModel.GetBookVM(w));
+
+            return bookList;
+        }
     }
 }

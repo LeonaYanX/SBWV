@@ -1,90 +1,84 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using SBWV.Models;
 using SBWV.Models.ViewModels;
-using System.Buffers.Text;
-using System.Net.WebSockets;
-using static System.Reflection.Metadata.BlobBuilder;
-using SBWV;
 
 
 namespace SBWV.Controllers
 {
-    public class BooksController: BaseController
+    public class BooksController : BaseController
     {
-        private Repository repo;
+        private readonly Repository? repo;
 
         public BooksController(Repository repository)
         {
             repo = repository;
         }
 
-       
+
         public IActionResult List(int idCategory)
         {
-          /*  using (var db = new SwapBookDbContext())
-            {
-                var m = db.Books.Where(b => b.IdCatalog == idCategory).Include("IdCatalogNavigation")
-                    .Include(c => c.Galaries)
-                    .ToList();
-                List<BookVM> bookVMs = new List<BookVM>();
+            /*  using (var db = new SwapBookDbContext())
+              {
+                  var m = db.Books.Where(b => b.IdCatalog == idCategory).Include("IdCatalogNavigation")
+                      .Include(c => c.Galaries)
+                      .ToList();
+                  List<BookVM> bookVMs = new List<BookVM>();
 
-                for (int i = 0; i < m.Count(); i++)
-                {
-                    bookVMs.Add(new GetBookModel().GetBookVM(m[i]));
-                }
+                  for (int i = 0; i < m.Count(); i++)
+                  {
+                      bookVMs.Add(new GetBookModel().GetBookVM(m[i]));
+                  }
 
-                return View("BooksList", bookVMs);
-            }*/
+                  return View("BooksList", bookVMs);
+              }*/
 
-            return View("BooksList",repo.GetBooksByCategory(idCategory));
+            return View("BooksList", repo?.GetBooksByCategory(idCategory));
         }
 
         public IActionResult Delete(int idBook)
         {
-           /* using (var dbContext = new SwapBookDbContext())
-            {
-                var bookToDelete = dbContext.Books.Include(e => e.Galaries).FirstOrDefault(e=> e.Id == idBook);
-               if (bookToDelete != null)
-               {
-                    dbContext.Books.Remove(bookToDelete);
-                    dbContext.SaveChanges();
-                    return RedirectToAction("Info", "Account");
-               }*/
-               repo.DeleteBook(idBook);
+            /* using (var dbContext = new SwapBookDbContext())
+             {
+                 var bookToDelete = dbContext.Books.Include(e => e.Galaries).FirstOrDefault(e=> e.Id == idBook);
+                if (bookToDelete != null)
+                {
+                     dbContext.Books.Remove(bookToDelete);
+                     dbContext.SaveChanges();
+                     return RedirectToAction("Info", "Account");
+                }*/
+            repo?.DeleteBook(idBook);
             return RedirectToAction("Info", "Account");
-           /*    else
-               {
-                todo view error 
-                   return View();
-                }
+            /*    else
+                {
+                 todo view error 
+                    return View();
+                 }
 
-           }*/
+            }*/
         }
 
         public IActionResult Details(int idBook)
         {
-           /* using (var dbContext = new SwapBookDbContext())
-            {
-                var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
+            /* using (var dbContext = new SwapBookDbContext())
+             {
+                 var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
 
-                var book = new GetBookModel().GetBookVM(e);
-                //
+                 var book = new GetBookModel().GetBookVM(e);
+                 //
 
-                book.Email = e.IdUserNavigation.Email;
+                 book.Email = e.IdUserNavigation.Email;
 
-                book.Telephone = e.IdUserNavigation.Phone;
+                 book.Telephone = e.IdUserNavigation.Phone;
 
 
-                // добавляем изображения
-                //book.Src = 
+                 // добавляем изображения
+                 //book.Src = 
 
-                return View("BookDetails", book);
-            }*/
+                 return View("BookDetails", book);
+             }*/
 
-            return View("BookDetails",repo.GetBookVM(idBook));
+            return View("BookDetails", repo?.GetBookVM(idBook));
         }
 
         // EDIT 
@@ -96,35 +90,35 @@ namespace SBWV.Controllers
             {
 
 
-                 var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation")
-                        .FirstOrDefault(b => b.Id == idBook);
+                var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation")
+                       .FirstOrDefault(b => b.Id == idBook);
 
-                 var categories = dbContext.Catalogs.Select(c => new SelectListItem
-                 {
-                  Value = c.Id.ToString(),
-                  Text = c.Value
-                 ,
-                 Selected = e.IdCatalog == c.Id
-                 }).ToList();
-               
-              // Error with Repository Category method
-              //  ViewBag.Categories = repo.GetSelectListCategoryEdit(idBook);
+                var categories = dbContext.Catalogs.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Value
+                ,
+                    Selected = e.IdCatalog == c.Id
+                }).ToList();
 
-               ViewBag.Categories = categories;
+                // Error with Repository Category method
+                //  ViewBag.Categories = repo.GetSelectListCategoryEdit(idBook);
+
+                ViewBag.Categories = categories;
 
                 var eVM = GetBookModel.GetBookVM(e);
 
-              // var eVM = new GetBookModelC().GetBookVM(e);
+                // var eVM = new GetBookModelC().GetBookVM(e);
 
-            // var eVM = repo.GetBookVM(idBook);
+                // var eVM = repo.GetBookVM(idBook);
                 return View("EditBook", eVM);
             }
 
         }
         [HttpPost]
-        public IActionResult Edit(BookVM eVM , IFormFile[] files)
+        public IActionResult Edit(BookVM eVM, IFormFile[] files)
         {
-          //  SwapBookDbContext db = new SwapBookDbContext();
+            //  SwapBookDbContext db = new SwapBookDbContext();
 
 
             Book book = new Book()
@@ -145,46 +139,42 @@ namespace SBWV.Controllers
 
             foreach (var f in files)
             {
-                using (var st = f.OpenReadStream())
-                {
-                    byte[] images = new byte[f.Length];
-                    st.Read(images, 0, images.Length);
+                using var st = f.OpenReadStream();
+                byte[] images = new byte[f.Length];
+                st.Read(images, 0, images.Length);
 
-                    Galary galary = new Galary() { Photo = images };
-                    book.Galaries.Add(galary);
-                }
+                Galary galary = new() { Photo = images };
+                book.Galaries.Add(galary);
             }
 
-            repo.UpdateBook(book);
+            repo?.UpdateBook(book);
 
-          //  db.Books.Update(book);
+            //  db.Books.Update(book);
             //db.SaveChanges();
             return RedirectToAction("Info", "Account");
- 
-          
+
+
         }
         // Удаление фото книги
         public JsonResult DeletePhoto(int id)
         {
-            using (var db = new SwapBookDbContext())
+            using var db = new SwapBookDbContext();
+            // var galary = db.Galaries.Find(id);
+            var galary = repo?.GetGalary(id);
+            if (galary != null)
             {
-                // var galary = db.Galaries.Find(id);
-                var galary = repo.GetGalary(id);
-                if (galary != null)
-                {
-                   /* db.Galaries.Remove(galary);
-                    db.SaveChanges();*/
-                   repo.RemoveGalary(galary);
-                    return Json(new { success = true, msg = "Фото книги удалено" });
-                }
-                else
-                {
-                    return Json(new { success = false, msg = "Фото книги не найдено" });
-                }
+                /* db.Galaries.Remove(galary);
+                 db.SaveChanges();*/
+                repo?.RemoveGalary(galary);
+                return Json(new { success = true, msg = "Фото книги удалено" });
+            }
+            else
+            {
+                return Json(new { success = false, msg = "Фото книги не найдено" });
             }
         }
 
-      
+
 
 
         public IActionResult Create()
@@ -196,7 +186,7 @@ namespace SBWV.Controllers
 
                 ViewBag.Categories = categories;
             }
-            
+
 
             // Error doing with Repository
             //ViewBag.Categories = repo.GetSelectListCategory();
@@ -213,45 +203,43 @@ namespace SBWV.Controllers
 
         public IActionResult Create(BookVM newBook, IFormFile[] files)
         {
-            if ((newBook.Title==null) || (newBook.Author == null))
+            if ((newBook.Title == null) || (newBook.Author == null))
             {
-            return RedirectToAction("Create", "Books");
+                return RedirectToAction("Create", "Books");
             }
-           // using (var dbContext = new SwapBookDbContext())
-           // {
-                Book book = new Book
-                {
-                    Author = newBook.Author,
-                    Title = newBook.Title,
-                    Info = newBook.Info,
-                    Price = newBook.Price,
-                    IdCatalog = Convert.ToInt32(newBook.Category)
-                };
+            // using (var dbContext = new SwapBookDbContext())
+            // {
+            Book book = new Book
+            {
+                Author = newBook.Author,
+                Title = newBook.Title,
+                Info = newBook.Info,
+                Price = newBook.Price,
+                IdCatalog = Convert.ToInt32(newBook.Category)
+            };
 
-                book.Swap = newBook.Swap == true ? 1 : 0;
+            book.Swap = newBook.Swap == true ? 1 : 0;
 
 
-                foreach (var f in files)
-                {
-                    using (var st = f.OpenReadStream())
-                    {
-                        byte[] images = new byte[f.Length];
-                        st.Read(images, 0, images.Length);
+            foreach (var f in files)
+            {
+                using var st = f.OpenReadStream();
+                byte[] images = new byte[f.Length];
+                st.Read(images, 0, images.Length);
 
-                        Galary galary = new Galary() { Photo = images };
-                        book.Galaries.Add(galary);
-                    }
-                }
+                Galary galary = new() { Photo = images };
+                book.Galaries.Add(galary);
+            }
 
-                book.IdUser = GetUserId();
+            book.IdUser = GetUserId();
 
-                /*dbContext.Books.Add(book);
-                dbContext.SaveChanges();*/
+            /*dbContext.Books.Add(book);
+            dbContext.SaveChanges();*/
 
-                repo.AddBook(book);
+            repo?.AddBook(book);
 
-                return RedirectToAction("Details", "Books", new { idBook = book.Id });
-           // }
+            return RedirectToAction("Details", "Books", new { idBook = book.Id });
+            // }
         }
 
         private static string GetBase64Image(byte[] bytes)

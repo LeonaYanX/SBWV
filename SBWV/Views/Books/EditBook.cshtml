@@ -1,52 +1,52 @@
-﻿@using SBWV.Models.ViewModels
+﻿﻿@using SBWV.Models.ViewModels
 
 @model BookVM
 
 
-<div  class="register" enctype="multipart/form-data">
+<div class="catalog" enctype="multipart/form-data">
 
-    <form asp-action="edit" asp-controller="Books" asp-route-id="@Model.Id" >
+    <form asp-action="edit" asp-controller="Books" asp-route-id="@Model.Id">
 
-                          <h1>Редактировать</h1>
-                   
-                       <label asp-for="Title">Название:</label><br />
-                       <input type="text" asp-for="Title" />
-                       <br />
-                     <label asp-for="Author">Автор: </label><br />
-                     <input type="text" asp-for="Author"></input>
-                     <br />
-                    <label asp-for="Price">Цена: </label><br />
-                    <input type="number" asp-for="Price"></input>
-            <br />
-            <label asp-for="Swap">Обмен</label><br />
-            <input type="checkbox" asp-for="Swap"></input>
-            <br />
-            @Html.DropDownListFor(m => m.Category, @ViewBag.Categories as List<SelectListItem>)
-            <br />
-            <label asp-for="Info">Информация</label><br />
-            <input type="text" asp-for="Info" />
-            <br />
-            <label asp-for="EditPhoto">Изображения:</label><br />
-            <br />
-            <div >
+        <h1>Редактировать</h1>
+
+        <label asp-for="Title">Название:</label><br />
+        <input type="text" asp-for="Title" />
+        <br />
+        <label asp-for="Author">Автор: </label><br />
+        <input type="text" asp-for="Author"></input>
+        <br />
+        <label asp-for="Price">Цена: </label><br />
+        <input type="number" asp-for="Price"></input>
+        <br />
+        <label asp-for="Swap">Обмен</label><br />
+        <input type="checkbox" asp-for="Swap"></input>
+        <br />
+        @Html.DropDownListFor(m => m.Category, @ViewBag.Categories as List<SelectListItem>)
+        <br />
+        <label asp-for="Info">Информация</label><br />
+        <input type="text" asp-for="Info" />
+        <br />
+        <label asp-for="EditPhoto">Изображения:</label><br />
+        <br />
+        <div>
             @if (Model.Pictures != null)
             {
 
                 @foreach (var i in Model.Pictures)
                 {
 
-                        <div class="container" enctype="multipart/form-data" id="@i.Id">
-                            <img src="@i.Src" alt="Photo" />
-                            <button class="btn" type="button" onclick="onDelete(@i.Id)">удалить</button>
-                        </div>
-                        <br />
+                    <div class="container" enctype="multipart/form-data" id="@i.Id">
+                        <img src="@i.Src" alt="Photo" />
+                        <button class="btn" type="button" onclick="onDelete(@i.Id)">удалить</button>
+                    </div>
+                    <br />
 
                 }
 
             }
-            
+
             <br />
-            <div  enctype="multipart/form-data">
+            <div enctype="multipart/form-data">
                 <span>&nbsp;</span> <label>Выберите файл</label>
                 <span>&nbsp;</span><input type="file" name="files" multiple />
             </div>
@@ -61,50 +61,50 @@
                 </div>
             </div>
         </div>
-            
-              
 
-                <script type="text/javascript">
 
-                    function onDelete(id) {
-                        if (!confirm("Удалить фото?"))
-                            return;
 
-                        $.ajax({
-                            url: '@Url.Action("DeletePhoto", "Books")',
-                            data: { id },
-                            success: function (result) {
-                                $('#' + id).remove();
-                                //alert(result.msg);
-                            },
-                            error: function (result) {
-                                alert(result.msg);
-                            }
-                        })
+        <script type="text/javascript">
+
+            function onDelete(id) {
+                if (!confirm("Удалить фото?"))
+                    return;
+
+                $.ajax({
+                    url: '@Url.Action("DeletePhoto", "Books")',
+                    data: { id },
+                    success: function (result) {
+                        $('#' + id).remove();
+                        //alert(result.msg);
+                    },
+                    error: function (result) {
+                        alert(result.msg);
                     }
+                })
+            }
 
-                    // function doUpdate() {
+            // function doUpdate() {
 
-                    //     var formData = {
-                    //         Id: 1,
-                    //         Title: $('#Title').val(),
-                    //         Author: $('#Author').val(),
-                    //         Src: ["1", "2", "3"]
-                    //     };
+            //     var formData = {
+            //         Id: 1,
+            //         Title: $('#Title').val(),
+            //         Author: $('#Author').val(),
+            //         Src: ["1", "2", "3"]
+            //     };
 
-                    //     $.ajax({
-                    //         type: "POST",
-                    //         url: '@Url.Action("UpdateData", "Books")',
-                    //         data: formData,
-                    //         success: function (result) {
-                    //             alert('success')
-                    //         }
-                    //     })
-                    // }
+            //     $.ajax({
+            //         type: "POST",
+            //         url: '@Url.Action("UpdateData", "Books")',
+            //         data: formData,
+            //         success: function (result) {
+            //             alert('success')
+            //         }
+            //     })
+            // }
 
-                </script> 
+        </script>
 
- </form>
+    </form>
 
 </div>
 
@@ -223,7 +223,3 @@
 
     }
 </style>
-
-
-
-

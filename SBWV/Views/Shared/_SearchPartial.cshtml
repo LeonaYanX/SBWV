@@ -1,12 +1,17 @@
 ﻿@using SBWV.Controllers
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using X.PagedList.Mvc.Core
+
+
+<link rel="stylesheet" href="~/css/Search.css"> 
 
 
 
 
+<input type="text" id="input" name="input" />
+<span>&nbsp;</span>
+<button class="button" title="Поиск" type="button" onclick="window.location.href='/Search/Search?input=' + document.getElementById('input').value">Поиск</button>
 
-<button  title="Поиск" type="button" onclick="window.location.href='/DropCategory/Search?input=' + document.getElementById('input').value"></button>
-<input type="text" id="input" name="input"></input>
 
 
 

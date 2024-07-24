@@ -27,5 +27,7 @@ public partial class Book
 
     public virtual User? IdUserNavigation { get; set; }
 
+    public string ?AuthorLC { get; set; } 
+    public string ?TitleLC { get; set; } 
     
 }
