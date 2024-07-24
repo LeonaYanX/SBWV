@@ -17,10 +17,18 @@
      
     @foreach (var b in Model)
         {
-      <div class="item">
+            <div class="item">
                 <div class="favorite-img">
+                    @{
+                     
 
-                    <img id="@b.Id" alt="Favorite" src="~/images/favorite-icon-size_16.png" onclick="addFavorite(@b.Id)" />
+                      string  srcFavorite = b.IsFavourite ? "/images/favoriteRed.png" : "/images/favoriteBlack.png";
+                    }
+
+
+
+                    <img id="@b.Id" alt="Favorite" src=@srcFavorite onclick="addFavorite(@b.Id)" />
+
                 </div>
         <div class="top">
            <div class="img">
@@ -50,12 +58,12 @@
                                 @{
                                 if (@b.Swap == true)
                                 {
-                                      <img class="true" alt="ready for swap" src="~/images/icons/change.svg">
+                                                  <img class="true" alt="ready for swap" src="~/images/icons/change.svg">
                                 }
                                 
                                 else
                                 {
-                                      <img class="false" alt="ready for change" src="~/images/icons/change.svg">
+                                                  <img class="false" alt="ready for change" src="~/images/icons/change.svg">
                                 }
                         }
                               
@@ -87,6 +95,14 @@
     data: { idBook },
     success: function (result) {
     alert(result.msg);
+        if (result.isAdded === true) {
+
+                        $('#' + idBook).attr('src','/images/favoriteRed.png');
+        }
+        else 
+        {
+                        $('#' + idBook).attr('src','/images/favoriteBlack.png');
+        }
     //todo сердце меняет цвет добавить вместо удаления
 
     //  $('#' + id).remove();

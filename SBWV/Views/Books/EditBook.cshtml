@@ -5,7 +5,7 @@
 
 <div class="catalog" enctype="multipart/form-data">
 
-    <form asp-action="edit" asp-controller="Books" asp-route-id="@Model.Id">
+    <form asp-action="edit" asp-controller="Books" asp-route-id="@Model.Id" enctype="multipart/form-data">
 
         <h1>Редактировать</h1>
 
@@ -48,7 +48,7 @@
             <br />
             <div enctype="multipart/form-data">
                 <span>&nbsp;</span> <label>Выберите файл</label>
-                <span>&nbsp;</span><input type="file" name="files" multiple />
+                <span>&nbsp;</span><input type="file" name="files" id="fileInput" multiple />
             </div>
 
         </div>
@@ -107,6 +107,67 @@
     </form>
 
 </div>
+
+<script type="text/javascript">
+    var maxFileSize = 5242880;  // байт, максимальный размер загружаемого файла - 5 Мб
+    var maxFilesCount = 5;      // максимальное количество файлов, которые можно загрузить для одной книжки
+    var currentFileCount = @Html.Raw(Json.Serialize(Model.Pictures.Length));   // количество уже загруженных файлов
+
+    $('#fileInput').on('change', function () {
+
+        if (this.files.length > maxFilesCount - currentFileCount) {
+            this.files = new DataTransfer().files;
+            alert("Для выбора доступно не более " + (maxFilesCount - currentFileCount) + " изображений!");
+        }
+
+        for (var i = 0; i < this.files.length; i++) {
+            if (this.files.item(i).size > maxFileSize) {
+                this.files = new DataTransfer().files;
+                alert("Максимальный размер изображения не более " + maxFileSize / 1024 / 1024 + " Мб!");
+                return;
+            }
+        }
+    });
+
+
+
+    function onDelete(id) {
+        if (!confirm("Удалить фото?"))
+            return;
+
+        $.ajax({
+            url: '@Url.Action("DeletePhoto", "Books")',
+            data: { id },
+            success: function (result) {
+                $('#' + id).remove();
+                currentFileCount--;
+            },
+            error: function (result) {
+                alert(result.msg);
+            }
+        })
+    }
+
+    // function doUpdate() {
+
+    //     var formData = {
+    //         Id: 1,
+    //         Title: $('#Title').val(),
+    //         Author: $('#Author').val(),
+    //         Src: ["1", "2", "3"]
+    //     };
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: '@Url.Action("UpdateData", "Books")',
+    //         data: formData,
+    //         success: function (result) {
+    //             alert('success')
+    //         }
+    //     })
+    // }
+
+</script>
 
 
 

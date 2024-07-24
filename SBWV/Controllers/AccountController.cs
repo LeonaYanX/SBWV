@@ -162,13 +162,13 @@ namespace SBWV.Controllers
 
                    var isAdded= repo.AddFavorite(userId, idBook);
                     
-                    return Json(new { success = true, msg = isAdded ? "Книга добавлена в избранное" : "Книга удалена из избранного"  });
+                    return Json(new { success = true, msg = isAdded ? "Книга добавлена в избранное" : "Книга удалена из избранного" , isAdded = isAdded });
                 }
 
                 
                 catch (Exception ex) 
                 {
-                   return Json(new { success = false, msg = ex.Message });
+                   return Json(new { success = false, msg = ex.Message , isAdded = false });
                 }
                 
                 

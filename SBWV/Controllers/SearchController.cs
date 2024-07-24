@@ -38,7 +38,7 @@ namespace SBWV.Controllers
             return View("_GetAuthorsPartial");
         }
 
-        public async Task<IActionResult> Search(string input )
+        public async Task<IActionResult> Search(string input)
         {
             // var bookList = repo.Search(author);
             SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
@@ -70,10 +70,10 @@ namespace SBWV.Controllers
             var page = (TempData["page"] as int?)?? 1;
             var items = repo.Pagination(bookList, page);
             
-            return View( items);
+            return View(items);
         }
 
-        public void SearchPagination(int ?page)
+        public void SearchPagination(int? page)
         {
             TempData["page"]= page;
             /*var input = (TempData["input"] as string) ?? "";*/
