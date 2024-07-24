@@ -16,6 +16,8 @@ namespace SBWV
 {
     public class Repository
     {
+
+
         private SwapBookDbContext dbContext;
 
        
@@ -58,14 +60,24 @@ namespace SBWV
             return bookVMs;
 
         }
-        public IEnumerable<BookVM> GetBooksByCategory(int idCategory)
+        public IEnumerable<BookVM> GetBooksByCategory(int idCategory , int? idUser)
         {
+            List<Favorit> favorites =new List<Favorit>();
+
+            if (idUser != null) 
+            {
+                favorites= dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
+            
+            }
             List<BookVM> bookVMs = new List<BookVM>();
             var books = dbContext.Books.Where(i => i.IdCatalog == idCategory).Include("IdCatalogNavigation")
                       .Include(c => c.Galaries).ToList();
             for (int i = 0; i < books.Count(); i++)
             {
-                bookVMs.Add(GetBookModel.GetBookVM(books[i]));
+                var book = GetBookModel.GetBookVM(books[i]);
+                book.IsFavourite = favorites.Any(f => f.IdBook == books[i].Id);
+                bookVMs.Add(book);
+                
             }
             return bookVMs;
         }

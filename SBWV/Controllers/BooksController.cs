@@ -33,7 +33,9 @@ namespace SBWV.Controllers
                   return View("BooksList", bookVMs);
               }*/
 
-            return View("BooksList", repo?.GetBooksByCategory(idCategory));
+            
+
+            return View("BooksList", repo?.GetBooksByCategory(idCategory, IsUserLogged() ? GetUserId() : null));
         }
 
         public IActionResult Delete(int idBook)
