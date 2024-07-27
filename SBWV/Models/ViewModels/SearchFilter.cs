@@ -3,7 +3,7 @@
     public class SearchFilter
     {
         public string Input { get; set; }
-        
+
 
     }
 }

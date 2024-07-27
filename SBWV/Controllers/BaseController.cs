@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using SQLitePCL;
 
 namespace SBWV.Controllers
 {
@@ -13,8 +11,9 @@ namespace SBWV.Controllers
 
         public int GetUserId()
         {
-
+            //todo null reference exception
             return HttpContext.Session.GetInt32("user").Value;
+
 
         }
 

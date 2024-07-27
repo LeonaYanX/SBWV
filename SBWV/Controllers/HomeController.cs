@@ -1,10 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SBWV.Models;
-using SBWV.Models.ViewModels;
-using System.Diagnostics;
-using System.Numerics;
-using X.PagedList;
 
 namespace SBWV.Controllers
 {
@@ -23,26 +17,7 @@ namespace SBWV.Controllers
         public async Task<IActionResult> Index(string input, int? page)
         {
 
-            /*if (String.IsNullOrEmpty(input))
-            {
-                if (!new BaseController().IsUserLogged())
-                {
-                    return View(Repository.Pagination(Repository.GetAllBooks(), page ?? 1));
-                }
-                else 
-                {
-                    var favoriteBooks = Repository.GetFavoriteBooksVM(new BaseController().GetUserId());
-                    var allBooks = Repository.GetAllBooks();
 
-                    foreach (var item in allBooks)
-                    {
-                        item.IsFavorite = favoriteBooks.Any(e => e.Id == item.Id) ? true : false;
-                    }
-
-                    return View(Repository.Pagination(allBooks, page ?? 1));
-                }
-
-            }*/
 
 
             if (new BaseController().IsUserLogged())
@@ -90,17 +65,7 @@ namespace SBWV.Controllers
             return View("Search", items);
 
 
-            /* SwapBookDbContext _context = new SwapBookDbContext();
-             int pageNumber = page ?? 1;
-             int pageSize = 2;
-             var books = _context.Books.ToList();
-             List<BookVM> bookVMs = new List<BookVM>();
 
-             foreach ( var book in books ) 
-             { bookVMs.Add(GetBookModel.GetBookVM(book)); }
-
-             var items = bookVMs.ToPagedList(pageNumber, pageSize);
-             return View(items);*/
 
         }
 
@@ -116,17 +81,7 @@ namespace SBWV.Controllers
 
 
 
-      /*  [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
 
-
-            return View(new ErrorViewModel
-            { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-
-
-
-        }*/
     }
 }
 

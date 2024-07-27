@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Win32;
 using SBWV.Models;
-using SBWV.Controllers;
-using Microsoft.EntityFrameworkCore;
-using SBWV.Models.ViewModels;
 using System.Net;
 
 namespace SBWV.Controllers
@@ -16,7 +12,7 @@ namespace SBWV.Controllers
         private Repository repo;
         public AccountController(Repository repository)
         {
-          repo = repository;
+            repo = repository;
         }
 
         public IActionResult Register()
@@ -41,33 +37,33 @@ namespace SBWV.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                    User user = new User
-                    {
-                        Age = register.Age,
-                        City = register.City,
-                        Email = register.Email,
-                        Password = register.Password,
-                        Phone = register.Phone
-                    };
 
-                    repo.AddUser(user);
+                User user = new User
+                {
+                    Age = register.Age,
+                    City = register.City,
+                    Email = register.Email,
+                    Password = register.Password,
+                    Phone = register.Phone
+                };
 
-                    HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
+                repo.AddUser(user);
 
-                    HttpContext.Session.SetInt32("user", user.Id);
+                HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
 
-                    return RedirectToAction("Index", "Home");
-                
-               
+                HttpContext.Session.SetInt32("user", user.Id);
+
+                return RedirectToAction("Index", "Home");
+
+
             }
-            else 
+            else
             {
                 return RedirectToAction("Register", "Account");
             }
-           
 
-           
+
+
         }
         [HttpPost]
         public IActionResult Login(Login login)
@@ -76,8 +72,7 @@ namespace SBWV.Controllers
 
             var user = repo.FindUserLogin(login);
 
-            // todo remove if right
-            //var user = dbContext.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
+
 
             if (user != null)
             {
@@ -98,28 +93,19 @@ namespace SBWV.Controllers
         {
             // Возвращение  списка книг- обьявлений юзера
 
-          //  SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
 
-         //   List<BookVM> bookVMs = new List<BookVM>();
 
             if (IsUserLogged())
             {
-               // var books = swapBookDbContext.Books.Where(i => i.IdUser == GetUserId()).Include("IdCatalogNavigation")
-               //        .Include(c => c.Galaries).ToList();
-               // for (int i = 0; i < books.Count(); i++)
-                //{
-                 //   bookVMs.Add(new GetBookModel().GetBookVM(books[i]));
-               // }
 
-               // return View(bookVMs);
-               return View(repo.GetUserBooks(HttpContext));
+                return View(repo.GetUserBooks(HttpContext));
             }
 
             else
                 return RedirectToAction("Login");
         }
 
-        public IActionResult Favorites() 
+        public IActionResult Favorites()
         {
             if (IsUserLogged())
             {
@@ -128,27 +114,27 @@ namespace SBWV.Controllers
 
                 return View(repo.GetFavoriteBooksVM(userId));
             }
-            else 
-            {
-               return RedirectToAction("Login");
-            }
-        
-        }
-        public IActionResult DeleteFavorites(int idBook)
-        {
-            if (IsUserLogged()) 
-            {
-            var userId = GetUserId();
-                repo.DeleteFavorite(idBook , userId);
-                return RedirectToAction("Favorites", "Account");
-}
             else
             {
                 return RedirectToAction("Login");
             }
-           
-           
-         
+
+        }
+        public IActionResult DeleteFavorites(int idBook)
+        {
+            if (IsUserLogged())
+            {
+                var userId = GetUserId();
+                repo.DeleteFavorite(idBook, userId);
+                return RedirectToAction("Favorites", "Account");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+
+
+
         }
 
         public JsonResult AddFavorites(int idBook)
@@ -160,23 +146,23 @@ namespace SBWV.Controllers
                 {
                     var userId = GetUserId();
 
-                   var isAdded= repo.AddFavorite(userId, idBook);
-                    
-                    return Json(new { success = true, msg = isAdded ? "Книга добавлена в избранное" : "Книга удалена из избранного" , isAdded = isAdded });
+                    var isAdded = repo.AddFavorite(userId, idBook);
+
+                    return Json(new { success = true, msg = isAdded ? "Книга добавлена в избранное" : "Книга удалена из избранного", isAdded = isAdded });
                 }
 
-                
-                catch (Exception ex) 
+
+                catch (Exception ex)
                 {
-                   return Json(new { success = false, msg = ex.Message , isAdded = false });
+                    return Json(new { success = false, msg = ex.Message, isAdded = false });
                 }
-                
-                
+
+
             }
-            else 
+            else
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                return Json(new { success= false , msg="Вы не авторизированны" });
+                return Json(new { success = false, msg = "Вы не авторизированны" });
             }
         }
 

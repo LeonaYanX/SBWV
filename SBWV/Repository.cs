@@ -1,16 +1,9 @@
-﻿using SBWV.Controllers;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SBWV.Models;
 using SBWV.Models.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using SQLitePCL;
-//using System.Web.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using X.PagedList;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Unidecode.NET;
+using X.PagedList;
 
 namespace SBWV
 {
@@ -20,7 +13,7 @@ namespace SBWV
 
         private SwapBookDbContext dbContext;
 
-       
+
         public Repository(SwapBookDbContext db)
         {
             dbContext = db;
@@ -28,7 +21,7 @@ namespace SBWV
 
         public void AddUser(User user)
         {
-            
+
             SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
 
             swapBookDbContext.Add(user);
@@ -45,29 +38,29 @@ namespace SBWV
 
         }
 
-        public IEnumerable<BookVM> GetUserBooks(HttpContext httpContext) 
+        public IEnumerable<BookVM> GetUserBooks(HttpContext httpContext)
         {
-           
-            
+
+
             List<BookVM> bookVMs = new List<BookVM>();
 
             var books = dbContext.Books.Where(i => i.IdUser == httpContext.Session.GetInt32("user").Value).Include("IdCatalogNavigation")
                       .Include(c => c.Galaries).ToList();
             for (int i = 0; i < books.Count(); i++)
             {
-                bookVMs.Add( GetBookModel.GetBookVM(books[i]));
+                bookVMs.Add(GetBookModel.GetBookVM(books[i]));
             }
             return bookVMs;
 
         }
-        public IEnumerable<BookVM> GetBooksByCategory(int idCategory , int? idUser)
+        public IEnumerable<BookVM> GetBooksByCategory(int idCategory, int? idUser)
         {
-            List<Favorit> favorites =new List<Favorit>();
+            List<Favorit> favorites = new List<Favorit>();
 
-            if (idUser != null) 
+            if (idUser != null)
             {
-                favorites= dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
-            
+                favorites = dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
+
             }
             List<BookVM> bookVMs = new List<BookVM>();
             var books = dbContext.Books.Where(i => i.IdCatalog == idCategory).Include("IdCatalogNavigation")
@@ -77,7 +70,7 @@ namespace SBWV
                 var book = GetBookModel.GetBookVM(books[i]);
                 book.IsFavorite = favorites.Any(f => f.IdBook == books[i].Id);
                 bookVMs.Add(book);
-                
+
             }
             return bookVMs;
         }
@@ -88,26 +81,28 @@ namespace SBWV
             {
                 dbContext.Books.Remove(bookToDelete);
                 dbContext.SaveChanges();
+                // while saving changes SqliteException: SQLite Error 19: 'FOREIGN KEY constraint failed'.
+
             }
         }
 
         public BookVM GetBookVM(int idBook)
         {
-            
-                var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
 
-                var book = GetBookModel.GetBookVM(e);
-                //
+            var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
 
-                book.Email = e.IdUserNavigation.Email;
+            var book = GetBookModel.GetBookVM(e);
+            // todo null reference exception
 
-                book.Telephone = e.IdUserNavigation.Phone;
+            book.Email = e.IdUserNavigation.Email;
 
-                return  book;
-            
+            book.Telephone = e.IdUserNavigation.Phone;
+
+            return book;
+
         }
 
-        public IEnumerable<SelectListItem>  GetSelectListCategoryEdit(int idBook)
+        public IEnumerable<SelectListItem> GetSelectListCategoryEdit(int idBook)
         {
             var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
             List<SelectListItem> categories = dbContext.Catalogs.Select(c => new SelectListItem
@@ -123,9 +118,11 @@ namespace SBWV
         public IEnumerable<SelectListItem> GetSelectListCategory()
         {
 
-            var categories = dbContext.Catalogs.Select(e => new SelectListItem {
-                Value = e.Id.ToString(), 
-                Text = e.Value }).ToList();
+            var categories = dbContext.Catalogs.Select(e => new SelectListItem
+            {
+                Value = e.Id.ToString(),
+                Text = e.Value
+            }).ToList();
             categories.First().Selected = true;
 
             return categories;
@@ -134,7 +131,7 @@ namespace SBWV
         public void UpdateBook(Book book)
         {
             var trackedEntity = dbContext.Books.Local.FirstOrDefault(b => b.Id == book.Id);
-            // todo delete after written the part of code
+
             if (trackedEntity != null)
             {
                 // Отсоединить отслеживаемую сущность, чтобы избежать конфликта
@@ -144,11 +141,11 @@ namespace SBWV
             book.AuthorLC = (book.Author).ToLower();
             book.TitleLC = (book.Title).ToLower();
 
-             
+
 
             dbContext.Books.Update(book);
             dbContext.SaveChanges();
-           
+
         }
 
         public Galary GetGalary(int id)
@@ -163,7 +160,7 @@ namespace SBWV
             dbContext.SaveChanges();
         }
 
-        public void AddBook(Book book) 
+        public void AddBook(Book book)
         {
             book.AuthorLC = (book.Author).ToLower();
             book.TitleLC = (book.Title).ToLower();
@@ -172,22 +169,22 @@ namespace SBWV
             dbContext.SaveChanges();
         }
 
-        public  List<SelectListItem> GetSelectListItemCategory()
+        public List<SelectListItem> GetSelectListItemCategory()
         {
-        
-                var genreList = dbContext.Catalogs.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Value,
 
-                }).ToList();
+            var genreList = dbContext.Catalogs.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Value,
+
+            }).ToList();
             return genreList;
         }
 
         public IEnumerable<BookVM> GetFavoriteBooksVM(int userId)
         {
             var favoriteBooks = dbContext.Favorits.Where(f => f.IdUser == userId);
-            var books= dbContext.Books
+            var books = dbContext.Books
                 .Where(b => favoriteBooks.Any(f => f.IdBook == b.Id))
                 .Include(e => e.Galaries).
                 Select(x => new BookVM
@@ -207,33 +204,14 @@ namespace SBWV
                     Pictures = GetBookModel.GetBase64Images(x.Galaries).ToArray()
                 }).ToList();
 
-            /* var favoriteBooks = dbContext.Favorits
-                 .Where(f => f.IdUser == userId)
-                 .Join(dbContext.Books, f => f.IdBook, b => b.Id, (f, b) => b)
-                 .Include(e => e.Galaries).
-                 Select(x => new BookVM
-                 {
-                     Author = x.Author,
-                     Category = x.IdCatalogNavigation.Value,
-                     Email = x.IdUserNavigation.Email
-                 ,
-                     Id = x.Id,
-                     Info = x.Info,
-                     IsFavorite = true,
-                     Price = x.Price,
-                     Swap = x.Swap == 1 ? true : false
-                 ,
-                     Telephone = x.IdUserNavigation.Phone,
-                     Title = x.Title,
-                     Pictures = GetBookModel.GetBase64Images(x.Galaries).ToArray()
-                 }).ToList(); ;*/
+
 
 
             return books;
-            
+
         }
 
-        public bool AddFavorite(int idUser , int idBook) 
+        public bool AddFavorite(int idUser, int idBook)
         {
             bool result;
             if (dbContext.Favorits.Any(f => f.IdBook == idBook && f.IdUser == idUser))
@@ -241,47 +219,45 @@ namespace SBWV
                 dbContext.Favorits.Remove(dbContext.Favorits.FirstOrDefault(f => f.IdBook == idBook && f.IdUser == idUser));
                 result = false;
             }
-            else 
+            else
             {
                 var favorite = new Favorit() { IdBook = idBook, IdUser = idUser };
 
                 dbContext.Favorits.Add(favorite);
 
                 result = true;
-               
+
             }
 
             dbContext.SaveChanges();
 
             return result;
 
-            // Отсоединить отслеживаемую сущность, чтобы избежать конфликта
 
-            //dbContext.Entry(favorite).State = EntityState.Detached;
 
 
         }
 
-        public void DeleteFavorite(int idBook , int idUser)
+        public void DeleteFavorite(int idBook, int idUser)
         {
-          var bookToDelete= dbContext.Favorits.FirstOrDefault(x=>x.IdBook == idBook && x.IdUser==idUser);
+            var bookToDelete = dbContext.Favorits.FirstOrDefault(x => x.IdBook == idBook && x.IdUser == idUser);
             if (bookToDelete != null)
-            dbContext.Favorits.Remove(bookToDelete);
+                dbContext.Favorits.Remove(bookToDelete);
             dbContext.SaveChanges();
         }
 
         public IEnumerable<BookVM> Search(string author)
         {
-            var books = dbContext.Books.Where(x => x.Author == author).Select(y=> GetBookVM(y.Id));
-            
+            var books = dbContext.Books.Where(x => x.Author == author).Select(y => GetBookVM(y.Id));
+
 
             return books;
 
         }
 
-        public IPagedList<BookVM> Pagination(IEnumerable<BookVM> bookList , int? page)
+        public IPagedList<BookVM> Pagination(IEnumerable<BookVM> bookList, int? page)
         {
-           
+
             int pageNumber = page ?? 1;
             int pageSize = 2;
 
@@ -314,7 +290,7 @@ namespace SBWV
             return bookList;
         }
 
-        public IEnumerable<BookVM> GetAllBooks() 
+        public IEnumerable<BookVM> GetAllBooks()
         {
             var bookList = dbContext.Books.Select(e => GetBookModel.GetBookVM(e));
             return bookList;

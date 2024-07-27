@@ -32,7 +32,7 @@ namespace SBWV
 
             var app = builder.Build();
 
-           
+
 
             if (app.Environment.IsDevelopment())
             {
@@ -44,13 +44,13 @@ namespace SBWV
                 app.UseHsts();
             }
 
-           /* // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }*/
+            /* // Configure the HTTP request pipeline.
+             if (!app.Environment.IsDevelopment())
+             {
+                 app.UseExceptionHandler("/Home/Error");
+                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                 app.UseHsts();
+             }*/
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -66,7 +66,7 @@ namespace SBWV
 
             app.UseAuthorization();
 
-        
+
 
             app.MapControllerRoute(
                 name: "default",

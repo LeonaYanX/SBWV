@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace SBWV.Service
+﻿namespace SBWV.Service
 {
     public class Transliteration
     {
@@ -57,6 +55,6 @@ namespace SBWV.Service
 
 
 
-    
-    
+
+
 }

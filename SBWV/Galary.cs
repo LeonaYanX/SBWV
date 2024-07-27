@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SBWV;
+﻿namespace SBWV;
 
 public partial class Galary
 {

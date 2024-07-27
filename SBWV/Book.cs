@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SBWV;
+﻿namespace SBWV;
 
 public partial class Book
 {
@@ -27,7 +24,7 @@ public partial class Book
 
     public virtual User? IdUserNavigation { get; set; }
 
-    public string ?AuthorLC { get; set; } 
-    public string ?TitleLC { get; set; } 
-    
+    public string? AuthorLC { get; set; }
+    public string? TitleLC { get; set; }
+
 }
