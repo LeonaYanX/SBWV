@@ -8,9 +8,9 @@
 
 
 
-<input type="text" id="input" name="input" />
+<input type="text" id="input" name="input" value="@ViewBag.input" />
 <span>&nbsp;</span>
-<button class="button" title="Поиск" type="button" onclick="window.location.href='/Search/Search?input=' + document.getElementById('input').value">Поиск</button>
+<button class="button" title="Поиск" type="button" onclick="window.location.href='/Home/Index?input=' + document.getElementById('input').value + '&page=1'">Поиск</button>
 
 
 

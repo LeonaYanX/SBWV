@@ -30,7 +30,7 @@ namespace SBWV.Models.ViewModels
 
         public Picture[] Pictures { get; set; }
 
-        public bool IsFavourite { get; set; }
+        public bool IsFavorite { get; set; }
 
     }
     public class Picture

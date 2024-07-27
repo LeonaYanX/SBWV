@@ -38,49 +38,21 @@ namespace SBWV.Controllers
             return View("_GetAuthorsPartial");
         }
 
-        public async Task<IActionResult> Search(string input)
+       /* public async Task<IActionResult> Search(string input, int? page)
         {
-            // var bookList = repo.Search(author);
-            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
             if (String.IsNullOrEmpty(input))
-                return View( swapBookDbContext.Books.Select(b=>GetBookModel.GetBookVM(b)).ToList());
-           /* TempData["input"] = input;*/
-            
-            /*input = input.ToLower();
+            {
+                SwapBookDbContext dbContext = new SwapBookDbContext();
+                return View(repo.Pagination(dbContext.Books.Select(e => GetBookModel.GetBookVM(e)), page ?? 1));
+            }
 
-            var trasliteratedInputFromRussian =  input.Unidecode();
-           //var transFromEnglish = transliteration.TransliterateENToRU(input);
-            var allBooks = swapBookDbContext.Books.ToList();
+            var items = repo.Pagination(repo.GetSearchResult(input), page ?? 1);
+            ViewBag.input = input;
 
-
-          //  var bookListCategory = swapBookDbContext.Books.Where(p => EF.Functions.Like(p.IdCatalogNavigation.Value.ToLower(), "%" + input + "%")).ToList();
-            var bookListTitle = swapBookDbContext.Books.Where(b => b.TitleLC.Contains(input) 
-            || b.TitleLC.Contains(trasliteratedInputFromRussian)
-            ).ToList();
-            var bookListAuthor = allBooks.Where(p => p.AuthorLC.Contains( input ) 
-            || p.AuthorLC.Contains(trasliteratedInputFromRussian)
-            ).ToList();
-
-            bookListTitle.AddRange(bookListTitle);
-            bookListTitle.AddRange(bookListAuthor);
-
-            var bookList = bookListTitle.Distinct().Select(w=>GetBookModel.GetBookVM(w));*/
-
-           var bookList = repo.GetSearchResult(input);
-            var page = (TempData["page"] as int?)?? 1;
-            var items = repo.Pagination(bookList, page);
-            
             return View(items);
-        }
+        }*/
 
-        public void SearchPagination(int? page)
-        {
-            TempData["page"]= page;
-            /*var input = (TempData["input"] as string) ?? "";*/
-          // var items = repo.Pagination(repo.GetSearchResult(input) , page);
-
-            return;
-        }
+       
 
        
     }

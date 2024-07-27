@@ -8,7 +8,7 @@ namespace SBWV.Controllers
     {
         public bool IsUserLogged()
         {
-            return HttpContext.Session.GetInt32("user").HasValue;
+            return HttpContext?.Session?.GetInt32("user").HasValue ?? false;
         }
 
         public int GetUserId()

@@ -1,5 +1,7 @@
 ﻿@model SBWV.Models.ViewModels.BookVM
 
+<link rel="stylesheet" href="~/css/CreateBook.css" />
+
 <div class="catalog">
     @using (@Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
@@ -46,8 +48,8 @@
     }
 </div>
 
-@*Меняем надпись на кнопке инпут где нельзя менять нейм*@
-<style>
+
+@* <style>
     .file-input-container {
         overflow: hidden;
         position: relative;
@@ -248,4 +250,4 @@
                 background: #edebe4;
                 color: #daa556;
             }
-</style>
+</style> *@

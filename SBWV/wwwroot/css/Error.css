@@ -1,0 +1,17 @@
+﻿
+.error {
+    background-image: url('../images/error.png');
+    background-size: contain; /* Масштабирует изображение, чтобы оно покрывало весь элемент */
+    background-position: center; /* Центрирует изображение */
+    background-repeat: no-repeat; /* Изображение не будет повторяться */
+    background-blend-mode: difference;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+

@@ -26,7 +26,12 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="Views\Home\Error.cshtml" />
     <Content Remove="Views\Home\Privacy.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\AccountInfo.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +82,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Unidecode.NET" Version="2.1.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="9.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Search\" />
   </ItemGroup>
 
 </Project>

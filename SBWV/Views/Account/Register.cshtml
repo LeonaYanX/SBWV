@@ -1,72 +1,8 @@
-﻿<style>
-    .file-input-container {
-        overflow: auto;
-        /*overflow: hidden;
-                position: relative;*/
-    }
-
-    .file-input-label {
-        background: #f3f2ec;
-        padding: 8px 15px;
-        cursor: pointer;
-        font-family: Raleway, sans, sans-serif;
-        font-size: 14px;
-        text-align: center;
-        color: #daa556;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-    }
-
-        .file-input-label:hover {
-            text-decoration: underline;
-        }
-
-    .file-input {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        position: absolute;
-        z-index: -1;
-    }
-</style>
-
-<style>
-    .register {
-        padding: 20px;
-        margin-top: 10px;
-        margin-bottom: 100px;
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        text-align: center;
-        row-gap: 10px;
-        border: 1px solid ghostwhite;
-    }
-
-        .register input {
-            width: 250px;
-            margin: 7px auto;
-            height: 40px;
-            font-size: 18px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            padding: 0 10px;
-            align-items: center;
-        }
-
-    }
-</style>
-
-
-@using Microsoft.AspNetCore.Mvc.TagHelpers;
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 @model SBWV.Models.Register
+
+<link rel="stylesheet" href="~/css/Register.css" />
 
 <div id="catalog" class="register">
     

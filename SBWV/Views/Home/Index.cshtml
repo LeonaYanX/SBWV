@@ -3,7 +3,8 @@
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 
-@model IPagedList<BookVM>
+
+@model IPagedList<BookVM> 
 
 @{
     Layout = "_Layout";
@@ -19,9 +20,17 @@
             @foreach (var item in Model)
             {
               <div class="item">
-                  <div class="favorite-img">
+                <div class="favorite-img">
+                    @{
 
-                    <img id="@item.Id" alt="Favorite" src="~/images/favorite-icon-size_16.png" onclick="addFavorite(@item.Id)" />
+
+                        string srcFavorite = item.IsFavorite ? "/images/favoriteRed.png" : "/images/favoriteBlack.png";
+                    }
+
+
+
+                    <img id="@item.Id" alt="Favorite" src=@srcFavorite onclick="addFavorite(@item.Id)" />
+
                 </div>
               <div class="top">
                 @if (item.Pictures.Length != 0)
@@ -88,7 +97,41 @@
     
 </div>
 
+
 <script type="text/javascript">
+
+    function addFavorite(idBook) {
+
+
+        $.ajax({
+            url: '@Url.Action("AddFavorites", "Account")',
+            data: { idBook },
+            success: function (result) {
+                alert(result.msg);
+                if (result.isAdded === true) {
+
+                    $('#' + idBook).attr('src', '/images/favoriteRed.png');
+                }
+                else {
+                    $('#' + idBook).attr('src', '/images/favoriteBlack.png');
+                }
+                
+
+                //  $('#' + id).remove();
+                //alert(result.msg);
+            },
+            error: function (result) {
+
+                window.location.href = '/Account/Login'
+            }
+        })
+    }
+
+ 
+
+</script>
+
+@* <script type="text/javascript">
 
     function addFavorite(idBook) {
 
@@ -127,7 +170,7 @@
     //     })
     // }
 
-</script>
+</script> *@
 
 
 

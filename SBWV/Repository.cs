@@ -75,7 +75,7 @@ namespace SBWV
             for (int i = 0; i < books.Count(); i++)
             {
                 var book = GetBookModel.GetBookVM(books[i]);
-                book.IsFavourite = favorites.Any(f => f.IdBook == books[i].Id);
+                book.IsFavorite = favorites.Any(f => f.IdBook == books[i].Id);
                 bookVMs.Add(book);
                 
             }
@@ -198,7 +198,7 @@ namespace SBWV
                 ,
                     Id = x.Id,
                     Info = x.Info,
-                    IsFavourite = true,
+                    IsFavorite = true,
                     Price = x.Price,
                     Swap = x.Swap == 1 ? true : false
                 ,
@@ -219,7 +219,7 @@ namespace SBWV
                  ,
                      Id = x.Id,
                      Info = x.Info,
-                     IsFavourite = true,
+                     IsFavorite = true,
                      Price = x.Price,
                      Swap = x.Swap == 1 ? true : false
                  ,
@@ -311,6 +311,12 @@ namespace SBWV
 
             var bookList = bookListTitle.Distinct().Select(w => GetBookModel.GetBookVM(w));
 
+            return bookList;
+        }
+
+        public IEnumerable<BookVM> GetAllBooks() 
+        {
+            var bookList = dbContext.Books.Select(e => GetBookModel.GetBookVM(e));
             return bookList;
         }
     }

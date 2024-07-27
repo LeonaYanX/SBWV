@@ -1,0 +1,168 @@
+﻿
+
+.catalog {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.catalog #search input {
+    border-radius: 5px;
+    padding: 5px;
+    outline: none;
+    border: 0;
+}
+
+.catalog .list {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+    .catalog .list .item {
+        border: 1px solid #edebe4;
+        box-shadow: 0 0 3px #00000090;
+        border-radius: 20px;
+        width: 350px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+        .catalog .list .item .top {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+            .catalog .list .item .top img {
+                width: 130px;
+                height: auto;
+                object-fit: contain;
+            }
+
+            .catalog .list .item .top .info {
+                margin-top: 20px;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+                .catalog .list .item .top .info h1 {
+                    padding: 0;
+                    margin: 0;
+                    font-size: 20px;
+                    font-family: Raleway, sans, sans-serif;
+                    width: 100%;
+                }
+
+                .catalog .list .item .top .info h2 {
+                    padding: 0;
+                    margin: 0;
+                    font-size: 16px;
+                    font-family: Raleway, sans, sans-serif;
+                    font-style: italic;
+                    text-align: right;
+                    width: 100%;
+                }
+
+                .catalog .list .item .top .info .genre {
+                    font-family: Raleway, serif;
+                    font-size: 12px;
+                }
+
+                .catalog .list .item .top .info .condition {
+                    width: 100%;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: space-around;
+                    align-items: safe center;
+                    margin-top: 20px;
+                    gap: 10px;
+                }
+
+                    .catalog .list .item .top .info .condition img {
+                        width: 40px;
+                        height: 40px;
+                        object-fit: contain;
+                    }
+
+                        .catalog .list .item .top .info .condition img.true {
+                            filter: hue-rotate(0deg);
+                        }
+
+                        .catalog .list .item .top .info .condition img.false {
+                            filter: hue-rotate(220deg);
+                        }
+
+        .catalog .list .item p {
+            padding: 20px;
+            text-indent: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        .catalog .list .item a {
+            color: #daa556;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            font-family: Raleway, sans-serif;
+            font-size: 14px;
+        }
+
+            .catalog .list .item a:hover {
+                text-decoration: underline;
+            }
+
+.catalog .pagination {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+    .catalog .pagination .left,
+    .catalog .pagination .right {
+        width: 20px;
+        background: #edebe4;
+        color: #daa556;
+        border: 1px solid #daa556;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .catalog .pagination .page {
+        background: #edebe4;
+        color: #daa556;
+    }
+
+.al {
+}
+
+
+.inline-links {
+    display: flex;
+    gap: 10mpx;
+    text-align: center;
+}
+
+
