@@ -23,7 +23,7 @@ namespace SBWV.Controllers
 
 
 
-            return View("BooksList", repo?.GetBooksByCategory(idCategory, IsUserLogged() ? GetUserId() : null));
+            return View("BooksList", repo?.GetBooksByCategory(idCategory, HttpContext.User.Identity.IsAuthenticated ? GetUserId() : null));
         }
 
         public IActionResult Delete(int idBook)

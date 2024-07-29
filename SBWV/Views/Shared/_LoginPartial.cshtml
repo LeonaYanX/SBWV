@@ -1,13 +1,20 @@
 ﻿@using SBWV;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using Microsoft.AspNetCore.Mvc.ViewFeatures;
+@using Microsoft.AspNetCore.Http;
+@using System.Security.Claims;
 
 
 <link rel="stylesheet" href="~/css/LoginPartial.css" />
 
 <ul>
     
-    @if (@Context.Session.GetInt32("user").HasValue)
+    @* @if (@Context.Session.GetInt32("user").HasValue) *@
+    @if(Context.User.Identity.IsAuthenticated)
     {
-        ViewBag.email = @Context.Session.GetString("email");
+        ViewBag.email = @Context.User.Claims.First(x => x.Type == ClaimTypes.Name).Value; 
+        
         <div class="top user" >
             <a asp-action="Info" asp-controller="Account" target="_self"><img alt="facebook icon" src="~/images/icons/user.svg">@ViewBag.email</a>
 

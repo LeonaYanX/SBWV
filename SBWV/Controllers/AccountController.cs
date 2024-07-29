@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SBWV.Models;
 using System.Net;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SBWV.Controllers
 {
@@ -26,9 +31,10 @@ namespace SBWV.Controllers
             return View();
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult>  Logout()
         {
-            HttpContext.Session.Remove("user");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); 
+           // HttpContext.Session.Remove("user");
             return RedirectToAction("Index", "Home");
         }
 
@@ -68,70 +74,57 @@ namespace SBWV.Controllers
         [HttpPost]
         public IActionResult Login(Login login)
         {
-            SwapBookDbContext dbContext = new SwapBookDbContext();
+           
 
             var user = repo.FindUserLogin(login);
 
+            if (user == null) 
+            {
+                return Unauthorized();
+            }
 
-
-            if (user != null)
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.Email));
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims , CookieAuthenticationDefaults.AuthenticationScheme);
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal );
+/*
+                 if (user != null) 
             {
                 HttpContext.Session.SetString("email", user.Email);
 
-                HttpContext.Session.SetInt32("user", user.Id);
+                HttpContext.Session.SetInt32("user", user.Id);*/
 
                 return RedirectToAction("Info", "Account");
-            }
-            else
-            {
-                return View(); // todo view for accsess denied reenter red line 
-            }
+            //}
+           
 
         }
-
+        [Authorize]
         public IActionResult Info()
         {
             // Возвращение  списка книг- обьявлений юзера
 
-
-
-            if (IsUserLogged())
-            {
-
                 return View(repo.GetUserBooks(HttpContext));
-            }
+            
 
-            else
-                return RedirectToAction("Login");
+            
         }
-
+        [Authorize]
         public IActionResult Favorites()
         {
-            if (IsUserLogged())
-            {
                 var userId = GetUserId();
 
 
                 return View(repo.GetFavoriteBooksVM(userId));
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-
         }
         public IActionResult DeleteFavorites(int idBook)
         {
-            if (IsUserLogged())
-            {
+           
                 var userId = GetUserId();
                 repo.DeleteFavorite(idBook, userId);
                 return RedirectToAction("Favorites", "Account");
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
 
 
 
@@ -139,9 +132,6 @@ namespace SBWV.Controllers
 
         public JsonResult AddFavorites(int idBook)
         {
-
-            if (IsUserLogged())
-            {
                 try
                 {
                     var userId = GetUserId();
@@ -158,12 +148,12 @@ namespace SBWV.Controllers
                 }
 
 
-            }
-            else
+           //????
+           /* else
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 return Json(new { success = false, msg = "Вы не авторизированны" });
-            }
+            }*/
         }
 
     }

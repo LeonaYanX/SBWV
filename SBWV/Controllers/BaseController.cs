@@ -6,13 +6,17 @@ namespace SBWV.Controllers
     {
         public bool IsUserLogged()
         {
-            return HttpContext?.Session?.GetInt32("user").HasValue ?? false;
+
+            return HttpContext.User.Identity.IsAuthenticated;
         }
 
         public int GetUserId()
         {
+
+            return int.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
+
             //todo null reference exception
-            return HttpContext.Session.GetInt32("user").Value;
+           // return HttpContext.Session.GetInt32("user").Value;
 
 
         }

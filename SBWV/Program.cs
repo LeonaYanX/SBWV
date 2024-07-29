@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.FileProviders;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.FileProviders;
 using SBWV.Service;
 
 namespace SBWV
@@ -25,7 +26,13 @@ namespace SBWV
             });
 
 
+            // подключение стандартной авторизации
+            // cookie-authentication
 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/account/login"); //если пользователь не авторизован, перенаправляет
+                                                                             //на страницу входа
+            builder.Services.AddAuthorization();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -61,7 +68,8 @@ namespace SBWV
                 RequestPath = "/dist"
             });
 
-
+            app.UseSession();
+            app.UseAuthentication();// подключение стандартной авторизации
             app.UseRouting();
 
             app.UseAuthorization();
@@ -72,7 +80,7 @@ namespace SBWV
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.UseSession();
+           
 
             app.Run();
         }
