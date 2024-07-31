@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SBWV.Service;
+
 
 
 namespace SBWV.Controllers
@@ -9,13 +9,13 @@ namespace SBWV.Controllers
     {
         private Repository repo;
 
-        private Transliteration transliteration;
+        
 
-        public SearchController(Repository repository, Transliteration transliteration)
+        public SearchController(Repository repository)
         {
             repo = repository;
 
-            this.transliteration = transliteration;
+            
         }
 
 

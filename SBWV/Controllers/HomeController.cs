@@ -1,8 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace SBWV.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly Repository Repository;
         private readonly ILogger<HomeController> _logger;
@@ -13,59 +19,52 @@ namespace SBWV.Controllers
             _logger = logger;
         }
 
-
+        
         public async Task<IActionResult> Index(string input, int? page)
         {
 
-
-
-
-            if (new BaseController().IsUserLogged())
+            if (IsUserLogged())
             {
 
-
-                var favoriteBooks = Repository.GetFavoriteBooksVM(new BaseController().GetUserId());
+                var favoriteBooks = Repository.GetFavoriteBooksVM(GetUserId());
 
                 if (!String.IsNullOrEmpty(input))
                 {
 
 
-                    var bookVMs = Repository.GetSearchResult(input);
+                    var bookVMs = Repository.GetSearchResult(input).ToList(); // todo kak?
 
                     foreach (var item in bookVMs)
                     {
-                        item.IsFavorite = favoriteBooks.Any(e => e.Id == item.Id) ? true : false;
-
+                        var isFavorite = favoriteBooks.Any(e => e.Id == item.Id)? true : false;
+                        item.IsFavorite = isFavorite;
                     }
 
                     ViewBag.input = input;
 
                     return View("Search", Repository.Pagination(bookVMs, page ?? 1));
                 }
-
-                var allBooks = Repository.GetAllBooks();
-
-                foreach (var item in allBooks)
+                else 
                 {
-                    item.IsFavorite = favoriteBooks.Any(e => e.Id == item.Id) ? true : false;
+                    var allBooks = Repository.GetAllBooks(GetUserId());
+
+                    return View(Repository.Pagination(allBooks, page ?? 1));
+                }
+               
+            }
+            else 
+            {
+                if (String.IsNullOrEmpty(input))
+                {
+
+                    return View(Repository.Pagination(Repository.GetAllBooks(null), page ?? 1));
                 }
 
-                return View(Repository.Pagination(allBooks, page ?? 1));
+                var items = Repository.Pagination(Repository.GetSearchResult(input), page ?? 1);
+                ViewBag.input = input;
+
+                return View("Search", items);
             }
-
-            if (String.IsNullOrEmpty(input))
-            {
-
-                return View(Repository.Pagination(Repository.GetAllBooks(), page ?? 1));
-            }
-
-            var items = Repository.Pagination(Repository.GetSearchResult(input), page ?? 1);
-            ViewBag.input = input;
-
-            return View("Search", items);
-
-
-
 
         }
 

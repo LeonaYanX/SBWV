@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
-using SBWV.Service;
+
 
 namespace SBWV
 {
@@ -12,7 +12,7 @@ namespace SBWV
 
             builder.Services.AddDbContext<SwapBookDbContext>();
             builder.Services.AddTransient<Repository>();
-            builder.Services.AddTransient<Transliteration>();
+            
 
             // Adding Session
 

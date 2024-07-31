@@ -53,11 +53,18 @@ namespace SBWV.Controllers
                     Phone = register.Phone
                 };
 
-                repo.AddUser(user);
 
-                HttpContext.Session.SetString("email", user.Email ?? "Not Specified");
 
-                HttpContext.Session.SetInt32("user", user.Id);
+               string result= repo.AddUser(user);
+
+                if (!String.IsNullOrEmpty(result)) 
+                {
+                   TempData["Message"] = result;
+
+                    return RedirectToAction("Register", "Account");
+                }
+
+                SignInUser(user.Email, user.Id);
 
                 return RedirectToAction("Index", "Home");
 
@@ -74,39 +81,24 @@ namespace SBWV.Controllers
         [HttpPost]
         public IActionResult Login(Login login)
         {
-           
 
             var user = repo.FindUserLogin(login);
 
-            if (user == null) 
+            if (user == null)
             {
                 return Unauthorized();
             }
 
-            var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, user.Email));
-            claims.Add(new Claim("Id", user.Id.ToString()));
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims , CookieAuthenticationDefaults.AuthenticationScheme);
-            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal );
-/*
-                 if (user != null) 
-            {
-                HttpContext.Session.SetString("email", user.Email);
+            SignInUser(user.Email, user.Id);
 
-                HttpContext.Session.SetInt32("user", user.Id);*/
-
-                return RedirectToAction("Info", "Account");
-            //}
-           
-
+            return RedirectToAction("Info", "Account");
         }
         [Authorize]
         public IActionResult Info()
         {
             // Возвращение  списка книг- обьявлений юзера
 
-                return View(repo.GetUserBooks(HttpContext));
+                return View(repo.GetUserBooks(GetUserId()));
             
 
             
@@ -129,11 +121,11 @@ namespace SBWV.Controllers
 
 
         }
-
+        [Authorize]
         public JsonResult AddFavorites(int idBook)
         {
                 try
-                {
+                { 
                     var userId = GetUserId();
 
                     var isAdded = repo.AddFavorite(userId, idBook);

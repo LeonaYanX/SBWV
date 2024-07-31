@@ -85,7 +85,7 @@ public partial class SwapBookDbContext : DbContext
 
             entity.HasIndex(e => e.Email, "IX_User_email").IsUnique();
 
-            entity.HasIndex(e => e.Password, "IX_User_password").IsUnique();
+            
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Age).HasColumnName("age");

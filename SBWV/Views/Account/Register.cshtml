@@ -4,6 +4,8 @@
 
 <link rel="stylesheet" href="~/css/Register.css" />
 
+<div style="text-align:center">@TempData["Message"]</div>
+
 <div id="catalog" class="register">
     
         @using (@Html.BeginForm("Register", "Account", FormMethod.Post))

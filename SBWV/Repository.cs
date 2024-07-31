@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SBWV.Controllers;
 using SBWV.Models;
 using SBWV.Models.ViewModels;
 using Unidecode.NET;
 using X.PagedList;
+using static System.Reflection.Metadata.BlobBuilder;
+
 
 namespace SBWV
 {
@@ -19,14 +22,20 @@ namespace SBWV
             dbContext = db;
         }
 
-        public void AddUser(User user)
+        public string AddUser(User user)
         {
+            try
+            {
+                dbContext.Add(user);
+                dbContext.SaveChanges();
+            }
 
-            SwapBookDbContext swapBookDbContext = new SwapBookDbContext();
-
-            swapBookDbContext.Add(user);
-
-            swapBookDbContext.SaveChanges();
+            catch (Exception) 
+            {
+             return "Такой пользователь уже существует";
+            }
+            return String.Empty;
+            
         }
 
         public User FindUserLogin(Login login)
@@ -38,13 +47,13 @@ namespace SBWV
 
         }
 
-        public IEnumerable<BookVM> GetUserBooks(HttpContext httpContext)
+        public IEnumerable<BookVM> GetUserBooks(int id)
         {
 
 
             List<BookVM> bookVMs = new List<BookVM>();
 
-            var books = dbContext.Books.Where(i => i.IdUser == httpContext.Session.GetInt32("user").Value).Include("IdCatalogNavigation")
+            var books = dbContext.Books.Where(i => i.IdUser == id).Include("IdCatalogNavigation")
                       .Include(c => c.Galaries).ToList();
             for (int i = 0; i < books.Count(); i++)
             {
@@ -74,6 +83,8 @@ namespace SBWV
             }
             return bookVMs;
         }
+
+     
         public void DeleteBook(int idBook)
         {
             var bookToDelete = dbContext.Books.FirstOrDefault(e => e.Id == idBook);
@@ -290,10 +301,41 @@ namespace SBWV
             return bookList;
         }
 
-        public IEnumerable<BookVM> GetAllBooks()
+        public IEnumerable<BookVM> GetAllBooks(int ?idUser )
         {
-            var bookList = dbContext.Books.Select(e => GetBookModel.GetBookVM(e));
-            return bookList;
+            var books = dbContext.Books.Select(e => e).ToList();
+
+            List<BookVM> bookVMs = new List<BookVM>();
+
+            if (idUser != null) 
+            {
+                var favorites = dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
+
+                
+                for (int i = 0; i < books.Count(); i++)
+                {
+                    var book = GetBookModel.GetBookVM(books[i]);
+                    book.IsFavorite = favorites.Any(f => f.IdBook == books[i].Id);
+                    bookVMs.Add(book);
+
+                }
+
+                return bookVMs;
+            }
+
+            else 
+            {
+                foreach (var item in books)
+                {
+                    bookVMs.Add(GetBookModel.GetBookVM(item));
+                }
+
+               
+            }
+
+            return bookVMs;
         }
+
+        
     }
 }
