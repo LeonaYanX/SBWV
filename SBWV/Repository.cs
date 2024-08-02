@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 using SBWV.Controllers;
 using SBWV.Models;
 using SBWV.Models.ViewModels;
@@ -8,11 +9,13 @@ using X.PagedList;
 using static System.Reflection.Metadata.BlobBuilder;
 
 
+
 namespace SBWV
 {
     public class Repository
     {
 
+        
 
         private SwapBookDbContext dbContext;
 
@@ -26,6 +29,8 @@ namespace SBWV
         {
             try
             {
+               
+                user.Password =GetHashPassword(user.Password);
                 dbContext.Add(user);
                 dbContext.SaveChanges();
             }
@@ -38,12 +43,33 @@ namespace SBWV
             
         }
 
+        private string GetHashPassword(string password) 
+        {
+          
+
+           return BCrypt.Net.BCrypt.HashPassword(password);
+        }
         public User FindUserLogin(Login login)
         {
-            SwapBookDbContext dbContext = new SwapBookDbContext();
-            var user = dbContext.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
+            var user = dbContext.Users.FirstOrDefault(u => u.Email == login.Email);
 
-            return user;
+            var hashPass = GetHashPassword(login.Password);
+
+                
+            if (user == null)
+            {
+                return null;
+            }
+            else 
+            {
+                if (BCrypt.Net.BCrypt.Verify(login.Password, user.Password))
+                {
+                    return user;
+                }
+
+                else  
+                    return null; 
+            }
 
         }
 
@@ -336,6 +362,31 @@ namespace SBWV
             return bookVMs;
         }
 
-        
+        public bool IsEmailComfirmed(string email, string token)
+        {
+            var user =dbContext.Users.FirstOrDefault(u => u.Email == email);
+
+            if (user != null)
+            {
+                if (user.Token == token)
+                {
+                    user.IsComfirmed = true;
+                    dbContext.Users.Update(user);
+                    dbContext.SaveChanges();
+                    return true;
+                }
+
+                return false;
+            }
+            else 
+            
+                 return false;
+            
+        }
+
+        public User GetUserByEmail(string email)
+        {
+          return  dbContext.Users.FirstOrDefault(x => x.Email == email);
+        }
     }
 }

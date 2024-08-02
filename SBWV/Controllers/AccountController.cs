@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using SBWV.Service;
 
 namespace SBWV.Controllers
 {
@@ -15,8 +16,11 @@ namespace SBWV.Controllers
     public class AccountController : BaseController
     {
         private Repository repo;
-        public AccountController(Repository repository)
+
+        private MailSender mailSender;
+        public AccountController(Repository repository , MailSender mailSender)
         {
+            this.mailSender = mailSender;
             repo = repository;
         }
 
@@ -64,9 +68,14 @@ namespace SBWV.Controllers
                     return RedirectToAction("Register", "Account");
                 }
 
-                SignInUser(user.Email, user.Id);
 
-                return RedirectToAction("Index", "Home");
+               // SignInUser(user.Email, user.Id);
+
+                mailSender.SendEmailConfirmation(user.Email);
+
+                TempData["Message"] = "На указанную элекронный адрес вам отправленно письмо для подтверждения почты.";
+
+                return RedirectToAction("Login", "Home");
 
 
             }
@@ -78,6 +87,11 @@ namespace SBWV.Controllers
 
 
         }
+        
+
+        // для ГИТ
+        // для ГИТ
+
         [HttpPost]
         public IActionResult Login(Login login)
         {
@@ -86,12 +100,26 @@ namespace SBWV.Controllers
 
             if (user == null)
             {
-                return Unauthorized();
+                
+                    TempData["Message"] = "Пользователь с такой почтой или паролем не найден";
+                    return  View("Login"); //Unauthorized();
+
             }
 
-            SignInUser(user.Email, user.Id);
+            else if (user.IsComfirmed)
+            {
+                SignInUser(user.Email, user.Id);
 
-            return RedirectToAction("Info", "Account");
+                return RedirectToAction("Info", "Account");
+            }
+
+            else 
+            {
+                TempData["Message"] = "Почта не подтверждена";
+                return View("Login");
+            }
+
+            
         }
         [Authorize]
         public IActionResult Info()
@@ -146,6 +174,24 @@ namespace SBWV.Controllers
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 return Json(new { success = false, msg = "Вы не авторизированны" });
             }*/
+        }
+
+        public IActionResult ComfirmEmail(string email, string token) 
+        {
+            if (repo.IsEmailComfirmed(email, token))
+            {
+                TempData["Message"] = "Вы подтвердили почту";
+                var user = repo.GetUserByEmail(email);
+                SignInUser(user.Email, user.Id);
+                return RedirectToAction("Info");
+            }
+            else 
+            {
+                TempData["Message"] = "Вы не подтвердили почту";
+
+                return View("Login");
+            }
+            
         }
 
     }

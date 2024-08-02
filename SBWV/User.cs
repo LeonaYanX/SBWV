@@ -18,5 +18,9 @@ public partial class User
 
     public int? IsAdmin { get; set; }
 
+    public bool IsComfirmed { get; set; }
+
+    public string Token { get; set; }
+
     public virtual ICollection<Book> Books { get; set; } = new List<Book>();
 }

@@ -2,6 +2,10 @@
 
  <link rel="stylesheet" href="~/css/Login.css" />
 
+ <div style="align-content:center; text-align:center;">
+     @TempData["Message"]   
+ </div>
+
  <div class="login"id="contact_form">
 
     @using (@Html.BeginForm("Login", "Account"))

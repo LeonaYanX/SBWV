@@ -94,6 +94,8 @@ public partial class SwapBookDbContext : DbContext
             entity.Property(e => e.Password).HasColumnName("password");
             entity.Property(e => e.Phone).HasColumnName("phone");
             entity.Property(e => e.Photo).HasColumnName("photo");
+            entity.Property(e => e.IsComfirmed).HasColumnName("IsComfirmed").HasColumnType("INTEGER");
+            entity.Property(e => e.Token).HasColumnName("Token");
         });
 
         OnModelCreatingPartial(modelBuilder);

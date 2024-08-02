@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
+using SBWV.Service;
 
 
 namespace SBWV
@@ -12,6 +14,7 @@ namespace SBWV
 
             builder.Services.AddDbContext<SwapBookDbContext>();
             builder.Services.AddTransient<Repository>();
+            builder.Services.AddTransient<MailSender>();
             
 
             // Adding Session
@@ -80,7 +83,13 @@ namespace SBWV
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-           
+            app.MapControllerRoute(
+                     name: "ConfirmEmail",
+                     pattern : "Account/ConfirmEmail/{email}/{code}",
+              defaults: new { controller = "Account", action = "ConfirmEmail" }
+            );
+
+
 
             app.Run();
         }
