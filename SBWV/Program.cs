@@ -18,12 +18,12 @@ namespace SBWV
 
             builder.Services.AddDistributedMemoryCache();
 
-            builder.Services.AddSession(options =>
+           /* builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(1800);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
-            });
+            });*/
 
 
             // подключение стандартной авторизации
@@ -68,7 +68,7 @@ namespace SBWV
                 RequestPath = "/dist"
             });
 
-            app.UseSession();
+          //  app.UseSession();
             app.UseAuthentication();// подключение стандартной авторизации
             app.UseRouting();
 

@@ -10,7 +10,7 @@
 
 <ul>
     
-    @* @if (@Context.Session.GetInt32("user").HasValue) *@
+  
     @if(Context.User.Identity.IsAuthenticated)
     {
         ViewBag.email = @Context.User.Claims.First(x => x.Type == ClaimTypes.Name).Value; 
