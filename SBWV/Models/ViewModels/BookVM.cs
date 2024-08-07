@@ -36,6 +36,8 @@ namespace SBWV.Models.ViewModels
     {
         public int Id { get; set; }
 
-        public string Src { get; set; }
+        /*public string Src { get; set; }*/
+
+        public string Url { get; set; }
     }
 }

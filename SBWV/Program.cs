@@ -2,6 +2,18 @@
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 using SBWV.Service;
+using log4net;
+using Microsoft.Extensions.Logging.Log4Net.AspNetCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using log4net.Config;
+using System.IO;
+using SBWV.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace SBWV
@@ -12,12 +24,17 @@ namespace SBWV
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // устанавливаем файл для логгирования
+            builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            // настройка логгирования с помошью свойства Logging идет до 
+            // создания объекта WebApplication
+
             builder.Services.AddDbContext<SwapBookDbContext>();
             builder.Services.AddTransient<Repository>();
             builder.Services.AddTransient<MailSender>();
             
-
-            // Adding Session
+            builder.Services.AddControllersWithViews();
+            
 
             builder.Services.AddDistributedMemoryCache();
 
@@ -37,11 +54,11 @@ namespace SBWV
                                                                              //на страницу входа
             builder.Services.AddAuthorization();
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+
 
             var app = builder.Build();
 
+        
 
 
             if (app.Environment.IsDevelopment())
@@ -89,9 +106,20 @@ namespace SBWV
               defaults: new { controller = "Account", action = "ConfirmEmail" }
             );
 
-
+           
 
             app.Run();
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+

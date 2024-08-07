@@ -34,7 +34,8 @@
            <div class="img">
                         @if (b.Pictures.Length != 0)
                         {
-                            <img src="@b.Pictures.First().Src" alt="Photo" />
+                            <img src="@b.Pictures.First().Url" alt="Photo" />
+                           @*  <img src="@b.Pictures.First().Src" alt="Photo" /> *@
                         }
                         else
                         {

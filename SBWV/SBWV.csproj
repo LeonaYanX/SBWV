@@ -73,6 +73,12 @@
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
 	  
     
+    <PackageReference Include="log4net" Version="2.0.17" />
+	  
+    
+    <PackageReference Include="MailKit" Version="4.7.1.1" />
+	  
+    
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -82,6 +88,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Unidecode.NET" Version="2.1.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="9.1.2" />

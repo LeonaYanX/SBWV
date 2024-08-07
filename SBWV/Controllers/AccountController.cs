@@ -54,7 +54,8 @@ namespace SBWV.Controllers
                     City = register.City,
                     Email = register.Email,
                     Password = register.Password,
-                    Phone = register.Phone
+                    Phone = register.Phone,
+                    Token = Guid.NewGuid().ToString()
                 };
 
 
@@ -71,7 +72,7 @@ namespace SBWV.Controllers
 
                // SignInUser(user.Email, user.Id);
 
-                mailSender.SendEmailConfirmation(user.Email);
+                mailSender.SendEmailConfirmation(user.Email , user.Token);
 
                 TempData["Message"] = "На указанную элекронный адрес вам отправленно письмо для подтверждения почты.";
 
@@ -89,8 +90,6 @@ namespace SBWV.Controllers
         }
         
 
-        // для ГИТ
-        // для ГИТ
 
         [HttpPost]
         public IActionResult Login(Login login)

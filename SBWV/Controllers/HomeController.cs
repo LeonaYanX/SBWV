@@ -13,6 +13,7 @@ namespace SBWV.Controllers
         private readonly Repository Repository;
         private readonly ILogger<HomeController> _logger;
 
+
         public HomeController(Repository repository, ILogger<HomeController> logger)
         {
             Repository = repository;
@@ -78,7 +79,22 @@ namespace SBWV.Controllers
         }
 
 
+        public IActionResult GetImageById(string idGalary)
+        {
+            
+            byte[] image = Repository.GetByteArrayOfImage(idGalary);
 
+            if (image != null)
+            {
+                return File(image, "image/png");
+            }
+
+            else 
+            {
+            return  NotFound();
+            }
+           
+        }
 
 
     }

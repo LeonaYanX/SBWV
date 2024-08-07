@@ -238,7 +238,7 @@ namespace SBWV
                 ,
                     Telephone = x.IdUserNavigation.Phone,
                     Title = x.Title,
-                    Pictures = GetBookModel.GetBase64Images(x.Galaries).ToArray()
+                    Pictures = GetBookModel.GetImages(x.Galaries).ToArray()
                 }).ToList();
 
 
@@ -387,6 +387,23 @@ namespace SBWV
         public User GetUserByEmail(string email)
         {
           return  dbContext.Users.FirstOrDefault(x => x.Email == email);
+        }
+
+        internal byte[] GetByteArrayOfImage(string idGalary)
+        {
+            try
+            {
+                var image = dbContext.Galaries.FirstOrDefault(x => x.Id == Convert.ToInt32(idGalary));
+
+                return image.Photo;
+
+
+            }
+
+            catch
+            {
+                return null;
+            }
         }
     }
 }
