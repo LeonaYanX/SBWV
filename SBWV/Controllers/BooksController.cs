@@ -20,9 +20,6 @@ namespace SBWV.Controllers
         public IActionResult List(int idCategory)
         {
 
-
-
-
             return View("BooksList", repo?.GetBooksByCategory(idCategory, HttpContext.User.Identity.IsAuthenticated ? GetUserId() : null));
         }
 

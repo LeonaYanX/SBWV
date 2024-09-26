@@ -113,3 +113,198 @@ Content root path: C:\Users\User\OneDrive\Desktop\TryWithVSBWV\SBWV9/15/2024 5:2
 Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
 FROM "Book" AS "b"9/15/2024 5:25:49 PM
+Now listening on: https://localhost:72639/26/2024 1:42:07 PM
+Now listening on: http://localhost:52189/26/2024 1:42:07 PM
+Application started. Press Ctrl+C to shut down.9/26/2024 1:42:07 PM
+Hosting environment: Development9/26/2024 1:42:07 PM
+Content root path: C:\Users\User\OneDrive\Desktop\TryWithVSBWV\SBWV9/26/2024 1:42:07 PM
+Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"9/26/2024 1:42:11 PM
+Failed executing DbCommand (7ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 6), @p2='?' (Size = 30), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (Size = 60), @p6='?' (Size = 9), @p7='?' (DbType = Binary), @p8='?' (Size = 36)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "User" ("age", "city", "email", "IsAdmin", "IsComfirmed", "password", "phone", "photo", "Token")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "id";9/26/2024 1:55:06 PM
+An exception occurred in the database while saving changes for context type 'SBWV.SwapBookDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: User.email'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.Storage.NonRetryingExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)9/26/2024 1:55:06 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 30)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 1:55:20 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 30)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 1:55:38 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 30)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 1:55:46 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 30)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 1:56:01 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 15)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 1:59:41 PM
+An unhandled exception has occurred while executing the request.9/26/2024 2:02:51 PM
+Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 6), @p2='?' (Size = 15), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (Size = 60), @p6='?' (Size = 9), @p7='?' (DbType = Binary), @p8='?' (Size = 36)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "User" ("age", "city", "email", "IsAdmin", "IsComfirmed", "password", "phone", "photo", "Token")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "id";9/26/2024 2:03:40 PM
+Now listening on: https://localhost:72639/26/2024 2:04:40 PM
+Now listening on: http://localhost:52189/26/2024 2:04:40 PM
+Application started. Press Ctrl+C to shut down.9/26/2024 2:04:40 PM
+Hosting environment: Development9/26/2024 2:04:40 PM
+Content root path: C:\Users\User\OneDrive\Desktop\TryWithVSBWV\SBWV9/26/2024 2:04:40 PM
+Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"9/26/2024 2:04:43 PM
+Failed executing DbCommand (5ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 6), @p2='?' (Size = 15), @p3='?' (DbType = Int32), @p4='?' (DbType = Boolean), @p5='?' (Size = 60), @p6='?' (Size = 9), @p7='?' (DbType = Binary), @p8='?' (Size = 36)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "User" ("age", "city", "email", "IsAdmin", "IsComfirmed", "password", "phone", "photo", "Token")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "id";9/26/2024 2:05:14 PM
+An exception occurred in the database while saving changes for context type 'SBWV.SwapBookDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: User.email'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__112_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.Storage.NonRetryingExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)9/26/2024 2:05:14 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 15)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 2:05:32 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 15)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 2:05:40 PM
+Now listening on: https://localhost:72639/26/2024 2:06:50 PM
+Now listening on: http://localhost:52189/26/2024 2:06:50 PM
+Application started. Press Ctrl+C to shut down.9/26/2024 2:06:50 PM
+Hosting environment: Development9/26/2024 2:06:50 PM
+Content root path: C:\Users\User\OneDrive\Desktop\TryWithVSBWV\SBWV9/26/2024 2:06:50 PM
+Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"9/26/2024 2:06:53 PM
+Executed DbCommand (4ms) [Parameters=[@__login_Email_0='?' (Size = 16)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 2:07:13 PM
+An unhandled exception has occurred while executing the request.9/26/2024 2:09:34 PM
+Executed DbCommand (0ms) [Parameters=[@__login_Email_0='?' (Size = 14)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 19/26/2024 2:13:08 PM
+Executed DbCommand (66ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC", "c"."id", "c"."Value", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE "b"."idUser" = @__id_0
+ORDER BY "b"."id", "c"."id"9/26/2024 2:13:08 PM
+Executed DbCommand (1ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:13:08 PM
+Executed DbCommand (1ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:13:08 PM
+Executed DbCommand (2ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:13:08 PM
+Executed DbCommand (31ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:13:08 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:13:08 PM
+Executed DbCommand (2ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:13:08 PM
+Executed DbCommand (63ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC", "c"."id", "c"."Value", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE "b"."idUser" = @__id_0
+ORDER BY "b"."id", "c"."id"9/26/2024 2:23:59 PM
+Executed DbCommand (1ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:23:59 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:23:59 PM
+Executed DbCommand (2ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:23:59 PM
+Executed DbCommand (4ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:23:59 PM
+Executed DbCommand (5ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:23:59 PM
+Executed DbCommand (2ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 19/26/2024 2:23:59 PM
