@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SBWV.Models;
 using System.Net;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
@@ -7,21 +6,21 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using SBWV.Service;
+using SBWV.Models.ViewModels;
+using SBWV.Abstractions;
 
 namespace SBWV.Controllers
 {
 
-
-
     public class AccountController : BaseController
     {
-        private Repository repo;
+        private readonly IRepository _repo;
 
-        private MailSender mailSender;
-        public AccountController(Repository repository , MailSender mailSender)
+        private readonly MailSender _mailSender;
+        public AccountController(IRepository repository , MailSender mailSender)
         {
-            this.mailSender = mailSender;
-            repo = repository;
+            _mailSender = mailSender;
+            _repo = repository;
         }
 
         public IActionResult Register()
@@ -43,9 +42,9 @@ namespace SBWV.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Register register)
+        public IActionResult Register(RegisterVM register) 
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // проверка валидации
             {
 
                 User user = new User
@@ -60,7 +59,7 @@ namespace SBWV.Controllers
 
 
 
-               string result= repo.AddUser(user);
+               string result= _repo.AddUser(user);
 
                 if (!String.IsNullOrEmpty(result)) 
                 {
@@ -72,7 +71,7 @@ namespace SBWV.Controllers
 
                // SignInUser(user.Email, user.Id);
 
-                mailSender.SendEmailConfirmation(user.Email , user.Token);
+                _mailSender.SendEmailConfirmation(user.Email , user.Token);
 
                 TempData["Message"] = "На указанную элекронный адрес вам отправленно письмо для подтверждения почты.";
 
@@ -92,10 +91,10 @@ namespace SBWV.Controllers
 
 
         [HttpPost]
-        public IActionResult Login(Login login)
+        public IActionResult Login(LoginVM login)
         {
 
-            var user = repo.FindUserLogin(login);
+            var user = _repo.FindUserLogin(login);
 
             if (user == null)
             {
@@ -125,7 +124,7 @@ namespace SBWV.Controllers
         {
             // Возвращение  списка книг- обьявлений юзера
 
-                return View(repo.GetUserBooks(GetUserId()));
+                return View(_repo.GetUserBooks(GetUserId()));
             
 
             
@@ -136,13 +135,13 @@ namespace SBWV.Controllers
                 var userId = GetUserId();
 
 
-                return View(repo.GetFavoriteBooksVM(userId));
+                return View(_repo.GetFavoriteBooksVM(userId));
         }
         public IActionResult DeleteFavorites(int idBook)
         {
            
                 var userId = GetUserId();
-                repo.DeleteFavorite(idBook, userId);
+                _repo.DeleteFavorite(idBook, userId);
                 return RedirectToAction("Favorites", "Account");
 
 
@@ -155,7 +154,7 @@ namespace SBWV.Controllers
                 { 
                     var userId = GetUserId();
 
-                    var isAdded = repo.AddFavorite(userId, idBook);
+                    var isAdded = _repo.AddFavorite(userId, idBook);
 
                     return Json(new { success = true, msg = isAdded ? "Книга добавлена в избранное" : "Книга удалена из избранного", isAdded = isAdded });
                 }
@@ -177,10 +176,10 @@ namespace SBWV.Controllers
 
         public IActionResult ComfirmEmail(string email, string token) 
         {
-            if (repo.IsEmailComfirmed(email, token))
+            if (_repo.IsEmailComfirmed(email, token))
             {
                 TempData["Message"] = "Вы подтвердили почту";
-                var user = repo.GetUserByEmail(email);
+                var user = _repo.GetUserByEmail(email);
                 SignInUser(user.Email, user.Id);
                 return RedirectToAction("Info");
             }

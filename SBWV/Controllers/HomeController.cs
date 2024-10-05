@@ -4,19 +4,20 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using SBWV.Abstractions;
 
 
 namespace SBWV.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly Repository Repository;
+        private readonly IRepository _repository;
         private readonly ILogger<HomeController> _logger;
 
 
-        public HomeController(Repository repository, ILogger<HomeController> logger)
+        public HomeController(IRepository repository, ILogger<HomeController> logger)
         {
-            Repository = repository;
+            _repository = repository;
             _logger = logger;
         }
 
@@ -27,13 +28,13 @@ namespace SBWV.Controllers
             if (IsUserLogged())
             {
 
-                var favoriteBooks = Repository.GetFavoriteBooksVM(GetUserId());
+                var favoriteBooks = _repository.GetFavoriteBooksVM(GetUserId());
 
                 if (!String.IsNullOrEmpty(input))
                 {
 
 
-                    var bookVMs = Repository.GetSearchResult(input).ToList(); // todo kak?
+                    var bookVMs = _repository.GetSearchResult(input).ToList(); // todo kak?
 
                     foreach (var item in bookVMs)
                     {
@@ -43,13 +44,13 @@ namespace SBWV.Controllers
 
                     ViewBag.input = input;
 
-                    return View("Search", Repository.Pagination(bookVMs, page ?? 1));
+                    return View("Search", _repository.Pagination(bookVMs, page ?? 1));
                 }
                 else 
                 {
-                    var allBooks = Repository.GetAllBooks(GetUserId());
+                    var allBooks = _repository.GetAllBooks(GetUserId());
 
-                    return View(Repository.Pagination(allBooks, page ?? 1));
+                    return View(_repository.Pagination(allBooks, page ?? 1));
                 }
                
             }
@@ -58,10 +59,10 @@ namespace SBWV.Controllers
                 if (String.IsNullOrEmpty(input))
                 {
 
-                    return View(Repository.Pagination(Repository.GetAllBooks(null), page ?? 1));
+                    return View(_repository.Pagination(_repository.GetAllBooks(null), page ?? 1));
                 }
 
-                var items = Repository.Pagination(Repository.GetSearchResult(input), page ?? 1);
+                var items = _repository.Pagination(_repository.GetSearchResult(input), page ?? 1);
                 ViewBag.input = input;
 
                 return View("Search", items);
@@ -82,7 +83,7 @@ namespace SBWV.Controllers
         public IActionResult GetImageById(string idGalary)
         {
             
-            byte[] image = Repository.GetByteArrayOfImage(idGalary);
+            byte[] image = _repository.GetByteArrayOfImage(idGalary);
 
             if (image != null)
             {

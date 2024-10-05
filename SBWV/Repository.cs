@@ -2,20 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
 using SBWV.Controllers;
-using SBWV.Models;
 using SBWV.Models.ViewModels;
 using Unidecode.NET;
 using X.PagedList;
 using static System.Reflection.Metadata.BlobBuilder;
+using SBWV.Abstractions;
 
 
 
 namespace SBWV
 {
-    public class Repository
+    public class Repository: IRepository
     {
-
-        
 
         private SwapBookDbContext dbContext;
 
@@ -49,7 +47,7 @@ namespace SBWV
 
            return BCrypt.Net.BCrypt.HashPassword(password);
         }
-        public User FindUserLogin(Login login)
+        public User FindUserLogin(LoginVM login)
         {
             var user = dbContext.Users.FirstOrDefault(u => u.Email == login.Email);
 
@@ -389,7 +387,7 @@ namespace SBWV
           return  dbContext.Users.FirstOrDefault(x => x.Email == email);
         }
 
-        internal byte[] GetByteArrayOfImage(string idGalary)
+        public byte[] GetByteArrayOfImage(string idGalary)
         {
             try
             {

@@ -14,6 +14,7 @@ using log4net.Config;
 using System.IO;
 using SBWV.Models;
 using Microsoft.EntityFrameworkCore;
+using SBWV.Abstractions;
 
 
 namespace SBWV
@@ -30,7 +31,7 @@ namespace SBWV
             // создания объекта WebApplication
 
             builder.Services.AddDbContext<SwapBookDbContext>();
-            builder.Services.AddTransient<Repository>();
+            builder.Services.AddTransient<IRepository,Repository>();
             builder.Services.AddTransient<MailSender>();
             
             builder.Services.AddControllersWithViews();

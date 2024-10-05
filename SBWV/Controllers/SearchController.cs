@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SBWV.Abstractions;
 
 
 
@@ -7,13 +8,13 @@ namespace SBWV.Controllers
 
     public class SearchController : Controller
     {
-        private Repository repo;
+        private readonly IRepository _repo;
 
         
 
-        public SearchController(Repository repository)
+        public SearchController(IRepository repository)
         {
-            repo = repository;
+            _repo = repository;
 
             
         }

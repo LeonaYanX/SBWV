@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SBWV.Abstractions;
 using SBWV.Models.ViewModels;
 
 
@@ -9,24 +10,23 @@ namespace SBWV.Controllers
 {
     public class BooksController : BaseController
     {
-        private readonly Repository? repo;
+        private readonly IRepository? _repo;
 
-        public BooksController(Repository repository)
+        public BooksController(IRepository repository)
         {
-            repo = repository;
+            _repo = repository;
         }
-
 
         public IActionResult List(int idCategory)
         {
 
-            return View("BooksList", repo?.GetBooksByCategory(idCategory, HttpContext.User.Identity.IsAuthenticated ? GetUserId() : null));
+            return View("BooksList", _repo?.GetBooksByCategory(idCategory, HttpContext.User.Identity.IsAuthenticated ? GetUserId() : null));
         }
 
         public IActionResult Delete(int idBook)
         {
 
-            repo?.DeleteBook(idBook);
+            _repo?.DeleteBook(idBook);
             return RedirectToAction("Info", "Account");
 
         }
@@ -35,7 +35,7 @@ namespace SBWV.Controllers
         {
 
 
-            return View("BookDetails", repo?.GetBookVM(idBook));
+            return View("BookDetails", _repo?.GetBookVM(idBook));
         }
 
 
@@ -103,7 +103,7 @@ namespace SBWV.Controllers
                 book.Galaries.Add(galary);
             }
 
-            repo?.UpdateBook(book);
+            _repo?.UpdateBook(book);
 
 
 
@@ -116,11 +116,11 @@ namespace SBWV.Controllers
         {
             using var db = new SwapBookDbContext();
 
-            var galary = repo?.GetGalary(id);
+            var galary = _repo?.GetGalary(id);
             if (galary != null)
             {
 
-                repo?.RemoveGalary(galary);
+                _repo?.RemoveGalary(galary);
                 return Json(new { success = true, msg = "Фото книги удалено" });
             }
             else
@@ -189,7 +189,7 @@ namespace SBWV.Controllers
 
 
 
-            repo?.AddBook(book);
+            _repo?.AddBook(book);
 
             return RedirectToAction("Details", "Books", new { idBook = book.Id });
 
