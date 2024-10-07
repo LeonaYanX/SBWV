@@ -15,12 +15,12 @@ namespace SBWV
     public class Repository: IRepository
     {
 
-        private SwapBookDbContext dbContext;
+        private readonly SwapBookDbContext _dbContext;
 
 
         public Repository(SwapBookDbContext db)
         {
-            dbContext = db;
+            _dbContext = db;
         }
 
         public string AddUser(User user)
@@ -29,8 +29,8 @@ namespace SBWV
             {
                
                 user.Password =GetHashPassword(user.Password);
-                dbContext.Add(user);
-                dbContext.SaveChanges();
+                _dbContext.Add(user);
+                _dbContext.SaveChanges();
             }
 
             catch (Exception) 
@@ -49,7 +49,7 @@ namespace SBWV
         }
         public User FindUserLogin(LoginVM login)
         {
-            var user = dbContext.Users.FirstOrDefault(u => u.Email == login.Email);
+            var user = _dbContext.Users.FirstOrDefault(u => u.Email == login.Email);
 
             var hashPass = GetHashPassword(login.Password);
 
@@ -77,7 +77,7 @@ namespace SBWV
 
             List<BookVM> bookVMs = new List<BookVM>();
 
-            var books = dbContext.Books.Where(i => i.IdUser == id).Include("IdCatalogNavigation")
+            var books = _dbContext.Books.Where(i => i.IdUser == id).Include("IdCatalogNavigation")
                       .Include(c => c.Galaries).ToList();
             for (int i = 0; i < books.Count(); i++)
             {
@@ -92,11 +92,11 @@ namespace SBWV
 
             if (idUser != null)
             {
-                favorites = dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
+                favorites = _dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
 
             }
             List<BookVM> bookVMs = new List<BookVM>();
-            var books = dbContext.Books.Where(i => i.IdCatalog == idCategory).Include("IdCatalogNavigation")
+            var books = _dbContext.Books.Where(i => i.IdCatalog == idCategory).Include("IdCatalogNavigation")
                       .Include(c => c.Galaries).ToList();
             for (int i = 0; i < books.Count(); i++)
             {
@@ -111,11 +111,11 @@ namespace SBWV
      
         public void DeleteBook(int idBook)
         {
-            var bookToDelete = dbContext.Books.FirstOrDefault(e => e.Id == idBook);
+            var bookToDelete = _dbContext.Books.FirstOrDefault(e => e.Id == idBook);
             if (bookToDelete != null)
             {
-                dbContext.Books.Remove(bookToDelete);
-                dbContext.SaveChanges();
+                _dbContext.Books.Remove(bookToDelete);
+                _dbContext.SaveChanges();
                 // while saving changes SqliteException: SQLite Error 19: 'FOREIGN KEY constraint failed'.
 
             }
@@ -124,7 +124,7 @@ namespace SBWV
         public BookVM GetBookVM(int idBook)
         {
 
-            var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
+            var e = _dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
 
             var book = GetBookModel.GetBookVM(e);
             // todo null reference exception
@@ -139,8 +139,8 @@ namespace SBWV
 
         public IEnumerable<SelectListItem> GetSelectListCategoryEdit(int idBook)
         {
-            var e = dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
-            List<SelectListItem> categories = dbContext.Catalogs.Select(c => new SelectListItem
+            var e = _dbContext.Books.Include(e => e.Galaries).Include("IdCatalogNavigation").Include("IdUserNavigation").FirstOrDefault(b => b.Id == idBook);
+            List<SelectListItem> categories = _dbContext.Catalogs.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.Value
@@ -153,7 +153,7 @@ namespace SBWV
         public IEnumerable<SelectListItem> GetSelectListCategory()
         {
 
-            var categories = dbContext.Catalogs.Select(e => new SelectListItem
+            var categories = _dbContext.Catalogs.Select(e => new SelectListItem
             {
                 Value = e.Id.ToString(),
                 Text = e.Value
@@ -165,34 +165,34 @@ namespace SBWV
 
         public void UpdateBook(Book book)
         {
-            var trackedEntity = dbContext.Books.Local.FirstOrDefault(b => b.Id == book.Id);
+            var trackedEntity = _dbContext.Books.Local.FirstOrDefault(b => b.Id == book.Id);
 
             if (trackedEntity != null)
             {
                 // Отсоединить отслеживаемую сущность, чтобы избежать конфликта
 
-                dbContext.Entry(trackedEntity).State = EntityState.Detached;
+                _dbContext.Entry(trackedEntity).State = EntityState.Detached;
             }
             book.AuthorLC = (book.Author).ToLower();
             book.TitleLC = (book.Title).ToLower();
 
 
 
-            dbContext.Books.Update(book);
-            dbContext.SaveChanges();
+            _dbContext.Books.Update(book);
+            _dbContext.SaveChanges();
 
         }
 
         public Galary GetGalary(int id)
         {
-            var galary = dbContext.Galaries.Find(id);
+            var galary = _dbContext.Galaries.Find(id);
             return galary;
         }
 
         public void RemoveGalary(Galary galary)
         {
-            dbContext.Galaries.Remove(galary);
-            dbContext.SaveChanges();
+            _dbContext.Galaries.Remove(galary);
+            _dbContext.SaveChanges();
         }
 
         public void AddBook(Book book)
@@ -200,14 +200,14 @@ namespace SBWV
             book.AuthorLC = (book.Author).ToLower();
             book.TitleLC = (book.Title).ToLower();
 
-            dbContext.Books.Add(book);
-            dbContext.SaveChanges();
+            _dbContext.Books.Add(book);
+            _dbContext.SaveChanges();
         }
 
         public List<SelectListItem> GetSelectListItemCategory()
         {
 
-            var genreList = dbContext.Catalogs.Select(c => new SelectListItem
+            var genreList = _dbContext.Catalogs.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.Value,
@@ -218,8 +218,8 @@ namespace SBWV
 
         public IEnumerable<BookVM> GetFavoriteBooksVM(int userId)
         {
-            var favoriteBooks = dbContext.Favorits.Where(f => f.IdUser == userId);
-            var books = dbContext.Books
+            var favoriteBooks = _dbContext.Favorits.Where(f => f.IdUser == userId);
+            var books = _dbContext.Books
                 .Where(b => favoriteBooks.Any(f => f.IdBook == b.Id))
                 .Include(e => e.Galaries).
                 Select(x => new BookVM
@@ -249,22 +249,22 @@ namespace SBWV
         public bool AddFavorite(int idUser, int idBook)
         {
             bool result;
-            if (dbContext.Favorits.Any(f => f.IdBook == idBook && f.IdUser == idUser))
+            if (_dbContext.Favorits.Any(f => f.IdBook == idBook && f.IdUser == idUser))
             {
-                dbContext.Favorits.Remove(dbContext.Favorits.FirstOrDefault(f => f.IdBook == idBook && f.IdUser == idUser));
+                _dbContext.Favorits.Remove(_dbContext.Favorits.FirstOrDefault(f => f.IdBook == idBook && f.IdUser == idUser));
                 result = false;
             }
             else
             {
                 var favorite = new Favorit() { IdBook = idBook, IdUser = idUser };
 
-                dbContext.Favorits.Add(favorite);
+                _dbContext.Favorits.Add(favorite);
 
                 result = true;
 
             }
 
-            dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
             return result;
 
@@ -275,15 +275,15 @@ namespace SBWV
 
         public void DeleteFavorite(int idBook, int idUser)
         {
-            var bookToDelete = dbContext.Favorits.FirstOrDefault(x => x.IdBook == idBook && x.IdUser == idUser);
+            var bookToDelete = _dbContext.Favorits.FirstOrDefault(x => x.IdBook == idBook && x.IdUser == idUser);
             if (bookToDelete != null)
-                dbContext.Favorits.Remove(bookToDelete);
-            dbContext.SaveChanges();
+                _dbContext.Favorits.Remove(bookToDelete);
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<BookVM> Search(string author)
         {
-            var books = dbContext.Books.Where(x => x.Author == author).Select(y => GetBookVM(y.Id));
+            var books = _dbContext.Books.Where(x => x.Author == author).Select(y => GetBookVM(y.Id));
 
 
             return books;
@@ -327,13 +327,13 @@ namespace SBWV
 
         public IEnumerable<BookVM> GetAllBooks(int ?idUser )
         {
-            var books = dbContext.Books.Select(e => e).ToList();
+            var books = _dbContext.Books.Select(e => e).ToList();
 
             List<BookVM> bookVMs = new List<BookVM>();
 
             if (idUser != null) 
             {
-                var favorites = dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
+                var favorites = _dbContext.Favorits.Where(f => f.IdUser == idUser).ToList();
 
                 
                 for (int i = 0; i < books.Count(); i++)
@@ -362,15 +362,15 @@ namespace SBWV
 
         public bool IsEmailComfirmed(string email, string token)
         {
-            var user =dbContext.Users.FirstOrDefault(u => u.Email == email);
+            var user =_dbContext.Users.FirstOrDefault(u => u.Email == email);
 
             if (user != null)
             {
                 if (user.Token == token)
                 {
                     user.IsComfirmed = true;
-                    dbContext.Users.Update(user);
-                    dbContext.SaveChanges();
+                    _dbContext.Users.Update(user);
+                    _dbContext.SaveChanges();
                     return true;
                 }
 
@@ -384,14 +384,14 @@ namespace SBWV
 
         public User GetUserByEmail(string email)
         {
-          return  dbContext.Users.FirstOrDefault(x => x.Email == email);
+          return  _dbContext.Users.FirstOrDefault(x => x.Email == email);
         }
 
         public byte[] GetByteArrayOfImage(string idGalary)
         {
             try
             {
-                var image = dbContext.Galaries.FirstOrDefault(x => x.Id == Convert.ToInt32(idGalary));
+                var image = _dbContext.Galaries.FirstOrDefault(x => x.Id == Convert.ToInt32(idGalary));
 
                 return image.Photo;
 
