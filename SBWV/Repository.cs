@@ -116,7 +116,7 @@ namespace SBWV
             {
                 _dbContext.Books.Remove(bookToDelete);
                 _dbContext.SaveChanges();
-                // while saving changes SqliteException: SQLite Error 19: 'FOREIGN KEY constraint failed'.
+               
 
             }
         }

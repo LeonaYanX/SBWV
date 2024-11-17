@@ -772,3 +772,260 @@ LIMIT 110/7/2024 12:03:19 PM
 Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
 FROM "Book" AS "b"10/7/2024 12:03:47 PM
+Now listening on: https://localhost:726310/10/2024 2:46:59 PM
+Now listening on: http://localhost:521810/10/2024 2:46:59 PM
+Application started. Press Ctrl+C to shut down.10/10/2024 2:46:59 PM
+Hosting environment: Development10/10/2024 2:46:59 PM
+Content root path: C:\Users\User\OneDrive\Desktop\TryWithVSBWV\SBWV10/10/2024 2:46:59 PM
+Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"10/10/2024 2:47:04 PM
+Now listening on: https://localhost:726310/29/2024 9:48:13 PM
+Now listening on: http://localhost:521810/29/2024 9:48:13 PM
+Application started. Press Ctrl+C to shut down.10/29/2024 9:48:14 PM
+Hosting environment: Development10/29/2024 9:48:14 PM
+Content root path: C:\Users\User\OneDrive\Desktop\TryWithVSBWV\SBWV10/29/2024 9:48:14 PM
+Executed DbCommand (25ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"10/29/2024 9:48:24 PM
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"10/29/2024 9:49:24 PM
+Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"10/29/2024 9:49:27 PM
+Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"10/29/2024 9:49:30 PM
+Executed DbCommand (189ms) [Parameters=[@__idCategory_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC", "c"."id", "c"."Value", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE "b"."idCatalog" = @__idCategory_0
+ORDER BY "b"."id", "c"."id"10/29/2024 9:49:36 PM
+Executed DbCommand (4ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (3ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (4ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (20ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (55ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (5ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (4ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (3ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (9ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:49:37 PM
+Executed DbCommand (3ms) [Parameters=[@__login_Email_0='?' (Size = 14)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 110/29/2024 9:50:26 PM
+Executed DbCommand (78ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC", "c"."id", "c"."Value", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE "b"."idUser" = @__id_0
+ORDER BY "b"."id", "c"."id"10/29/2024 9:50:27 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:50:27 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:50:27 PM
+Executed DbCommand (4ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:50:27 PM
+Executed DbCommand (3ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:50:27 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:50:27 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:50:27 PM
+Executed DbCommand (73ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."author", "c"."Value", "u"."email", "b"."id", "b"."Info", "b"."price", CASE
+    WHEN "b"."swap" = 1 THEN 1
+    ELSE 0
+END, "u"."phone", "b"."title", "c"."id", "u"."id", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "User" AS "u" ON "b"."idUser" = "u"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE EXISTS (
+    SELECT 1
+    FROM "Favorit" AS "f"
+    WHERE "f"."idUser" = @__userId_0 AND "f"."idBook" = "b"."id")
+ORDER BY "b"."id", "c"."id", "u"."id"10/29/2024 9:50:59 PM
+Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"10/29/2024 9:50:59 PM
+Executed DbCommand (0ms) [Parameters=[@__idUser_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "f"."idBook", "f"."idUser"
+FROM "Favorit" AS "f"
+WHERE "f"."idUser" = @__idUser_010/29/2024 9:50:59 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 110/29/2024 9:50:59 PM
+Executed DbCommand (0ms) [Parameters=[@__idBook_0='?' (DbType = Int32), @__idUser_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Favorit" AS "f"
+    WHERE "f"."idBook" = @__idBook_0 AND "f"."idUser" = @__idUser_1)10/29/2024 9:51:25 PM
+Executed DbCommand (43ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Favorit" ("idBook", "idUser")
+VALUES (@p0, @p1);10/29/2024 9:51:25 PM
+Executed DbCommand (0ms) [Parameters=[@__idBook_0='?' (DbType = Int32), @__idUser_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Favorit" AS "f"
+    WHERE "f"."idBook" = @__idBook_0 AND "f"."idUser" = @__idUser_1)10/29/2024 9:51:28 PM
+Executed DbCommand (0ms) [Parameters=[@__idBook_0='?' (DbType = Int32), @__idUser_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "f"."idBook", "f"."idUser"
+FROM "Favorit" AS "f"
+WHERE "f"."idBook" = @__idBook_0 AND "f"."idUser" = @__idUser_1
+LIMIT 110/29/2024 9:51:29 PM
+Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+DELETE FROM "Favorit"
+WHERE "idBook" = @p0 AND "idUser" = @p1
+RETURNING 1;10/29/2024 9:51:29 PM
+Now listening on: https://localhost:726311/16/2024 5:52:13 PM
+Now listening on: http://localhost:521811/16/2024 5:52:13 PM
+Application started. Press Ctrl+C to shut down.11/16/2024 5:52:13 PM
+Hosting environment: Development11/16/2024 5:52:13 PM
+Content root path: C:\Users\User\OneDrive\Desktop\TryWithVSBWV\SBWV11/16/2024 5:52:13 PM
+Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"11/16/2024 5:52:18 PM
+Executed DbCommand (4ms) [Parameters=[@__login_Email_0='?' (Size = 14)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."id", "u"."age", "u"."city", "u"."email", "u"."IsAdmin", "u"."IsComfirmed", "u"."password", "u"."phone", "u"."photo", "u"."Token"
+FROM "User" AS "u"
+WHERE "u"."email" = @__login_Email_0
+LIMIT 111/16/2024 5:52:50 PM
+Executed DbCommand (61ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC", "c"."id", "c"."Value", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE "b"."idUser" = @__id_0
+ORDER BY "b"."id", "c"."id"11/16/2024 5:52:51 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 111/16/2024 5:52:51 PM
+Executed DbCommand (3ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 111/16/2024 5:52:51 PM
+Executed DbCommand (6ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 111/16/2024 5:52:51 PM
+Executed DbCommand (7ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 111/16/2024 5:52:51 PM
+Executed DbCommand (9ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 111/16/2024 5:52:51 PM
+Executed DbCommand (0ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 111/16/2024 5:52:51 PM
+Executed DbCommand (68ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."author", "c"."Value", "u"."email", "b"."id", "b"."Info", "b"."price", CASE
+    WHEN "b"."swap" = 1 THEN 1
+    ELSE 0
+END, "u"."phone", "b"."title", "c"."id", "u"."id", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "User" AS "u" ON "b"."idUser" = "u"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE EXISTS (
+    SELECT 1
+    FROM "Favorit" AS "f"
+    WHERE "f"."idUser" = @__userId_0 AND "f"."idBook" = "b"."id")
+ORDER BY "b"."id", "c"."id", "u"."id"11/16/2024 5:52:57 PM
+Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "b"."id", "b"."author", "b"."AuthorLC", "b"."idCatalog", "b"."idUser", "b"."Info", "b"."price", "b"."swap", "b"."title", "b"."TitleLC"
+FROM "Book" AS "b"11/16/2024 5:52:57 PM
+Executed DbCommand (0ms) [Parameters=[@__idUser_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "f"."idBook", "f"."idUser"
+FROM "Favorit" AS "f"
+WHERE "f"."idUser" = @__idUser_011/16/2024 5:52:57 PM
+Executed DbCommand (2ms) [Parameters=[@__ToInt32_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "g"."id", "g"."idBook", "g"."Photo"
+FROM "Galary" AS "g"
+WHERE "g"."id" = @__ToInt32_0
+LIMIT 111/16/2024 5:52:57 PM
+Executed DbCommand (58ms) [Parameters=[@__userId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT "b"."author", "c"."Value", "u"."email", "b"."id", "b"."Info", "b"."price", CASE
+    WHEN "b"."swap" = 1 THEN 1
+    ELSE 0
+END, "u"."phone", "b"."title", "c"."id", "u"."id", "g"."id", "g"."idBook", "g"."Photo"
+FROM "Book" AS "b"
+LEFT JOIN "Catalog" AS "c" ON "b"."idCatalog" = "c"."id"
+LEFT JOIN "User" AS "u" ON "b"."idUser" = "u"."id"
+LEFT JOIN "Galary" AS "g" ON "b"."id" = "g"."idBook"
+WHERE EXISTS (
+    SELECT 1
+    FROM "Favorit" AS "f"
+    WHERE "f"."idUser" = @__userId_0 AND "f"."idBook" = "b"."id")
+ORDER BY "b"."id", "c"."id", "u"."id"11/16/2024 5:53:20 PM
